@@ -16,6 +16,8 @@ import { ActivityService } from 'app/entities/activity';
 import { ICeleb } from 'app/shared/model/celeb.model';
 import { CelebService } from 'app/entities/celeb';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-community-update',
     templateUrl: './community-update.component.html'
@@ -32,6 +34,7 @@ export class CommunityUpdateComponent implements OnInit {
 
     celebs: ICeleb[];
     creationDate: string;
+    currentAccount: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -42,6 +45,7 @@ export class CommunityUpdateComponent implements OnInit {
         private activityService: ActivityService,
         private celebService: CelebService,
         private elementRef: ElementRef,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -50,18 +54,18 @@ export class CommunityUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ community }) => {
             this.community = community;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        console.log('1.-Testing: Printing this.isSaving = false', this.isSaving);
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.userServiceId(this.currentAccount);
+        });
         this.interestService.query().subscribe(
             (res: HttpResponse<IInterest[]>) => {
                 this.interests = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        console.log('2.- Bring the activities');
         this.activityService.query().subscribe(
             (res: HttpResponse<IActivity[]>) => {
                 this.activities = res.body;
@@ -74,6 +78,19 @@ export class CommunityUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    private userServiceId(currentAccount) {
+        this.userService
+           .query2(this.currentAccount.login)
+           .subscribe(
+                    (res: HttpResponse<IUser[]>) => {
+                        this.users = res.body;
+                        console.log('4.- Printing the res.body: ', res.body);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
     }
 
     byteSize(field) {

@@ -7,7 +7,7 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="jhipsterPress08App.community.creationDate">Creation Date</span></dt>
                 <dd>
-                    <span>{{community.creationDate}}</span>
+                    <span>{{community.creationDate | date:'longDate'}}</span>
                 </dd>
                 <dt><span jhiTranslate="jhipsterPress08App.community.communityname">Communityname</span></dt>
                 <dd>
@@ -23,7 +23,6 @@
                         <a (click)="openFile(community.imageContentType, community.image)">
                             <img [src]="'data:' + community.imageContentType + ';base64,' + community.image" style="max-width: 100%;" alt="community image"/>
                         </a>
-                        {{community.imageContentType}}, {{byteSize(community.image)}}
                     </div>
                 </dd>
                 <dt><span jhiTranslate="jhipsterPress08App.community.isActive">Is Active</span></dt>
