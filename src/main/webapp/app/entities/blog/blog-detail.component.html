@@ -4,6 +4,43 @@
             <h2><span jhiTranslate="jhipsterPress08App.blog.detail.title">Blog</span> {{blog.id}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
+            <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
+            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
+        </a>
+
+	        <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
+	        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
+	        <p class="g-font-size-13">{{blog.creationDate | date:'medium'}}</p>
+	
+	
+	            <button type="submit"
+	                    (click)="previousState()"
+	                    class="btn btn-info">
+	                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+	            </button>
+	
+	            <button type="button"
+	                    [routerLink]="['/blog', blog.id, 'edit']"
+	                    class="btn btn-primary">
+	                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+	            </button>
+	        </div>
+	    </div>
+	</div>
+</div>
+
+
+
+
+
+ESTILO JHIPSTER -------------
+
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="blog">
+            <h2><span jhiTranslate="jhipsterPress08App.blog.detail.title">Blog</span> {{blog.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="jhipsterPress08App.blog.creationDate">Creation Date</span></dt>
                 <dd>

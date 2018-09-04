@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "message" : {
             "home": {
                 "title": "Messages",
                 "createLabel": "Create a new Message",
+                "myLabel": "Mis Messages",
                 "createOrEditLabel": "Create or edit a Message"
             },
             "created": "A new Message is created with identifier {{ param }}",
@@ -19,6 +20,8 @@
             "creationDate": "Creation Date",
             "messageText": "Message Text",
             "isDeliverd": "Is Deliverd",
+            "usersCommunity": "Users' Community",
+            "usersProfile": "Usuers' Profile",
             "community": "Community",
             "profile": "Profile"
         }

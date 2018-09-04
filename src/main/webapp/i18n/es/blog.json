@@ -5,6 +5,7 @@
             "home": {
                 "title": "Blogs",
                 "createLabel": "Crear nuevo Blog",
+                "myLabel": "Mis Blogs",
                 "createOrEditLabel": "Crear o editar Blog"
             },
             "created": "Un nuevo Blog ha sido creado con el identificador {{ param }}",

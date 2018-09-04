@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "post" : {
             "home": {
                 "title": "Posts",
                 "createLabel": "Crear nuevo Post",
+                "myLabel": "Mis Posts",
                 "createOrEditLabel": "Crear o editar Post"
             },
             "created": "Un nuevo Post ha sido creado con el identificador {{ param }}",
@@ -23,10 +24,9 @@
             "bodytext": "Bodytext",
             "quote": "Quote",
             "conclusion": "Conclusion",
-            "linkText": "Link Text",
-            "linkURL": "Link URL",
             "image": "Image",
             "comment": "Comment",
+            "urllink": "Urllink",
             "blog": "Blog",
             "profile": "Profile",
             "tag": "Tag",

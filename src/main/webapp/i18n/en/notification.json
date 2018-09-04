@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "notification" : {
             "home": {
                 "title": "Notifications",
                 "createLabel": "Create a new Notification",
+                "myLabel": "My Notifications",
                 "createOrEditLabel": "Create or edit a Notification"
             },
             "created": "A new Notification is created with identifier {{ param }}",

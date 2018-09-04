@@ -8,14 +8,17 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Blog and its DTO BlogDTO.
  */
-@Mapper(componentModel = "spring", uses = {CommunityMapper.class})
+@Mapper(componentModel = "spring", uses = {CommunityMapper.class, UserMapper.class})
 public interface BlogMapper extends EntityMapper<BlogDTO, Blog> {
 
+    @Mapping(source = "id", target = "userId")
     @Mapping(source = "community.id", target = "communityId")
     BlogDTO toDto(Blog blog);
 
-    @Mapping(target = "posts", ignore = true)
+    @Mapping(source = "userId", target = "id")
     @Mapping(source = "communityId", target = "community")
+    @Mapping(target = "posts", ignore = true)
+//    @Mapping(target = "community", ignore = true)
     Blog toEntity(BlogDTO blogDTO);
 
     default Blog fromId(Long id) {

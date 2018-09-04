@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "comment" : {
             "home": {
                 "title": "Comments",
                 "createLabel": "Crear nuevo Comment",
+                "myLabel": "My Comments",
                 "createOrEditLabel": "Crear o editar Comment"
             },
             "created": "Un nuevo Comment ha sido creado con el identificador {{ param }}",
@@ -19,6 +20,8 @@
             "creationDate": "Creation Date",
             "commentText": "Comment Text",
             "isOffensive": "Is Offensive",
+            "usersPost": "Usuario del Post",
+            "usersProfile": "Usuario del Perfil",
             "post": "Post",
             "profile": "Profile"
         }

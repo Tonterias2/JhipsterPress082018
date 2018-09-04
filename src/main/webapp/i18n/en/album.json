@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "album" : {
             "home": {
                 "title": "Albums",
                 "createLabel": "Create a new Album",
+                "myLabel": "My Albums",
                 "createOrEditLabel": "Create or edit a Album"
             },
             "created": "A new Album is created with identifier {{ param }}",
@@ -19,6 +20,7 @@
             "creationDate": "Creation Date",
             "title": "Title",
             "photo": "Photo",
+            "usersAlbum": "Users' Album",
             "user": "User"
         }
     }

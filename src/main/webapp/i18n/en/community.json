@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "community" : {
             "home": {
                 "title": "Communities",
                 "createLabel": "Create a new Community",
+                "myLabel": "My Communities",
                 "createOrEditLabel": "Create or edit a Community"
             },
             "created": "A new Community is created with identifier {{ param }}",

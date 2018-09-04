@@ -1,7 +1,107 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.blog.home.title">Blogs</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-blog" [routerLink]="['/blog/new']">
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myBlogs()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.blog.home.myLabel">
+            My Blogs
+            </span>
+        </button>
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-message" [routerLink]="['/blog/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.blog.home.createLabel">
+            Create new Blog
+            </span>
+        </button>
+    </h2>
+	<!-- News Section -->
+	<div class="row g-mb-70">
+	    <div class="col-sm-6 col-lg-4 g-mb-30" *ngFor="let blog of blogs ;trackBy: trackId">
+	    <!-- Article -->
+	    <article>
+	        <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
+	            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
+	        </a>
+	
+	        <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
+	        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
+	        <p class="g-font-size-13">{{blog.creationDate | date:'longDate'}}</p>
+	
+	        <hr class="g-brd-secondary-light-v2 my-3">
+	
+	        <!-- Info -->
+	        <ul class="row list-inline g-py-20 g-ma-0">
+	            <li class="col g-brd-right g-brd-gray-light-v4">
+	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-pr-5 g-py-4" href="#!">
+	                <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>
+	                	<button type="submit"
+	                             [routerLink]="['/blog', blog.id, 'view' ]"
+	                             class="btn btn-info btn-sm">
+	                         <fa-icon [icon]="'eye'"></fa-icon>
+	                         <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+	                     </button>
+	            </a>
+	            </li>
+	            <li class="col g-brd-right g-brd-gray-light-v4">
+	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
+	                <i class="align-middle mr-1 icon-finance-206 u-line-icon-pro"></i>
+	     	               <button *ngIf="owner === blog.userId || isAdmin == true"
+	                      		type="submit"
+	                              [routerLink]="['/blog', blog.id, 'edit']"
+	                              class="btn btn-primary btn-sm">
+	                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
+	                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+	                      </button>
+	            </a>
+	            </li>
+	            <li class="col g-brd-right g-brd-gray-light-v4">
+	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
+	                <i class="align-middle mr-1 icon-education-097 u-line-icon-pro"></i>
+			                <button *ngIf="owner === blog.userId || isAdmin == true"
+			                 		type="submit"
+			                         [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
+			                         replaceUrl="true"
+			                         queryParamsHandling="merge"
+			                         class="btn btn-danger btn-sm">
+			                     <fa-icon [icon]="'times'"></fa-icon>
+			                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+			                 </button>
+	            </a>
+	            </li>
+	        </ul>
+	        <!-- End Info -->
+	        </div>
+	    </article>
+	    <!-- End Article -->
+	    </div>
+	
+	    <div class="col-sm-6 col-lg-4 g-mb-30">
+	    </div>
+	</div>
+	<!-- End News Section -->
+	<div *ngIf="blogs && blogs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jhipsterPress08App.blog.home.title">Blogs</span>
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myBlogs()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.blog.home.myLabel">
+            My Blogs
+            </span>
+        </button>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-message" [routerLink]="['/blog/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.blog.home.createLabel">
             Create new Blog
@@ -46,13 +146,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        		type="submit"
                                 [routerLink]="['/blog', blog.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "calbum" : {
             "home": {
                 "title": "Calbums",
                 "createLabel": "Crear nuevo Calbum",
+                "myLabel": "My Calbum",
                 "createOrEditLabel": "Crear o editar Calbum"
             },
             "created": "Un nuevo Calbum ha sido creado con el identificador {{ param }}",
@@ -19,6 +20,7 @@
             "creationDate": "Creation Date",
             "title": "Title",
             "photo": "Photo",
+            "communityAlbum": "Album de la Communidad",
             "community": "Community"
         }
     }

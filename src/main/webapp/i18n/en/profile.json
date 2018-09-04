@@ -1,10 +1,11 @@
 
 {
-    "jhipsterPress08App": {
+    "jhipsterPress07App": {
         "profile" : {
             "home": {
                 "title": "Profiles",
                 "createLabel": "Create a new Profile",
+                "myLabel": "My Profile",
                 "createOrEditLabel": "Create or edit a Profile"
             },
             "created": "A new Profile is created with identifier {{ param }}",
