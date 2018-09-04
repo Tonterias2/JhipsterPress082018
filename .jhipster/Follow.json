@@ -1,0 +1,44 @@
+{
+    "name": "Follow",
+    "fields": [
+        {
+            "fieldName": "creationDate",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cfollowed",
+            "otherEntityName": "community",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cfollowing",
+            "otherEntityName": "community",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "followed",
+            "otherEntityName": "profile",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "following",
+            "otherEntityName": "profile",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20180904105433",
+    "entityTableName": "follow",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": true,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
