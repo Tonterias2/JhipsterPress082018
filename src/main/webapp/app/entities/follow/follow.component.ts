@@ -29,6 +29,8 @@ export class FollowComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    nameParamFollows: any;
+    valueParamFollows: any;
 
     constructor(
         private followService: FollowService,
@@ -46,15 +48,27 @@ export class FollowComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.activatedRoute.queryParams.subscribe( params => {
+            if (params.followedIdEquals != null) {
+                this.nameParamFollows = 'followedId.equals';
+                this.valueParamFollows = params.followedIdEquals;
+            }
+            if (params.followingIdEquals != null) {
+                this.nameParamFollows = 'followingId.equals';
+                this.valueParamFollows = params.followingIdEquals;
+            }
+        });
     }
 
     loadAll() {
-        this.followService
-            .query({
+        const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
-            })
+            };
+        query[this.nameParamFollows] = this.valueParamFollows;
+        this.followService
+            .query(query)
             .subscribe(
                 (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
