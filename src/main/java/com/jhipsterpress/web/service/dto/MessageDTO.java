@@ -24,6 +24,8 @@ public class MessageDTO implements Serializable {
     private Long communityId;
 
     private Long profileId;
+    
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -73,7 +75,15 @@ public class MessageDTO implements Serializable {
         this.profileId = profileId;
     }
 
-    @Override
+    public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -94,15 +104,10 @@ public class MessageDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "MessageDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", messageText='" + getMessageText() + "'" +
-            ", isDeliverd='" + isIsDeliverd() + "'" +
-            ", community=" + getCommunityId() +
-            ", profile=" + getProfileId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "MessageDTO [id=" + id + ", creationDate=" + creationDate + ", messageText=" + messageText
+				+ ", isDeliverd=" + isDeliverd + ", communityId=" + communityId + ", profileId=" + profileId
+				+ ", userId=" + userId + "]";
+	}
 }
