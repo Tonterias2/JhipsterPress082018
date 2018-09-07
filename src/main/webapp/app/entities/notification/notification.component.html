@@ -1,12 +1,20 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.notification.home.title">Notifications</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-notification" [routerLink]="['/notification/new']">
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myNotifications()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.notification.home.myLabel">
+            My Notifications
+            </span>
+        </button>
+        <!-- 
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-notification" [routerLink]="['/notification/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.notification.home.createLabel">
             Create new Notification
             </span>
         </button>
+        -->
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
@@ -43,13 +51,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === notification.userId || isAdmin == true"
+			              		type="submit"
                                 [routerLink]="['/notification', notification.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === notification.userId || isAdmin == true"
+			              		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'notification/'+ notification.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

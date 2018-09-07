@@ -29,6 +29,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    paramNotificationUserId: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private notificationService: NotificationService,
@@ -46,15 +49,22 @@ export class NotificationComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.activatedRoute.queryParams.subscribe( params => {
+            this.paramNotificationUserId = params.userIdEquals;
+        });
     }
 
     loadAll() {
-        this.notificationService
-            .query({
+        const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
-            })
+            };
+        if ( this.paramNotificationUserId  != null) {
+            query['userId.equals'] = this.paramNotificationUserId;
+        }
+        this.notificationService
+            .query(query)
             .subscribe(
                 (res: HttpResponse<INotification[]>) => this.paginateNotifications(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -95,6 +105,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInNotifications();
     }
@@ -119,11 +133,31 @@ export class NotificationComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    private myNotifications() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.notificationService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<INotification[]>) => this.paginateNotifications(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
     private paginateNotifications(data: INotification[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.notifications = data;
+        console.log('OWNER', this.owner);
+        console.log('isADMIN', this.isAdmin);
+        console.log('NOTIFICATIONS: ', this.notifications);
     }
 
     private onError(errorMessage: string) {
