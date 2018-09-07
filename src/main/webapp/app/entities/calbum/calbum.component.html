@@ -1,7 +1,14 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.calbum.home.title">Calbums</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-calbum" [routerLink]="['/calbum/new']">
+        
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myCalbums()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.calbum.home.myLabel">
+            My Calbum
+            </span>
+        </button>
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-calbum" [routerLink]="['/calbum/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.calbum.home.createLabel">
             Create new Calbum
@@ -39,13 +46,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+						<button *ngIf="owner === calbum.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/calbum', calbum.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+			                <button *ngIf="owner === calbum.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'calbum/'+ calbum.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
