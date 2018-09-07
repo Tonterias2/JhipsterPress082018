@@ -10,6 +10,8 @@ import { IAlbum } from 'app/shared/model/album.model';
 import { AlbumService } from './album.service';
 import { IUser, UserService } from 'app/core';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-album-update',
     templateUrl: './album-update.component.html'
@@ -20,11 +22,13 @@ export class AlbumUpdateComponent implements OnInit {
 
     users: IUser[];
     creationDate: string;
+    currentAccount: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private albumService: AlbumService,
         private userService: UserService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -33,12 +37,11 @@ export class AlbumUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ album }) => {
             this.album = album;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        console.log('1.-Testing: Printing this.isSaving = false', this.isSaving);
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.userServiceId(this.currentAccount);
+        });
     }
 
     previousState() {
@@ -53,6 +56,17 @@ export class AlbumUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.albumService.create(this.album));
         }
+    }
+
+    private userServiceId(currentAccount) {
+        this.userService.query2(this.currentAccount.login).subscribe(
+            (res: HttpResponse<IUser[]>) => {
+                this.users = res.body;
+                console.log('4.- Printing the res.body: ', res.body);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IAlbum>>) {

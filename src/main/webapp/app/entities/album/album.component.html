@@ -1,9 +1,15 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="jhipsterPress08App.album.home.title">Albums</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-album" [routerLink]="['/album/new']">
+        <span jhiTranslate="jhipsterPress07App.album.home.title">Albums</span>
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myAlbums()">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="jhipsterPress08App.album.home.createLabel">
+            <span  jhiTranslate="jhipsterPress07App.album.home.myLabel">
+            My Albums
+            </span>
+        </button>
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-album" [routerLink]="['/album/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress07App.album.home.createLabel">
             Create new Album
             </span>
         </button>
@@ -15,9 +21,9 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="creationDate"><span jhiTranslate="jhipsterPress08App.album.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="title"><span jhiTranslate="jhipsterPress08App.album.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="userId"><span jhiTranslate="jhipsterPress08App.album.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creationDate"><span jhiTranslate="jhipsterPress07App.album.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="title"><span jhiTranslate="jhipsterPress07App.album.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userId"><span jhiTranslate="jhipsterPress07App.album.usersAlbum">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -37,13 +43,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === album.userId || isAdmin == true"
+			              		type="submit"
                                 [routerLink]="['/album', album.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === album.userId || isAdmin == true"
+			              		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'album/'+ album.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
