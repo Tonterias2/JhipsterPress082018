@@ -13,10 +13,14 @@ public interface PhotoMapper extends EntityMapper<PhotoDTO, Photo> {
 
     @Mapping(source = "album.id", target = "albumId")
     @Mapping(source = "calbum.id", target = "calbumId")
+    @Mapping(source = "album.user.id", target = "albumUserId")
+    @Mapping(source = "calbum.community.user.id", target = "cAlbumUserId")
     PhotoDTO toDto(Photo photo);
 
     @Mapping(source = "albumId", target = "album")
     @Mapping(source = "calbumId", target = "calbum")
+//    @Mapping(source = "albumUserId", target = "id")
+//    @Mapping(source = "cAlbumUserId", target = "id")
     Photo toEntity(PhotoDTO photoDTO);
 
     default Photo fromId(Long id) {

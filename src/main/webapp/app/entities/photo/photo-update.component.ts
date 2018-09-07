@@ -12,6 +12,10 @@ import { IAlbum } from 'app/shared/model/album.model';
 import { AlbumService } from 'app/entities/album';
 import { ICalbum } from 'app/shared/model/calbum.model';
 import { CalbumService } from 'app/entities/calbum';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from 'app/entities/community';
+
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-photo-update',
@@ -22,9 +26,10 @@ export class PhotoUpdateComponent implements OnInit {
     isSaving: boolean;
 
     albums: IAlbum[];
-
+    communities: ICommunity[];
     calbums: ICalbum[];
     creationDate: string;
+    currentAccount: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -32,7 +37,9 @@ export class PhotoUpdateComponent implements OnInit {
         private photoService: PhotoService,
         private albumService: AlbumService,
         private calbumService: CalbumService,
+        private communityService: CommunityService,
         private elementRef: ElementRef,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -41,18 +48,11 @@ export class PhotoUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ photo }) => {
             this.photo = photo;
         });
-        this.albumService.query().subscribe(
-            (res: HttpResponse<IAlbum[]>) => {
-                this.albums = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.calbumService.query().subscribe(
-            (res: HttpResponse<ICalbum[]>) => {
-                this.calbums = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myCommunities(this.currentAccount);
+            this.myAlbums(this.currentAccount);
+        });
     }
 
     byteSize(field) {
@@ -81,8 +81,66 @@ export class PhotoUpdateComponent implements OnInit {
         if (this.photo.id !== undefined) {
             this.subscribeToSaveResponse(this.photoService.update(this.photo));
         } else {
+            console.log('0.- Printing photo', this.photo);
             this.subscribeToSaveResponse(this.photoService.create(this.photo));
         }
+    }
+
+    private myCommunities(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<ICommunity[]>) => {
+                        this.communities = res.body;
+                        console.log('4.- Printing the res.body: ', res.body);
+                        this.communitiesBlogs(this.communities);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+    }
+
+    private communitiesBlogs(communities) {
+        const query = {
+            };
+        if ( this.communities != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
+        }
+        this.calbumService
+            .query(query)
+            .subscribe(
+            (res: HttpResponse<ICalbum[]>) => {
+                this.calbums = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private myAlbums(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.albumService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IAlbum[]>) => {
+                        this.albums = res.body;
+                        console.log('4.- Printing the res.body: ', res.body);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IPhoto>>) {
