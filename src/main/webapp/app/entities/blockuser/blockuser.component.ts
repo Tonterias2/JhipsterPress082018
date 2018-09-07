@@ -29,6 +29,10 @@ export class BlockuserComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    nameParamBlockUser: any;
+    valueParamBlockUser: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private blockuserService: BlockuserService,
@@ -46,15 +50,27 @@ export class BlockuserComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.activatedRoute.queryParams.subscribe( params => {
+            if (params.blockedUserIdEquals != null) {
+                this.nameParamBlockUser = 'blockeduserId.equals';
+                this.valueParamBlockUser = params.blockedUserIdEquals;
+            }
+            if (params.blockingUserIdEquals != null) {
+                this.nameParamBlockUser = 'blockinguserId.equals';
+                this.valueParamBlockUser = params.blockingUserIdEquals;
+            }
+        });
     }
 
     loadAll() {
-        this.blockuserService
-            .query({
+        const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort()
-            })
+            };
+        query[this.nameParamBlockUser] = this.valueParamBlockUser;
+        this.blockuserService
+            .query(query)
             .subscribe(
                 (res: HttpResponse<IBlockuser[]>) => this.paginateBlockusers(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -95,6 +111,10 @@ export class BlockuserComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInBlockusers();
     }
@@ -124,6 +144,9 @@ export class BlockuserComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blockusers = data;
+        console.log('blockusers', this.blockusers);
+        console.log('OWNER', this.owner);
+        console.log('ISADMIN', this.isAdmin);
     }
 
     private onError(errorMessage: string) {

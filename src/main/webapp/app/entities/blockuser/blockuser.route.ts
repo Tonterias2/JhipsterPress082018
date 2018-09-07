@@ -41,6 +41,19 @@ export const blockuserRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'blockuser?blockeduserId.equals=:id',
+        component: BlockuserComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'jhipsterPress07App.blockuser.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'blockuser/:id/view',
         component: BlockuserDetailComponent,
         resolve: {
