@@ -218,8 +218,8 @@
                     <span *ngIf="post.image">{{post.imageContentType}}, {{byteSize(post.image)}}</span>
                 </td>
                 <td>
-                    <div *ngIf="post.urllinkId">
-                        <a [routerLink]="['../urllink', post.urllinkId , 'view' ]" >{{post.urllinkId}}</a>
+                    <div *ngIf="post.linkURL">
+                        <a [routerLink]="['../urllink', post.linkURL , 'view' ]" >{{post.linkURL}}</a>
                     </div>
                 </td>
                 <td>

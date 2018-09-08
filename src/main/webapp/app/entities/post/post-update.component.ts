@@ -17,6 +17,10 @@ import { TagService } from 'app/entities/tag';
 import { ITopic } from 'app/shared/model/topic.model';
 import { TopicService } from 'app/entities/topic';
 
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../../entities/community/community.service';
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-post-update',
     templateUrl: './post-update.component.html'
@@ -32,18 +36,24 @@ export class PostUpdateComponent implements OnInit {
     tags: ITag[];
 
     topics: ITopic[];
+
+    communities: ICommunity[];
+
     creationDate: string;
     publicationDate: string;
+    currentAccount: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private postService: PostService,
+        private communityService: CommunityService,
         private blogService: BlogService,
         private profileService: ProfileService,
         private tagService: TagService,
         private topicService: TopicService,
         private elementRef: ElementRef,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -52,18 +62,23 @@ export class PostUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
         });
-        this.blogService.query().subscribe(
-            (res: HttpResponse<IBlog[]>) => {
-                this.blogs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.profileService.query().subscribe(
-            (res: HttpResponse<IProfile[]>) => {
-                this.profiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myCommunities(this.currentAccount);
+            this.myProfiles(this.currentAccount);
+        });
+//        this.blogService.query().subscribe(
+//            (res: HttpResponse<IBlog[]>) => {
+//                this.blogs = res.body;
+//            },
+//            (res: HttpErrorResponse) => this.onError(res.message)
+//        );
+//        this.profileService.query().subscribe(
+//            (res: HttpResponse<IProfile[]>) => {
+//                this.profiles = res.body;
+//            },
+//            (res: HttpErrorResponse) => this.onError(res.message)
+//        );
         this.tagService.query().subscribe(
             (res: HttpResponse<ITag[]>) => {
                 this.tags = res.body;
@@ -107,6 +122,62 @@ export class PostUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.postService.create(this.post));
         }
+    }
+
+    private myCommunities(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<ICommunity[]>) => {
+                        this.communities = res.body;
+                        console.log('4.- Printing the res.body: ', res.body);
+                        this.communitiesBlogs(this.communities);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+    }
+
+    private communitiesBlogs(communities) {
+        const query = {
+            };
+        if ( this.communities != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
+        }
+        this.blogService
+            .query(query)
+            .subscribe(
+            (res: HttpResponse<IBlog[]>) => {
+                this.blogs = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private myProfiles(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        console.log('4.1.- Printing the res.body: ', res.body);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IPost>>) {
