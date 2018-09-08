@@ -1,6 +1,6 @@
 
 {
-    "jhipsterPress07App": {
+    "jhipsterPress08App": {
         "post" : {
             "home": {
                 "title": "Posts",
@@ -24,6 +24,8 @@
             "bodytext": "Bodytext",
             "quote": "Quote",
             "conclusion": "Conclusion",
+            "linkText": "Link Text",
+            "linkURL": "Link URL",
             "image": "Image",
             "comment": "Comment",
             "urllink": "Urllink",

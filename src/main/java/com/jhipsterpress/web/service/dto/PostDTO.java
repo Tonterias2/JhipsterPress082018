@@ -3,7 +3,10 @@ package com.jhipsterpress.web.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Lob;
 
 /**
@@ -50,6 +53,24 @@ public class PostDTO implements Serializable {
     private String blogTitle;
 
     private Long profileId;
+    
+    private String profileBio;
+    
+    private Long profileUserId;
+    
+    private String profileUserFirstName;
+    
+    private String profileUserLastName;
+    
+    @Lob
+    private byte[] profileImage;
+    private String profileImageContentType;
+    
+    private Set<CommentDTO> comments;
+    
+    private Set<CustomTagDTO> tags;
+    
+    private Set<CustomTopicDTO> topics;
 
     public Long getId() {
         return id;
@@ -171,7 +192,79 @@ public class PostDTO implements Serializable {
         this.profileId = profileId;
     }
 
-    @Override
+    public String getProfileBio() {
+		return profileBio;
+	}
+
+	public void setProfileBio(String profileBio) {
+		this.profileBio = profileBio;
+	}
+
+	public Long getProfileUserId() {
+		return profileUserId;
+	}
+
+	public void setProfileUserId(Long profileUserId) {
+		this.profileUserId = profileUserId;
+	}
+
+	public String getProfileUserFirstName() {
+		return profileUserFirstName;
+	}
+
+	public void setProfileUserFirstName(String profileUserFirstName) {
+		this.profileUserFirstName = profileUserFirstName;
+	}
+
+	public String getProfileUserLastName() {
+		return profileUserLastName;
+	}
+
+	public void setProfileUserLastName(String profileUserLastName) {
+		this.profileUserLastName = profileUserLastName;
+	}
+
+	public byte[] getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(byte[] profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getProfileImageContentType() {
+		return profileImageContentType;
+	}
+
+	public void setProfileImageContentType(String profileImageContentType) {
+		this.profileImageContentType = profileImageContentType;
+	}
+
+	public Set<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<CommentDTO> comments) {
+		this.comments = comments;
+	}
+
+	public Set<CustomTagDTO> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<CustomTagDTO> tags) {
+		this.tags = tags;
+	}
+
+	public Set<CustomTopicDTO> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(Set<CustomTopicDTO> topics) {
+		this.topics = topics;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -192,23 +285,17 @@ public class PostDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "PostDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", publicationDate='" + getPublicationDate() + "'" +
-            ", headline='" + getHeadline() + "'" +
-            ", leadtext='" + getLeadtext() + "'" +
-            ", bodytext='" + getBodytext() + "'" +
-            ", quote='" + getQuote() + "'" +
-            ", conclusion='" + getConclusion() + "'" +
-            ", linkText='" + getLinkText() + "'" +
-            ", linkURL='" + getLinkURL() + "'" +
-            ", image='" + getImage() + "'" +
-            ", blog=" + getBlogId() +
-            ", blog='" + getBlogTitle() + "'" +
-            ", profile=" + getProfileId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "PostDTO [id=" + id + ", creationDate=" + creationDate + ", publicationDate=" + publicationDate
+				+ ", headline=" + headline + ", leadtext=" + leadtext + ", bodytext=" + bodytext + ", quote=" + quote
+				+ ", conclusion=" + conclusion + ", linkText=" + linkText + ", linkURL=" + linkURL + ", image="
+				+ Arrays.toString(image) + ", imageContentType=" + imageContentType + ", blogId=" + blogId
+				+ ", blogTitle=" + blogTitle + ", profileId=" + profileId + ", profileBio=" + profileBio
+				+ ", profileUserId=" + profileUserId + ", profileUserFirstName=" + profileUserFirstName
+				+ ", profileUserLastName=" + profileUserLastName + ", profileImage=" + Arrays.toString(profileImage)
+				+ ", profileImageContentType=" + profileImageContentType + ", comments=" + comments + ", tags=" + tags
+				+ ", topics=" + topics + "]";
+	}
+
 }
