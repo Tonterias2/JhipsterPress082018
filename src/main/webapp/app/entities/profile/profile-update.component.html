@@ -242,7 +242,8 @@
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.profile.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" [(ngModel)]="profile.userId"  required>
                         <option *ngIf="!editForm.value.user" [ngValue]="null" selected></option>
-                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                        <!-- <option [ngValue]="userOption.id" *ngFor="let userOption of user; trackBy: trackUserById">{{userOption.id}}</option>  -->
+                        <option [ngValue]="user.id">{{user.id}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.user?.dirty && editForm.controls.user?.invalid)">

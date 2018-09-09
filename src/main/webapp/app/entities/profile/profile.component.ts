@@ -29,6 +29,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
+    hasProfile: boolean;
 
     constructor(
         private profileService: ProfileService,
@@ -96,6 +99,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInProfiles();
     }
@@ -128,11 +135,40 @@ export class ProfileComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    private myProfile() {
+        this.hasProfile = false;
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+//        console.log('Getting into the observalbe:');
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        if ( res.body.length !== 0 ) {
+                            this.hasProfile = true;
+//                            console.log('hasProfile1???:', this.hasProfile);
+//                            console.log('res.body???:', res.body);
+                        }
+                        this.paginateProfiles(res.body, res.headers);
+                    } , (res: HttpErrorResponse) => this.onError(res.message)
+            );
+//        console.log('hasProfile2???:', this.hasProfile);
+    }
+
     private paginateProfiles(data: IProfile[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.profiles = data;
+        console.log('OWNER', this.owner);
+        console.log('isADMIN', this.isAdmin);
+        console.log('PROFILES:', this.profiles);
     }
 
     private onError(errorMessage: string) {

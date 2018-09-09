@@ -16,6 +16,7 @@ export class ProfileDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
+            console.log('PROFILE: ', this.profile);
         });
     }
 

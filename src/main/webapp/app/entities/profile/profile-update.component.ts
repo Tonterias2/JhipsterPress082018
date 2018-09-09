@@ -15,6 +15,7 @@ import { IActivity } from 'app/shared/model/activity.model';
 import { ActivityService } from 'app/entities/activity';
 import { ICeleb } from 'app/shared/model/celeb.model';
 import { CelebService } from 'app/entities/celeb';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-profile-update',
@@ -33,6 +34,9 @@ export class ProfileUpdateComponent implements OnInit {
     celebs: ICeleb[];
     creationDate: string;
     birthdate: string;
+    currentAccount: any;
+
+    user: IUser;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -43,6 +47,7 @@ export class ProfileUpdateComponent implements OnInit {
         private activityService: ActivityService,
         private celebService: CelebService,
         private elementRef: ElementRef,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -51,12 +56,10 @@ export class ProfileUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.userServiceId(this.currentAccount);
+        });
         this.interestService.query().subscribe(
             (res: HttpResponse<IInterest[]>) => {
                 this.interests = res.body;
@@ -106,6 +109,20 @@ export class ProfileUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.profileService.create(this.profile));
         }
+    }
+
+    private userServiceId(currentAccount) {
+        this.userService
+           .find(this.currentAccount.login)
+           .subscribe(
+                    (res: HttpResponse<IUser>) => {
+                        this.user = res.body;
+                        console.log('4A.- Printing the res.body: ', res.body);
+                        console.log('4B.- Printing the this.user: ', this.user);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IProfile>>) {

@@ -1,108 +1,302 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="profile">
-            <h2><span jhiTranslate="jhipsterPress08App.profile.detail.title">Profile</span> {{profile.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="jhipsterPress08App.profile.creationDate">Creation Date</span></dt>
-                <dd>
-                    <span>{{profile.creationDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.image">Image</span></dt>
-                <dd>
-                    <div *ngIf="profile.image">
-                        <a (click)="openFile(profile.imageContentType, profile.image)">
-                            <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile image"/>
-                        </a>
-                        {{profile.imageContentType}}, {{byteSize(profile.image)}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.gender">Gender</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Gender.' + profile.gender}}">{{profile.gender}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.phone">Phone</span></dt>
-                <dd>
-                    <span>{{profile.phone}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.bio">Bio</span></dt>
-                <dd>
-                    <span>{{profile.bio}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.birthdate">Birthdate</span></dt>
-                <dd>
-                    <span>{{profile.birthdate}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.civilStatus">Civil Status</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.CivilStatus.' + profile.civilStatus}}">{{profile.civilStatus}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.lookingFor">Looking For</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Gender.' + profile.lookingFor}}">{{profile.lookingFor}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.purpose">Purpose</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Purpose.' + profile.purpose}}">{{profile.purpose}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.physical">Physical</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Physical.' + profile.physical}}">{{profile.physical}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.religion">Religion</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Religion.' + profile.religion}}">{{profile.religion}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.ethnicGroup">Ethnic Group</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.EthnicGroup.' + profile.ethnicGroup}}">{{profile.ethnicGroup}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.studies">Studies</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Studies.' + profile.studies}}">{{profile.studies}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.sibblings">Sibblings</span></dt>
-                <dd>
-                    <span>{{profile.sibblings}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.eyes">Eyes</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Eyes.' + profile.eyes}}">{{profile.eyes}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.smoker">Smoker</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Smoker.' + profile.smoker}}">{{profile.smoker}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.children">Children</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.Children.' + profile.children}}">{{profile.children}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.futureChildren">Future Children</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'jhipsterPress08App.FutureChildren.' + profile.futureChildren}}">{{profile.futureChildren}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.pet">Pet</span></dt>
-                <dd>
-                    <span>{{profile.pet}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.profile.user">User</span></dt>
-                <dd>
-                    {{profile.userId}}
-                </dd>
-            </dl>
+    <section class="g-mb-100">
+      <div class="container">
+        <div class="row">
+          <!-- Profile Sidebar -->
+          <div class="col-lg-3 g-mb-50 g-mb-0--lg">
+            <!-- User Image -->
+            <div class="u-block-hover g-pos-rel">
+              <figure>
+              	<div *ngIf="profile.image">
+                     <a (click)="openFile(profile.imageContentType, profile.image)">
+                         <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile image"/>
+                     </a>
+                 </div>
+              </figure>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+              <!-- Figure Caption -->
+              <figcaption class="u-block-hover__additional--fade g-bg-black-opacity-0_5 g-pa-30">
+                <div class="u-block-hover__additional--fade u-block-hover__additional--fade-up g-flex-middle">
+                  <!-- Figure Social Icons -->
+                  <ul class="list-inline text-center g-flex-middle-item--bottom g-mb-20">
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-note u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-notebook u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                    <li class="list-inline-item align-middle g-mx-7">
+                      <a class="u-icon-v1 u-icon-size--md g-color-white" href="#!">
+                        <i class="icon-settings u-line-icon-pro"></i>
+                      </a>
+                    </li>
+                  </ul>
+                  <!-- End Figure Social Icons -->
+                </div>
+              </figcaption>
+              <!-- End Figure Caption -->
 
-            <button type="button"
-                    [routerLink]="['/profile', profile.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+              <!-- User Info -->
+              <span class="g-pos-abs g-top-20 g-left-0">
+                  <a class="btn btn-sm u-btn-primary rounded-0" href="#!">{{profile.firstName}} {{profile.lastName}}</a>
+                  <!--  <small class="d-block g-bg-black g-color-white g-pa-5">Project Manager</small> -->
+                </span>
+              <!-- End User Info -->
+            </div>
+            <!-- User Image -->
+
+            <!-- Sidebar Navigation -->
+            <div class="list-group list-group-border-0 g-mb-40">
+              <!-- Overall -->
+              <a [routerLink]="['/profile', profile.id, 'view' ]" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-home g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
+                <span class="u-label g-font-size-11 g-bg-gray-dark-v2 g-rounded-20 g-px-10">2</span>
+              </a>
+              <!-- End Overall -->
+
+              <!-- Profile -->
+              <a href="page-profile-profile-1.html" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-cursor g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
+              </a>
+              <!-- End Profile -->
+
+              <!-- Following Contacts http://localhost:9000/api/follows?followedId.equals=1 -->
+              <a [routerLink]="['/follow']" [queryParams]="{ 'followedIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Following</span>
+              </a>
+              <!-- End Following Contacts -->
+              
+              <!-- Follower Contacts  http://localhost:9000/api/follows?followingId.equals=1 -->
+              <a [routerLink]="['/follow']" [queryParams]="{ 'followingIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span>
+              </a>
+              <!-- End Follower Contacts -->
+
+              <!-- Messages http://localhost:9000/api/messages?profileId.equals=1-->
+              <a [routerLink]="['/message']" [queryParams]="{ 'profileIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-bubbles g-pos-rel g-top-1 g-mr-8"></i> Messages</span>
+                <span class="u-label g-font-size-11 g-bg-pink g-rounded-20 g-px-8">24</span>
+              </a>
+              <!-- End Messages -->
+
+              <!-- My Notifications -->
+              <a [routerLink]="['/notification']" [queryParams]="{ 'userIdEquals': profile.userId }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-layers g-pos-rel g-top-1 g-mr-8"></i> Notifications</span>
+                <span class="u-label g-font-size-11 g-bg-primary g-rounded-20 g-px-10">9</span>
+              </a>
+              <!-- End My Notifications -->
+              
+              <!-- Reviews -->
+              <a href="page-profile-reviews-1.html" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-heart g-pos-rel g-top-1 g-mr-8"></i> Reviews</span>
+              </a>
+              <!-- End Reviews -->
+              
+              <!-- Blocking Users -->
+              <a [routerLink]="['/blockuser']" [queryParams]="{ 'blockingUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocking Users</span>
+              </a>
+              <!-- End Blocking Users -->
+
+              <!-- Blocked Users -->
+              <a [routerLink]="['/blockuser']" [queryParams]="{ 'blockedUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+                <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocked Users</span>
+              </a>
+              <!-- End Blocked Users -->
+
+              <!-- Settings -->
+              <a href="page-profile-settings-1.html" class="list-group-item justify-content-between active">
+                <span><i class="icon-settings g-pos-rel g-top-1 g-mr-8"></i> Settings</span>
+                <span class="u-label g-font-size-11 g-bg-cyan g-rounded-20 g-px-8">3</span>
+              </a>
+              <!-- End Settings -->
+            </div>
+            <!-- End Sidebar Navigation -->
+          </div>
+          <!-- End Profile Sidebar -->
+
+          <!-- Profile Content -->
+          <div class="col-lg-9">
+
+
+
+			 <div class="row justify-content-center">
+				    <div class="col-8">
+				        <div *ngIf="profile">
+				            <h2><span jhiTranslate="jhipsterPress08App.profile.detail.title">Profile</span> {{profile.id}} {{profile.firstName}} {{profile.lastName}} </h2>
+				            <hr>
+				            <jhi-alert-error></jhi-alert-error>
+				            <dl class="row-md jh-entity-details">
+				            	<dt><span jhiTranslate="jhipsterPress08App.profile.bio">Bio</span></dt>
+				                <dd>
+				                    <span>{{profile.bio}}</span>
+				                </dd>
+				                
+				                <!-- Interests -->
+								<div class="g-mb-30">
+								  <h6 class="g-color-gray-dark-v1">
+								    <strong class="g-mr-5">Interests:</strong>
+								    <span  *ngFor="let interest of profile.interests">
+								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{interest.interestName}}</a>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Interests -->
+								
+								<!-- Activities -->
+								<div class="g-mb-30">
+								  <h6 class="g-color-gray-dark-v1">
+								    <strong class="g-mr-5">Activities:</strong>
+								    <span  *ngFor="let activity of profile.activities">
+								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{activity.activityName}}</a>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Interests -->
+								
+								<!-- Interests -->
+								<div class="g-mb-30">
+								  <h6 class="g-color-gray-dark-v1">
+								    <strong class="g-mr-5">Celebs:</strong>
+								    <span  *ngFor="let celeb of profile.celebs">
+								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{celeb.celebName}}</a>
+								    </span>
+								  </h6>
+								</div>
+								<!-- End Interests -->
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.birthdate">Birthdate</span></dt>
+				                <dd>
+				                    <span>{{profile.birthdate | date}}</span>
+				                </dd>
+				                <!-- 
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.creationDate">Creation Date</span></dt>
+				                <dd>
+				                    <span>{{profile.creationDate}}</span>
+				                </dd>
+				                 -->
+				                <!-- 
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.image">Image</span></dt>
+				                <dd>
+				                    <div *ngIf="profile.image">
+				                        <a (click)="openFile(profile.imageContentType, profile.image)">
+				                            <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile image"/>
+				                        </a>
+				                        {{profile.imageContentType}}, {{byteSize(profile.image)}}
+				                    </div>
+				                </dd>
+				                -->
+				                
+				                
+				                <h3><span>Relationships:</span></h3>
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.civilStatus">Civil Status</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.CivilStatus.' + profile.civilStatus}}">{{profile.civilStatus}}</span>
+				                </dd>
+				                
+								<dt><span jhiTranslate="jhipsterPress08App.profile.gender">Gender</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Gender.' + profile.gender}}">{{profile.gender}}</span>
+				                </dd>
+			                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.lookingFor">Looking For</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Gender.' + profile.lookingFor}}">{{profile.lookingFor}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.purpose">Purpose</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Purpose.' + profile.purpose}}">{{profile.purpose}}</span>
+				                </dd>
+				                
+				                <h3><span>Family:</span></h3>
+				                
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.sibblings">Sibblings</span></dt>
+				                <dd>
+				                    <span>{{profile.sibblings}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.children">Children</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Children.' + profile.children}}">{{profile.children}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.futureChildren">Future Children</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.FutureChildren.' + profile.futureChildren}}">{{profile.futureChildren}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.pet">Pet</span></dt>
+				                <dd>
+				                    <span>{{profile.pet}}</span>
+				                </dd>
+				                
+				                <h3><span>Physical:</span></h3>
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.physical">Physical</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Physical.' + profile.physical}}">{{profile.physical}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.eyes">Eyes</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Eyes.' + profile.eyes}}">{{profile.eyes}}</span>
+				                </dd>
+				                
+				                <h3><span>Cultural:</span></h3>
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.religion">Religion</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Religion.' + profile.religion}}">{{profile.religion}}</span>
+				                </dd>
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.ethnicGroup">Ethnic Group</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.EthnicGroup.' + profile.ethnicGroup}}">{{profile.ethnicGroup}}</span>
+				                </dd>
+				                
+				                <h3><span>Studies:</span></h3>
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.studies">Studies</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Studies.' + profile.studies}}">{{profile.studies}}</span>
+								</dd>
+				                <h3><span>Habits:</span></h3>
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.smoker">Smoker</span></dt>
+				                <dd>
+				                    <span jhiTranslate="{{'jhipsterPress08App.Smoker.' + profile.smoker}}">{{profile.smoker}}</span>
+				                </dd>
+				            </dl>
+				
+				            <button type="submit"
+				                    (click)="previousState()"
+				                    class="btn btn-info">
+				                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+				            </button>
+				
+				            <button type="button"
+				                    [routerLink]="['/profile', profile.id, 'edit']"
+				                    class="btn btn-primary">
+				                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+				            </button>
+				        </div>
+				    </div>
+				</div>
+              </div>
+
+          </div>
+          <!-- End Profile Content -->
         </div>
-    </div>
-</div>
+      </div>
+    </section>
+
+
+
+
+<h3>PROFILE INFO</h3>
+	<p>profile.id: {{profile.id}}</p>
+    <p>profile.userId: {{profile.userId}}</p>
+    <p>profile.firstName: {{profile.firstName}}</p>
+    <p>profile.lastName: {{profile.lastName}}</p>
+
+   TODO: Change translations in JSON and from the ENUMS in the Entities!!!   
