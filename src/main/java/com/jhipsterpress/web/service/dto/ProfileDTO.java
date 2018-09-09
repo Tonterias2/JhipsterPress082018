@@ -3,7 +3,10 @@ package com.jhipsterpress.web.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Lob;
 import com.jhipsterpress.web.domain.enumeration.Gender;
 import com.jhipsterpress.web.domain.enumeration.CivilStatus;
@@ -74,6 +77,16 @@ public class ProfileDTO implements Serializable {
 
     private Long userId;
 
+    private String firstName;
+    
+    private String lastName;
+    
+    private Set<CustomActivityDTO> activities;
+    
+    private Set<CustomCelebDTO> celebs;
+    
+    private Set<CustomInterestDTO> interests;
+    
     public Long getId() {
         return id;
     }
@@ -250,7 +263,47 @@ public class ProfileDTO implements Serializable {
         this.userId = userId;
     }
 
-    @Override
+    public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}	
+	
+	public Set<CustomActivityDTO> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<CustomActivityDTO> activities) {
+		this.activities = activities;
+	}
+
+	public Set<CustomCelebDTO> getCelebs() {
+		return celebs;
+	}
+
+	public void setCelebs(Set<CustomCelebDTO> celebs) {
+		this.celebs = celebs;
+	}
+
+	public Set<CustomInterestDTO> getInterests() {
+		return interests;
+	}
+
+	public void setInterests(Set<CustomInterestDTO> interests) {
+		this.interests = interests;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -271,30 +324,16 @@ public class ProfileDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "ProfileDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", image='" + getImage() + "'" +
-            ", gender='" + getGender() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", bio='" + getBio() + "'" +
-            ", birthdate='" + getBirthdate() + "'" +
-            ", civilStatus='" + getCivilStatus() + "'" +
-            ", lookingFor='" + getLookingFor() + "'" +
-            ", purpose='" + getPurpose() + "'" +
-            ", physical='" + getPhysical() + "'" +
-            ", religion='" + getReligion() + "'" +
-            ", ethnicGroup='" + getEthnicGroup() + "'" +
-            ", studies='" + getStudies() + "'" +
-            ", sibblings=" + getSibblings() +
-            ", eyes='" + getEyes() + "'" +
-            ", smoker='" + getSmoker() + "'" +
-            ", children='" + getChildren() + "'" +
-            ", futureChildren='" + getFutureChildren() + "'" +
-            ", pet='" + isPet() + "'" +
-            ", user=" + getUserId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "ProfileDTO [id=" + id + ", creationDate=" + creationDate + ", image=" + Arrays.toString(image)
+				+ ", imageContentType=" + imageContentType + ", gender=" + gender + ", phone=" + phone + ", bio=" + bio
+				+ ", birthdate=" + birthdate + ", civilStatus=" + civilStatus + ", lookingFor=" + lookingFor
+				+ ", purpose=" + purpose + ", physical=" + physical + ", religion=" + religion + ", ethnicGroup="
+				+ ethnicGroup + ", studies=" + studies + ", sibblings=" + sibblings + ", eyes=" + eyes + ", smoker="
+				+ smoker + ", children=" + children + ", futureChildren=" + futureChildren + ", pet=" + pet
+				+ ", userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", activities="
+				+ activities + ", celebs=" + celebs + ", interests=" + interests + "]";
+	}
+
 }

@@ -40,7 +40,8 @@ import com.jhipsterpress.web.domain.enumeration.FutureChildren;
  */
 @Entity
 @Table(name = "profile")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONE)
+//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Profile implements Serializable {
 
     private static final long serialVersionUID = 1L;
