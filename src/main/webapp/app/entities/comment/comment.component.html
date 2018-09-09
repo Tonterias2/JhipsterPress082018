@@ -1,12 +1,20 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.comment.home.title">Comments</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myComments()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.comment.home.myLabel">
+            My Comments
+            </span>
+        </button>
+        <!--  
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-comment" [routerLink]="['/comment/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.comment.home.createLabel">
             Create new Comment
             </span>
         </button>
+         -->
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
@@ -18,8 +26,8 @@
             <th jhiSortBy="creationDate"><span jhiTranslate="jhipsterPress08App.comment.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="commentText"><span jhiTranslate="jhipsterPress08App.comment.commentText">Comment Text</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="isOffensive"><span jhiTranslate="jhipsterPress08App.comment.isOffensive">Is Offensive</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="postId"><span jhiTranslate="jhipsterPress08App.comment.post">Post</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="profileId"><span jhiTranslate="jhipsterPress08App.comment.profile">Profile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="postId"><span jhiTranslate="jhipsterPress08App.comment.usersPost">Post</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="profileId"><span jhiTranslate="jhipsterPress08App.comment.usersProfile">Profile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -35,8 +43,8 @@
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="comment.profileId">
-                        <a [routerLink]="['../profile', comment.profileId , 'view' ]" >{{comment.profileId}}</a>
+                    <div *ngIf="comment.userId">
+                        <a [routerLink]="['../profile', comment.userId , 'view' ]" >{{comment.userId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
@@ -47,13 +55,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="owner === comment.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/comment', comment.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="owner === comment.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
