@@ -1,8 +1,11 @@
 package com.jhipsterpress.web.service.dto;
 
 import java.time.Instant;
+
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -23,7 +26,17 @@ public class CommentDTO implements Serializable {
 
     private Long postId;
 
+    private Long userId;
+    
     private Long profileId;
+    
+    private String commentProfileUserFirstName;
+    
+    private String commentProfileUserLastName;
+    
+    @Lob
+    private byte[] profileImage;
+    private String profileImageContentType;
 
     public Long getId() {
         return id;
@@ -65,15 +78,55 @@ public class CommentDTO implements Serializable {
         this.postId = postId;
     }
 
-    public Long getProfileId() {
-        return profileId;
-    }
+    public Long getUserId() {
+		return userId;
+	}
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
-    }
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
-    @Override
+	public Long getProfileId() {
+		return profileId;
+	}
+
+	public void setProfileId(Long profileId) {
+		this.profileId = profileId;
+	}
+
+	public String getCommentProfileUserFirstName() {
+		return commentProfileUserFirstName;
+	}
+
+	public void setCommentProfileUserFirstName(String commentProfileUserFirstName) {
+		this.commentProfileUserFirstName = commentProfileUserFirstName;
+	}
+
+	public String getCommentProfileUserLastName() {
+		return commentProfileUserLastName;
+	}
+
+	public void setCommentProfileUserLastName(String commentProfileUserLastName) {
+		this.commentProfileUserLastName = commentProfileUserLastName;
+	}
+
+	public byte[] getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(byte[] profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getProfileImageContentType() {
+		return profileImageContentType;
+	}
+
+	public void setProfileImageContentType(String profileImageContentType) {
+		this.profileImageContentType = profileImageContentType;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -94,15 +147,13 @@ public class CommentDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "CommentDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", commentText='" + getCommentText() + "'" +
-            ", isOffensive='" + isIsOffensive() + "'" +
-            ", post=" + getPostId() +
-            ", profile=" + getProfileId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "CommentDTO [id=" + id + ", creationDate=" + creationDate + ", commentText=" + commentText
+				+ ", isOffensive=" + isOffensive + ", postId=" + postId + ", userId=" + userId + ", profileId="
+				+ profileId + ", commentProfileUserFirstName=" + commentProfileUserFirstName
+				+ ", commentProfileUserLastName=" + commentProfileUserLastName + ", profileImage="
+				+ Arrays.toString(profileImage) + ", profileImageContentType=" + profileImageContentType + "]";
+	}
+
 }
