@@ -5,6 +5,7 @@
             "home": {
                 "title": "Activities",
                 "createLabel": "Create a new Activity",
+                "myLabel": "My Activity",
                 "createOrEditLabel": "Create or edit a Activity"
             },
             "created": "A new Activity is created with identifier {{ param }}",

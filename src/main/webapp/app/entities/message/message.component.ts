@@ -5,15 +5,15 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../community/community.service';
 import { IProfile } from 'app/shared/model/profile.model';
-
+import { ProfileService } from '../profile/profile.service';
 import { IMessage } from 'app/shared/model/message.model';
+import { MessageService } from './message.service';
+
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { CommunityService } from '../community/community.service';
-import { ProfileService } from '../profile/profile.service';
-import { MessageService } from './message.service';
 
 @Component({
     selector: 'jhi-message',

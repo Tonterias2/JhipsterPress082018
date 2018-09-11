@@ -5,7 +5,7 @@
             "home": {
                 "title": "Messages",
                 "createLabel": "Create a new Message",
-                "myLabel": "Mis Messages",
+                "myLabel": "My Messages",
                 "createOrEditLabel": "Create or edit a Message"
             },
             "created": "A new Message is created with identifier {{ param }}",

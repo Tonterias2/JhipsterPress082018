@@ -1,7 +1,13 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.celeb.home.title">Celebs</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-celeb" [routerLink]="['/celeb/new']">
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-celeb" (click)="myCelebsCommunities()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterPress08App.celeb.home.myLabel">
+            Create new Celeb
+            </span>
+        </button>
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-celeb" [routerLink]="['/celeb/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.celeb.home.createLabel">
             Create new Celeb
@@ -31,13 +37,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === celeb?.userId || owner === celeb?.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/celeb', celeb.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+			            <button *ngIf="owner === celeb?.userId || owner === celeb?.userId || isAdmin == true"
+                        		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'celeb/'+ celeb.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"

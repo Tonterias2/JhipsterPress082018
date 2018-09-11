@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiDataUtils } from 'ng-jhipster';
 
-import { IPost } from 'app/shared/model/post.model';
+import { IComment } from 'app/shared/model/comment.model';
+import { CommentService } from '../../entities/comment/comment.service';
+import { PostService } from 'app/entities/post';
+import { IProfile } from 'app/shared/model/profile.model';
+import { ProfileService } from 'app/entities/profile';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -10,11 +14,8 @@ import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { IComment } from 'app/shared/model/comment.model';
-import { CommentService } from '../../entities/comment/comment.service';
-import { PostService } from 'app/entities/post';
-import { IProfile } from 'app/shared/model/profile.model';
-import { ProfileService } from 'app/entities/profile';
+import { IPost } from 'app/shared/model/post.model';
+import { Principal } from 'app/core';
 
 import { map } from 'rxjs/operators';
 
@@ -32,42 +33,28 @@ export class PostDetailComponent implements OnInit {
 
     profiles: IProfile[];
     profile: IProfile;
+    currentAccount: any;
     creationDate: string;
+    id: any;
 
     constructor(
             private dataUtils: JhiDataUtils,
             private jhiAlertService: JhiAlertService,
             private commentService: CommentService,
             private postService: PostService,
+            private principal: Principal,
             private profileService: ProfileService,
             private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
-//        this.loadAll();
-//        this.principal.identity().then(account => {
-//            this.currentAccount = account;
-//        });
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+        });
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
             console.log('POST#', this.post);
         });
-        this.activatedRoute.data.subscribe(({ comment }) => {
-            this.comment = comment;
-            console.log('COMMENT#', this.comment);
-        });
-        this.postService.query().subscribe(
-            (res: HttpResponse<IPost[]>) => {
-                this.posts = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.profileService.query().subscribe(
-            (res: HttpResponse<IProfile[]>) => {
-                this.profiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.isSaving = false;
         this.comment = new Object();
     }
@@ -86,42 +73,75 @@ export class PostDetailComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        console.log('From SAVE() print COMMENT: ', this.comment);
+//        console.log('From SAVE() print COMMENT: ', this.comment);
         this.comment.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.comment.id !== undefined) {
-            console.log('From SAVE()alUPDATE print COMMENT: ');
+//            console.log('From SAVE()alUPDATE print COMMENT: ');
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {
-            console.log('From SAVE()alCREATE print COMMENT: ', this.comment.profileId);
-            // AQUI TENDRIA QUE CARGAR EL PROFILE DEL COLEGA
+            // AQUI TENDRIA QUE CARGAR EL PROFILE DEL COLEGA logado (EL POST ya lo tiene)
+            console.log('From SAVE()alCREATE print COMMENT: ', this.comment);
+            this.comment.postId = this.post.id;
+//            console.log('From SAVE()alCREATE print this.comment.postId: ', this.comment.postId);
+//            this.myProfile();
+////            this.comment.profileId = this.id;
+//            this.comment.profileId = 5;
+            this.myProfile().subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        console.log('My Profiles: ', this.profiles);
+//                        this.profilesMessages();
+                        // this.id = this.profiles.id;
+                        console.log('My Profiles: ', this.profiles[0].userId);
+//                        this.id = this.profiles[0].id;
+                        this.comment.profileId = this.profiles[0].userId;
+//                        this.comment.profileId = this.profiles[0].id;
+//                        console.log('My ID: ', this.id);
+//                        console.log(typeof this.id);
+//                        return this.id;
+//                        return this.profiles[0].id;
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
             this.comment.isOffensive = false;
-//            this.myProfile(this.comment.profileId);
-//            this.service.find(id).map((profile: HttpResponse<Profile>) => profile.body);
+            console.log('From SAVE() print COMMENT2: ', this.comment);
             this.subscribeToSaveResponse(this.commentService.create(this.comment));
         }
     }
 
-    private myProfile(profileId) {
-//        return this.service.find(id).map((profile: HttpResponse<Profile>) => profile.body);
-        this.profileService
-            .find(profileId)
-            .pipe(map((profile: HttpResponse<IProfile>) => {
-                console.log('profile.body???:', profileId);
-                console.log('profile.body???:', this.profile);
-                return profile.body;
-                }));
+    private myProfile() {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        return this.profileService
+            .query(query);
+    }
+//    private myProfile() {
+//        const query = {
+//            };
+//        if ( this.currentAccount.id  != null) {
+//            query['userId.equals'] = this.currentAccount.id;
+//        }
+//        this.profileService
+//            .query(query)
 //            .subscribe(
 //                    (res: HttpResponse<IProfile[]>) => {
-//                        if ( res.body.length !== 0 ) {
-////                            this.hasProfile = true;
-////                            console.log('hasProfile1???:', this.hasProfile);
-//                            console.log('res.body???:', res.body);
-//                        }
-////                        this.paginateProfiles(res.body, res.headers);
-//                    } , (res: HttpErrorResponse) => this.onError(res.message)
+//                        this.profiles = res.body;
+//                        console.log('My Profiles: ', this.profiles);
+////                        this.profilesMessages();
+//                        // this.id = this.profiles.id;
+//                        console.log('My Profiles: ', this.profiles[0].id);
+//                        this.id = this.profiles[0].id;
+//                        console.log('My ID: ', this.id);
+//                        console.log(typeof this.id);
+//                        return this.id;
+////                        return this.profiles[0].id;
+//                    },
+//                    (res: HttpErrorResponse) => this.onError(res.message)
 //            );
-////        console.log('hasProfile2???:', this.hasProfile);
-    }
+//    }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IComment>>) {
         result.subscribe((res: HttpResponse<IComment>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());

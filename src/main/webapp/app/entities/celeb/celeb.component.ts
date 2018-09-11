@@ -5,10 +5,14 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ICeleb } from 'app/shared/model/celeb.model';
-import { Principal } from 'app/core';
+import { CelebService } from './celeb.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../community/community.service';
+import { IProfile } from 'app/shared/model/profile.model';
+import { ProfileService } from '../profile/profile.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { CelebService } from './celeb.service';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-celeb',
@@ -17,6 +21,8 @@ import { CelebService } from './celeb.service';
 export class CelebComponent implements OnInit, OnDestroy {
     currentAccount: any;
     celebs: ICeleb[];
+    communities: ICommunity[];
+    profiles: IProfile[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -29,9 +35,13 @@ export class CelebComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private celebService: CelebService,
+        private communityService: CommunityService,
+        private profileService: ProfileService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -95,8 +105,101 @@ export class CelebComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInCelebs();
+    }
+
+    private myCelebsCommunities() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<ICommunity[]>) => {
+                    this.communities = res.body;
+                    this.communitiesCelebs();
+                    },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        this.myCelebsProfiles();
+    }
+
+    private myCelebsProfiles() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        this.celebsMessages();
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private communitiesCelebs() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.communities  != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
+        }
+        this.celebService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<ICeleb[]>) => {
+                        this.celebs = res.body;
+                        this.myCelebsProfiles(); // ????????????????????????????????????????????????????????????????????
+                     },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private celebsMessages() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.profiles  != null) {
+            const arrayProfiles = [];
+            this.profiles.forEach(profile => {
+                arrayProfiles.push(profile.id);
+            });
+            query['profileId.in'] = arrayProfiles;
+        }
+        this.celebService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<ICeleb[]>) => {
+                        this.celebs = this.celebs.concat(res.body);
+                        this.paginateCelebs(this.celebs, res.headers);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     ngOnDestroy() {
@@ -124,6 +227,9 @@ export class CelebComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.celebs = data;
+        console.log('MESSAGES', this.celebs);
+        console.log('OWNER', this.owner);
+        console.log('ISADMIN', this.isAdmin);
     }
 
     private onError(errorMessage: string) {

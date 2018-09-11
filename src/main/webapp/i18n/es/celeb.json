@@ -5,6 +5,7 @@
             "home": {
                 "title": "Celebs",
                 "createLabel": "Crear nuevo Celeb",
+                "myLabel": "My Celebs",
                 "createOrEditLabel": "Crear o editar Celeb"
             },
             "created": "Un nuevo Celeb ha sido creado con el identificador {{ param }}",

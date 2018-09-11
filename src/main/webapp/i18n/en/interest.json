@@ -5,6 +5,7 @@
             "home": {
                 "title": "Interests",
                 "createLabel": "Create a new Interest",
+                "myLabel": "My Interest",
                 "createOrEditLabel": "Create or edit a Interest"
             },
             "created": "A new Interest is created with identifier {{ param }}",

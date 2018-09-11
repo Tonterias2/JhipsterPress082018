@@ -10,6 +10,7 @@ import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community';
 import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from 'app/entities/profile';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-activity-update',
@@ -23,11 +24,14 @@ export class ActivityUpdateComponent implements OnInit {
 
     profiles: IProfile[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private activityService: ActivityService,
         private communityService: CommunityService,
         private profileService: ProfileService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -36,18 +40,23 @@ export class ActivityUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ activity }) => {
             this.activity = activity;
         });
-        this.communityService.query().subscribe(
-            (res: HttpResponse<ICommunity[]>) => {
-                this.communities = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.profileService.query().subscribe(
-            (res: HttpResponse<IProfile[]>) => {
-                this.profiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myCommunities(this.currentAccount);
+            this.myProfiles(this.currentAccount);
+        });
+//        this.communityService.query().subscribe(
+//            (res: HttpResponse<ICommunity[]>) => {
+//                this.communities = res.body;
+//            },
+//            (res: HttpErrorResponse) => this.onError(res.message)
+//        );
+//        this.profileService.query().subscribe(
+//            (res: HttpResponse<IProfile[]>) => {
+//                this.profiles = res.body;
+//            },
+//            (res: HttpErrorResponse) => this.onError(res.message)
+//        );
     }
 
     previousState() {
@@ -61,6 +70,41 @@ export class ActivityUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.activityService.create(this.activity));
         }
+    }
+
+    private myProfiles(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        console.log('4.1.- Printing the res.body: ', res.body);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private myCommunities(currentAccount) {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<ICommunity[]>) => {
+                        this.communities = res.body;
+                        console.log('4.- Printing the res.body: ', res.body);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IActivity>>) {

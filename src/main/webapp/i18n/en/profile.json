@@ -29,6 +29,8 @@
             "physical": "Physical",
             "religion": "Religion",
             "ethnicGroup": "Ethnic Group",
+            "follow": "Follow",
+            "unfollow": "UnFollow",
             "studies": "Studies",
             "sibblings": "Sibblings",
             "eyes": "Eyes",

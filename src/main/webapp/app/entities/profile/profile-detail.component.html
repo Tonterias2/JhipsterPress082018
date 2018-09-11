@@ -126,7 +126,20 @@
 			 <div class="row justify-content-center">
 				    <div class="col-8">
 				        <div *ngIf="profile">
-				            <h2><span jhiTranslate="jhipsterPress08App.profile.detail.title">Profile</span> {{profile.id}} {{profile.firstName}} {{profile.lastName}} </h2>
+				            <h2>
+				            <button *ngIf="isFollow === true" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="unFollowing()">
+							    <span jhiTranslate="jhipsterPress08App.profile.unfollow">
+							    UnFollow
+							    </span>
+							</button>
+							<button *ngIf="isFollow === false" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="following()">
+							    <span jhiTranslate="jhipsterPress08App.profile.follow">
+							    Follow
+							    </span>
+							</button>
+				            <span jhiTranslate="jhipsterPress08App.profile.detail.title">Profile</span> 
+				            {{profile.id}} {{profile.firstName}} {{profile.lastName}}
+				            </h2>
 				            <hr>
 				            <jhi-alert-error></jhi-alert-error>
 				            <dl class="row-md jh-entity-details">
