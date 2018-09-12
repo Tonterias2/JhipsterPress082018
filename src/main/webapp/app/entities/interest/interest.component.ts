@@ -111,11 +111,10 @@ export class InterestComponent implements OnInit, OnDestroy {
                 this.isAdmin = result;
             });
         });
-        this.mymap(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.registerChangeInInterests();
     }
 
-    private myInterestsCommunities() {
+    private myInterests() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -129,34 +128,14 @@ export class InterestComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
-                    this.communitiesInterests();
+                    this.myCommunitiesInterests();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        this.myInterestsProfiles();
+//        this.myProfiles();
     }
 
-    private myInterestsProfiles() {
-        const query = {
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            };
-        if ( this.currentAccount.id  != null) {
-            query['userId.equals'] = this.currentAccount.id;
-        }
-        this.profileService
-            .query(query)
-            .subscribe(
-                    (res: HttpResponse<IProfile[]>) => {
-                        this.profiles = res.body;
-                        this.myProfileInterests();
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-    }
-
-    private communitiesInterests() {
+    private myCommunitiesInterests() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -174,9 +153,28 @@ export class InterestComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IInterest[]>) => {
                         this.interests = res.body;
-                        // !!!!!!! AQUI NECESITO UN MAP PARA METER LOS  interest de las COMMUNITIES
-                        this.myInterestsProfiles(); // ????????????????????????????????????????????????????????????????????
+                        this.myProfiles();
                      },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private myProfiles() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        this.myProfileInterests();
+                    },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -198,12 +196,28 @@ export class InterestComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<IInterest[]>) => {
-                        // !!!!!!! AQUI NECESITO UN MAP PARA METER LOS RESTANTES interest de los PROFILES sin DUPLICAR
-                        this.interests = this.interests.concat(res.body);
+//                        this.interests = this.interests.concat(res.body);
+                        this.interests = this.filterInterests(this.interests.concat(res.body));
                         this.paginateInterests(this.interests, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    private filterInterests( interests ) {
+        let arrayAux = [];
+        let arrayIds = [];
+        interests.map( x => {
+            if ( arrayIds.length >= 1 && arrayIds.includes( x.id ) === false ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            } else if ( arrayIds.length === 0 ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            }
+        } );
+        console.log( 'filterInterests', arrayIds, arrayAux );
+        return arrayAux;
     }
 
     ngOnDestroy() {
@@ -240,38 +254,4 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    // BORRRARRRRRRRRRRRRRR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    private mymap() {
-        console.log('ENTRO EN MAY MAP');
-//        const arrayCommmunities = [];
-//        plus5 = new map();
-//        const query = {
-//            };
-//            query['userId.equals'] = 3;
-//        this.communityService
-//            .query(query)
-//            .subscribe(
-//                (res: HttpResponse<ICommunity[]>) => {
-//                    this.communities = res.body;
-//                    console.log( 'Array this.communities: ', this.communities );
-//                    this.communities.forEach(community => {
-//                        arrayCommmunities.push(community.id);
-//                        const plus5 = this.communities.map(( val, i, arr ) => {
-//                            console.log( 'PLUS5 map del arrayCommmunities', arrayCommmunities );
-//                            console.log( 'PLUS5 map del array', plus5 );
-//                            console.log( 'PLUS5 map del this.communities', this.communities );
-//                        } );
-//                    });
-//                    },
-//                (res: HttpErrorResponse) => this.onError(res.message)
-//            );
-//        let arr = [1, 2, 3, 4];
-//        let newArr = arr.map(( val, i, arr ) => {
-//            return {
-//                value: val,
-//                index: i
-//            };
-//        } );
-    }
-    // BORRRARRRRRRRRRRRRRR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

@@ -113,7 +113,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
         this.registerChangeInActivities();
     }
 
-    private myActivitiesCommunities() {
+    private myActivities() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -127,34 +127,14 @@ export class ActivityComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
-                    this.communitiesActivitiess();
+                    this.communitiesActivities();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        this.myActivitiesProfiles();
+//        this.myProfiles();
     }
 
-    private myActivitiesProfiles() {
-        const query = {
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            };
-        if ( this.currentAccount.id  != null) {
-            query['userId.equals'] = this.currentAccount.id;
-        }
-        this.profileService
-            .query(query)
-            .subscribe(
-                    (res: HttpResponse<IProfile[]>) => {
-                        this.profiles = res.body;
-                        this.myProfileActivities();
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-    }
-
-    private communitiesActivitiess() {
+    private communitiesActivities() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -172,8 +152,28 @@ export class ActivityComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IActivity[]>) => {
                         this.activities = res.body;
-                        this.myActivitiesProfiles(); // ????????????????????????????????????????????????????????????????????
+                        this.myProfiles();
                      },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private myProfiles() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        this.myProfileActivities();
+                    },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -195,11 +195,28 @@ export class ActivityComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<IActivity[]>) => {
-                        this.activities = this.activities.concat(res.body);
+//                        this.activities = this.activities.concat(res.body);
+                        this.activities = this.filterActivities(this.activities.concat(res.body));
                         this.paginateActivities(this.activities, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    private filterActivities( activities ) {
+        let arrayAux = [];
+        let arrayIds = [];
+        activities.map( x => {
+            if ( arrayIds.length >= 1 && arrayIds.includes( x.id ) === false ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            } else if ( arrayIds.length === 0 ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            }
+        } );
+        console.log( 'filterInterests', arrayIds, arrayAux );
+        return arrayAux;
     }
 
     ngOnDestroy() {

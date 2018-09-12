@@ -257,7 +257,7 @@
 						                <div class="form-group">
 						                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.commentText" for="field_commentText">Comment Text</label>
 						                    <input type="text" class="form-control" name="commentText" id="field_commentText"
-						                        [(ngModel)]="comment.commentText" required minlength="2" maxlength="65000"/>
+						                        [(ngModel)]="_comment.commentText" required minlength="2" maxlength="65000"/>
 						                    <div [hidden]="!(editForm.controls.commentText?.dirty && editForm.controls.commentText?.invalid)">
 						                        <small class="form-text text-danger"
 						                        [hidden]="!editForm.controls.commentText?.errors?.required" jhiTranslate="entity.validation.required">

@@ -45,7 +45,10 @@ export class PostDetailComponent implements OnInit {
             private principal: Principal,
             private profileService: ProfileService,
             private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        this._comment = {'commentText' : ''};
+       // this.creationDate = moment().format(DATE_TIME_FORMAT);
+    }
 
     ngOnInit() {
         this.isSaving = false;
@@ -62,6 +65,7 @@ export class PostDetailComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
         this.comment.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.comment.id !== undefined) {
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
@@ -157,11 +161,13 @@ export class PostDetailComponent implements OnInit {
     }
 
     get comment() {
+        console.log(this._comment);
         return this._comment;
     }
 
     set comment(comment: IComment) {
-        this._comment = comment;
+        // this._comment = comment;
+//        this._comment.commentText = '';
         this.creationDate = moment().format(DATE_TIME_FORMAT);
     }
 }

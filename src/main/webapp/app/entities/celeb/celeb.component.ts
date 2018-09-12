@@ -113,7 +113,7 @@ export class CelebComponent implements OnInit, OnDestroy {
         this.registerChangeInCelebs();
     }
 
-    private myCelebsCommunities() {
+    private myCelebs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -127,34 +127,14 @@ export class CelebComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
-                    this.myProfileCelebs();
+                    this.myCommunitiesCelebs();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        this.myCelebsProfiles();
+//        this.myCelebsProfiles();
     }
 
-    private myCelebsProfiles() {
-        const query = {
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            };
-        if ( this.currentAccount.id  != null) {
-            query['userId.equals'] = this.currentAccount.id;
-        }
-        this.profileService
-            .query(query)
-            .subscribe(
-                    (res: HttpResponse<IProfile[]>) => {
-                        this.profiles = res.body;
-                        this.celebsMessages();
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-    }
-
-    private myProfileCelebs() {
+    private myCommunitiesCelebs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -172,13 +152,33 @@ export class CelebComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<ICeleb[]>) => {
                         this.celebs = res.body;
-                        this.myCelebsProfiles(); // ????????????????????????????????????????????????????????????????????
+                        this.myProfiles(); // ????????????????????????????????????????????????????????????????????
                      },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
-    private celebsMessages() {
+    private myProfiles() {
+        const query = {
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.profiles = res.body;
+                        this.myProfilesCelebs();
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private myProfilesCelebs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -195,11 +195,28 @@ export class CelebComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<ICeleb[]>) => {
-                        this.celebs = this.celebs.concat(res.body);
+//                        this.celebs = this.celebs.concat(res.body);
+                        this.celebs = this.filterCelebs(this.celebs.concat(res.body));
                         this.paginateCelebs(this.celebs, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    private filterCelebs( celebs ) {
+        let arrayAux = [];
+        let arrayIds = [];
+        celebs.map( x => {
+            if ( arrayIds.length >= 1 && arrayIds.includes( x.id ) === false ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            } else if ( arrayIds.length === 0 ) {
+                arrayAux.push( x );
+                arrayIds.push( x.id );
+            }
+        } );
+        console.log( 'filterInterests', arrayIds, arrayAux );
+        return arrayAux;
     }
 
     ngOnDestroy() {
