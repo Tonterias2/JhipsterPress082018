@@ -242,124 +242,57 @@
 		                  </form>
 		  -->
 						<!-- ADDED STUFF Comment -->
-						
-					        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-					            <!--  <h2 id="jhi-comment-heading" jhiTranslate="jhipsterPress08App.comment.home.createOrEditLabel">Create or edit a Comment</h2> -->
-					            <div>
-					                <jhi-alert-error></jhi-alert-error>
-					                <!--
-					                <div class="form-group" [hidden]="!comment.id"> -->
-					                   <!-- <label for="id" jhiTranslate="global.field.id">Esto no se rellena porque es un INSERT Comment</label> --><!--
-					                    <input type="text" class="form-control" id="id" name="id"
-					                        [(ngModel)]="comment.id" readonly />
-					                </div>
-					                -->
-					                <!--
-					                <div class="form-group">
-					                    Esto se tiene que rellenar con la fecha actual. Sin preguntar. Quitarlo?
-					                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.creationDate" for="field_creationDate">Creation Date</label>
-					                    <div class="d-flex">
-					                        <input id="field_creationDate" type="datetime-local" class="form-control" name="creationDate" [(ngModel)]="creationDate"
-					                        required/>
-					                    </div>
-					                    <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
-					                        <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.creationDate?.errors?.required" jhiTranslate="entity.validation.required">
-					                        This field is required.
-					                        </small>
-					                        <small class="form-text text-danger"
-					                            [hidden]="!editForm.controls.creationDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
-					                            This field should be a date and time.
-					                        </small>
-					                    </div>
-					                </div>-->
-					                <div class="form-group" class="g-mb-30">
-					                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.commentText" for="field_commentText">Comment Text</label>
-					                    <input  type="text" 
-					                            class="form-control g-color-black g-bg-white g-bg-white--focus g-brd-gray-light-v4 g-brd-primary--focus g-resize-none rounded-3 g-pa-15" 
-					                            rows="5"
-					                            name="commentText" 
-					                            id="field_commentText"
-					                            [(ngModel)]="comment.commentText" 
-					                            required minlength="2" 
-					                            maxlength="65000"
-					                            placeholder="Your Message"/>
-					                    <div [hidden]="!(editForm.controls.commentText?.dirty && editForm.controls.commentText?.invalid)">
-					                        <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.commentText?.errors?.required" jhiTranslate="entity.validation.required">
-					                        This field is required.
-					                        </small>
-					                        <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.commentText?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
-					                        This field is required to be at least 2 characters.
-					                        </small>
-					                        <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.commentText?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 65000 }">
-					                        This field cannot be longer than 65000 characters.
-					                        </small>
-					                    </div>
-					                </div>
-					                <!--
-					                <div class="form-group">Quitarlo?
-					                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.isOffensive" for="field_isOffensive">Is Offensive</label>
-					                    <input type="checkbox" class="form-control" name="isOffensive" id="field_isOffensive"
-					                        [(ngModel)]="comment.isOffensive" />
-					                </div>
-					--> <!--
-					                <div class="form-group">Esto se tiene que rellenar con el post.id
-					                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.post" for="field_post">Post</label>
-					                    <select class="form-control" id="field_post" name="post" [(ngModel)]="comment.postId"  required>
-					                        <option *ngIf="!editForm.value.post" [ngValue]="null" selected></option>
-					                        <option [ngValue]="postOption.id" *ngFor="let postOption of posts; trackBy: trackPostById">{{postOption.id}}</option>
-					                    </select>
-					                </div>
-					                
-					                <div [hidden]="!(editForm.controls.post?.dirty && editForm.controls.post?.invalid)">
-					                    <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.post?.errors?.required" jhiTranslate="entity.validation.required">
-					                        This field is required.
-					                    </small>
-					                </div>
-					                
-					                --> <!--
-					                <div class="form-group">Aquí va el profileUserId: 4 -- post.profileUserId
-					                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.profile" for="field_profile">Profile</label>
-					                    <select class="form-control" id="field_profile" name="profile" [(ngModel)]="comment.profileId"  required>
-					                        <option *ngIf="!editForm.value.profile" [ngValue]="null" selected></option>
-					                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.id}}</option>
-					                    </select>
-					                </div>    
-					                <div [hidden]="!(editForm.controls.profile?.dirty && editForm.controls.profile?.invalid)">
-					                    <small class="form-text text-danger"
-					                        [hidden]="!editForm.controls.profile?.errors?.required" jhiTranslate="entity.validation.required">
-					                        This field is required.
-					                    </small>
-					                </div>  -->
-					                
-					            </div>
-					            <div>
-					                <button type="submit" 
-					                        id="save-entity" 
-					                        [disabled]="editForm.form.invalid || isSaving" 
-					                        class="btn u-btn-primary g-font-size-12 text-uppercase g-px-25 g-py-13">
-					                    <fa-icon [icon]="'save'" class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-2"></fa-icon>
-					                    &nbsp;
-					                    <span jhiTranslate="entity.action.save">Save</span>
-					                </button>
-					            </div>
-					        </form>
-					        
-						<!-- End ADDED STUFF Comment -->
-
+						<div class="row justify-content-center">
+						    <div class="col-8">
+						        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+						            <div>
+						                <jhi-alert-error></jhi-alert-error>
+						                <!--
+						                <div class="form-group" [hidden]="!comment.id">
+						                    <label for="id" jhiTranslate="global.field.id">ID</label>
+						                    <input type="text" class="form-control" id="id" name="id"
+						                        [(ngModel)]="comment.id" readonly />
+						                </div>
+						                -->
+						                <div class="form-group">
+						                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.commentText" for="field_commentText">Comment Text</label>
+						                    <input type="text" class="form-control" name="commentText" id="field_commentText"
+						                        [(ngModel)]="comment.commentText" required minlength="2" maxlength="65000"/>
+						                    <div [hidden]="!(editForm.controls.commentText?.dirty && editForm.controls.commentText?.invalid)">
+						                        <small class="form-text text-danger"
+						                        [hidden]="!editForm.controls.commentText?.errors?.required" jhiTranslate="entity.validation.required">
+						                        This field is required.
+						                        </small>
+						                        <small class="form-text text-danger"
+						                        [hidden]="!editForm.controls.commentText?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+						                        This field is required to be at least 2 characters.
+						                        </small>
+						                        <small class="form-text text-danger"
+						                        [hidden]="!editForm.controls.commentText?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 65000 }">
+						                        This field cannot be longer than 65000 characters.
+						                        </small>
+						                    </div>
+						                </div>
+						                <div [hidden]="!(editForm.controls.profile?.dirty && editForm.controls.profile?.invalid)">
+						                    <small class="form-text text-danger"
+						                        [hidden]="!editForm.controls.profile?.errors?.required" jhiTranslate="entity.validation.required">
+						                        This field is required.
+						                    </small>
+						                </div>
+						                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+						                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+						                </button>
+						            </div>
+						        </form>
+						    </div>
+						</div>
+						<!-- End ADDED STUFF Comment --> 
 		                </div>
 		                <!-- End Add Comment -->
 		              </article>
-		
 		              <div id="stickyblock-end"></div>
 		            </div>
 		            <!-- End Articles Content -->
-		
-		            
 		          </div>
 		        </div>
 			<!-- End News Content -->

@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiDataUtils } from 'ng-jhipster';
 
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ProfileService } from 'app/entities/profile';
 import { IProfile } from 'app/shared/model/profile.model';
 import { FollowService } from '../follow/follow.service';
 import { IFollow } from 'app/shared/model/follow.model';
-import { Principal } from 'app/core';
-import { JhiAlertService } from 'ng-jhipster';
 
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { JhiAlertService } from 'ng-jhipster';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-profile-detail',

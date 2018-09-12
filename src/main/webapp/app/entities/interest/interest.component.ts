@@ -13,6 +13,7 @@ import { ProfileService } from '../profile/profile.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { Principal } from 'app/core';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'jhi-interest',
@@ -110,6 +111,7 @@ export class InterestComponent implements OnInit, OnDestroy {
                 this.isAdmin = result;
             });
         });
+        this.mymap(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.registerChangeInInterests();
     }
 
@@ -172,6 +174,7 @@ export class InterestComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IInterest[]>) => {
                         this.interests = res.body;
+                        // !!!!!!! AQUI NECESITO UN MAP PARA METER LOS  interest de las COMMUNITIES
                         this.myInterestsProfiles(); // ????????????????????????????????????????????????????????????????????
                      },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -195,6 +198,7 @@ export class InterestComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<IInterest[]>) => {
+                        // !!!!!!! AQUI NECESITO UN MAP PARA METER LOS RESTANTES interest de los PROFILES sin DUPLICAR
                         this.interests = this.interests.concat(res.body);
                         this.paginateInterests(this.interests, res.headers);
                     },
@@ -235,4 +239,39 @@ export class InterestComponent implements OnInit, OnDestroy {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+
+    // BORRRARRRRRRRRRRRRRR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private mymap() {
+        console.log('ENTRO EN MAY MAP');
+//        const arrayCommmunities = [];
+//        plus5 = new map();
+//        const query = {
+//            };
+//            query['userId.equals'] = 3;
+//        this.communityService
+//            .query(query)
+//            .subscribe(
+//                (res: HttpResponse<ICommunity[]>) => {
+//                    this.communities = res.body;
+//                    console.log( 'Array this.communities: ', this.communities );
+//                    this.communities.forEach(community => {
+//                        arrayCommmunities.push(community.id);
+//                        const plus5 = this.communities.map(( val, i, arr ) => {
+//                            console.log( 'PLUS5 map del arrayCommmunities', arrayCommmunities );
+//                            console.log( 'PLUS5 map del array', plus5 );
+//                            console.log( 'PLUS5 map del this.communities', this.communities );
+//                        } );
+//                    });
+//                    },
+//                (res: HttpErrorResponse) => this.onError(res.message)
+//            );
+//        let arr = [1, 2, 3, 4];
+//        let newArr = arr.map(( val, i, arr ) => {
+//            return {
+//                value: val,
+//                index: i
+//            };
+//        } );
+    }
+    // BORRRARRRRRRRRRRRRRR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

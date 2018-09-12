@@ -63,6 +63,7 @@ export class CommentUpdateComponent implements OnInit {
         if (this.comment.id !== undefined) {
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {
+            console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
             this.subscribeToSaveResponse(this.commentService.create(this.comment));
         }
     }
@@ -91,6 +92,7 @@ export class CommentUpdateComponent implements OnInit {
     trackProfileById(index: number, item: IProfile) {
         return item.id;
     }
+
     get comment() {
         return this._comment;
     }

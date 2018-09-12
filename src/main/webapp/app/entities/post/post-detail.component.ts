@@ -4,6 +4,7 @@ import { JhiDataUtils } from 'ng-jhipster';
 
 import { IComment } from 'app/shared/model/comment.model';
 import { CommentService } from '../../entities/comment/comment.service';
+import { IPost } from 'app/shared/model/post.model';
 import { PostService } from 'app/entities/post';
 import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from 'app/entities/profile';
@@ -12,12 +13,10 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { Principal } from 'app/core';
 import { JhiAlertService } from 'ng-jhipster';
 
-import { IPost } from 'app/shared/model/post.model';
-import { Principal } from 'app/core';
-
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'jhi-post-detail',
@@ -34,6 +33,7 @@ export class PostDetailComponent implements OnInit {
     creationDate: string;
     id: any;
 
+    commentText: string;
     private _comment: IComment;
     isSaving: boolean;
 
@@ -48,28 +48,16 @@ export class PostDetailComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-            console.log('PRINCIPAL: ', this.currentAccount);
-        });
+        this.isSaving = false;
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
             console.log('POST#', this.post);
         });
-        this.isSaving = false;
-        this.comment = new Object();
-    }
-
-    byteSize(field) {
-        return this.dataUtils.byteSize(field);
-    }
-
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
-    }
-
-    previousState() {
-        window.history.back();
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            console.log('PRINCIPAL: ', this.currentAccount);
+        });
+//        this.comment = new Object();
     }
 
     save() {
@@ -79,12 +67,15 @@ export class PostDetailComponent implements OnInit {
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {
 //            console.log('From SAVE()alCREATE print COMMENT: ', this.comment);
+            this.comment.id = undefined;
             this.comment.postId = this.post.id;
-            this.myProfile().subscribe(
+            this.myProfile()
+            .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
                         console.log('My comment.profileId: ', this.profiles[0].id);
-                        this.comment.profileId = this.profiles[0].id;
+                        this.id = this.profiles[0].id;
+                        this.comment.profileId = this.id;
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -127,6 +118,18 @@ export class PostDetailComponent implements OnInit {
 //                    (res: HttpErrorResponse) => this.onError(res.message)
 //            );
 //    }
+
+    byteSize(field) {
+        return this.dataUtils.byteSize(field);
+    }
+
+    openFile(contentType, field) {
+        return this.dataUtils.openFile(contentType, field);
+    }
+
+    previousState() {
+        window.history.back();
+    }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IComment>>) {
         result.subscribe((res: HttpResponse<IComment>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
