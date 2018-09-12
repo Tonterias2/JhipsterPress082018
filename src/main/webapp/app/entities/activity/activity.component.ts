@@ -127,7 +127,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
-                    this.communitiesInterests();
+                    this.communitiesActivitiess();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -148,13 +148,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        this.activitiesMessages();
+                        this.myProfileActivities();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
-    private communitiesInterests() {
+    private communitiesActivitiess() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -178,7 +178,7 @@ export class ActivityComponent implements OnInit, OnDestroy {
             );
     }
 
-    private activitiesMessages() {
+    private myProfileActivities() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

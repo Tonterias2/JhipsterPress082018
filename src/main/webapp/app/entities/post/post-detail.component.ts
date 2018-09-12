@@ -25,17 +25,17 @@ import { map } from 'rxjs/operators';
 })
 export class PostDetailComponent implements OnInit {
     post: IPost;
-
-    private _comment: IComment;
-    isSaving: boolean;
-
     posts: IPost[];
 
     profiles: IProfile[];
     profile: IProfile;
+
     currentAccount: any;
     creationDate: string;
     id: any;
+
+    private _comment: IComment;
+    isSaving: boolean;
 
     constructor(
             private dataUtils: JhiDataUtils,
@@ -50,6 +50,7 @@ export class PostDetailComponent implements OnInit {
     ngOnInit() {
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            console.log('PRINCIPAL: ', this.currentAccount);
         });
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
@@ -73,38 +74,22 @@ export class PostDetailComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-//        console.log('From SAVE() print COMMENT: ', this.comment);
         this.comment.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.comment.id !== undefined) {
-//            console.log('From SAVE()alUPDATE print COMMENT: ');
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {
-            // AQUI TENDRIA QUE CARGAR EL PROFILE DEL COLEGA logado (EL POST ya lo tiene)
-            console.log('From SAVE()alCREATE print COMMENT: ', this.comment);
+//            console.log('From SAVE()alCREATE print COMMENT: ', this.comment);
             this.comment.postId = this.post.id;
-//            console.log('From SAVE()alCREATE print this.comment.postId: ', this.comment.postId);
-//            this.myProfile();
-////            this.comment.profileId = this.id;
-//            this.comment.profileId = 5;
             this.myProfile().subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        console.log('My Profiles: ', this.profiles);
-//                        this.profilesMessages();
-                        // this.id = this.profiles.id;
-                        console.log('My Profiles: ', this.profiles[0].userId);
-//                        this.id = this.profiles[0].id;
-                        this.comment.profileId = this.profiles[0].userId;
-//                        this.comment.profileId = this.profiles[0].id;
-//                        console.log('My ID: ', this.id);
-//                        console.log(typeof this.id);
-//                        return this.id;
-//                        return this.profiles[0].id;
+                        console.log('My comment.profileId: ', this.profiles[0].id);
+                        this.comment.profileId = this.profiles[0].id;
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
             this.comment.isOffensive = false;
-            console.log('From SAVE() print COMMENT2: ', this.comment);
+            console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
             this.subscribeToSaveResponse(this.commentService.create(this.comment));
         }
     }

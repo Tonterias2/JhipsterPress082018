@@ -40,7 +40,57 @@
 			            <p class="g-font-size-13">{{community.creationDate | date:'longDate'}}</p>
 			        </div>
 			        <!-- End Figure Info -->
-			        </div>
+
+					<!-- Interests -->
+					<div class="g-mb-30">
+						<h6 class="g-color-gray-dark-v1">
+							<button id="jh-create-entity"
+								class="btn btn-primary float-right jh-create-entity create-interest"
+								[routerLink]="['/interest']">
+								<fa-icon [icon]="'plus'"></fa-icon>
+							</button>
+							<strong class="g-mr-5">Interests:</strong> <span
+								*ngFor="let interest of community.interests"> <a
+								class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5"
+								href="#!">{{interest.interestName}}</a>
+							</span>
+						</h6>
+					</div>
+					<!-- End Interests -->
+					
+					<!-- Activities -->
+					<div class="g-mb-30">
+					  <h6 class="g-color-gray-dark-v1">
+					            <button id="jh-create-entity" 
+					                class="btn btn-primary float-right jh-create-entity create-interest" 
+					                [routerLink]="['/activity']">
+					            <fa-icon [icon]="'plus'"></fa-icon>
+					        </button>
+					    <strong class="g-mr-5">Activities:</strong>
+					    <span  *ngFor="let activity of community.activities">
+					        <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{activity.activityName}}</a>
+					    </span>
+					  </h6>
+					</div>
+					<!-- End Activities -->
+					
+					<!-- Celebs -->
+					<div class="g-mb-30">
+					  <h6 class="g-color-gray-dark-v1">
+					            <button id="jh-create-entity" 
+					                class="btn btn-primary float-right jh-create-entity create-interest" 
+					                [routerLink]="['/celeb']">
+					            <fa-icon [icon]="'plus'"></fa-icon>
+					        </button>
+					    <strong class="g-mr-5">Celebs:</strong>
+					    <span  *ngFor="let celeb of community.celebs">
+					        <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{celeb.celebName}}</a>
+					    </span>
+					  </h6>
+					</div>
+					<!-- End Celebs -->
+
+					</div>
 			
 			        <hr class="g-brd-gray-light-v4 g-my-0">
 			

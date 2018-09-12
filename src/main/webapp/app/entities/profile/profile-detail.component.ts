@@ -22,12 +22,14 @@ export class ProfileDetailComponent implements OnInit {
     profile: IProfile;
     profiles: IProfile[];
     loggedProfile: IProfile[];
+
     follows: IFollow[];
-    follow: IFollow;
+    private _follow: IFollow;
+
     currentAccount: any;
     isFollow: boolean;
     loggedProfileId: number;
-//    creationDate: string;
+    creationDate: string;
     isSaving: boolean;
 
     constructor(
@@ -42,12 +44,14 @@ export class ProfileDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
-            console.log('PROFILE: ', this.profile);
+            console.log('VIEWED-PROFILE: ', this.profile);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.myProfiles();
         });
+        this.isSaving = false;
+        this.follow = new Object();
     }
 
     private myProfiles() {
@@ -74,7 +78,7 @@ export class ProfileDetailComponent implements OnInit {
             this.loggedProfile.forEach(profile => {
                 this.loggedProfileId = profile.id;
             });
-            query['profileId.in'] = this.loggedProfileId;
+            query['followedId.in'] = this.loggedProfileId;
         }
         this.followService
             .query(query)
@@ -82,12 +86,15 @@ export class ProfileDetailComponent implements OnInit {
                     (res: HttpResponse<IFollow[]>) => {
                         this.follows = res.body;
                         this.isFollow = false;
+                        console.log('ATENCION!!!! LISTA.follows: ', this.follows);
+                        console.log('ATENCION!!!! this.profile.id: ', this.profile.id);
                         this.follows.forEach(follow => {
-                            if (follow.followingId === this.loggedProfileId) {
+                            if (follow.followingId === this.profile.id) {
                                 this.isFollow = true;
-                                console.log('BINGO!!!! Folllows PROFILE: ', this.isFollow);
+                                console.log('BINGO!!!! Folllows PROFILE isFollowed: ', this.isFollow);
                                 console.log('BINGO!!!! follow.followingId: ', follow.followingId);
-                                console.log('BINGO!!!! this.profile.id: ', this.loggedProfileId);
+                                console.log('BINGO 1 ! loggedProfileId FOLLOW-ED: ', this.loggedProfileId);
+                                console.log('BINGO!!!! Folllows PROFILE: ', follow);
                             }
                             console.log('NOOOO BINGO!!!! Folllows PROFILE: ', this.isFollow);
                         });
@@ -99,8 +106,7 @@ export class ProfileDetailComponent implements OnInit {
     following() {
         console.log('BINGO!!!! Folllow: ', this.follow);
         this.isSaving = true;
-//        this.follow = new Object();
-        this.follow.creationDate = moment();
+        this.follow.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         this.follow.followingId = this.profile.id;
         this.follow.followedId =  this.loggedProfileId;
         console.log('BINGO!!!! Folllow: ', this.follow);
@@ -114,10 +120,27 @@ export class ProfileDetailComponent implements OnInit {
     }
 
     unFollowing() {
-// tengo que localizar el id del registro a borrar y borrarlo. QUERY doble con   this.follow.followingId = this.profile.id;   this.follow.followedId =  this.loggedProfileId;
+        const query = {
+            };
+        if ( this.currentAccount.id != null ) {
+            query['followedId.in'] = this.loggedProfileId;
+            query['followingId.in'] = this.profile.id;
+        }
+        this.followService
+            .query(query)
+            .subscribe(
+                ( res: HttpResponse<IFollow[]> ) => {
+                    this.follows = res.body;
+                    console.log('BINGO!!!! Folllow RESPONDE: ', this.follow);
+                    this.followService
+                        .delete( this.follows[0].id )
+                        .subscribe( response => { } );
+                    this.previousState();
+                },
+                ( res: HttpErrorResponse ) => this.onError( res.message )
+            );
     }
-
-    // BOTONES DE BLOCK Y UNBLOCK USER que más tarde pasaremos a los mensajes, pero ahora se quedan en el PROFILE
+// BOTONES DE BLOCK Y UNBLOCK USER que más tarde pasaremos a los mensajes, pero ahora se quedan en el PROFILE
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
@@ -125,7 +148,7 @@ export class ProfileDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+//        this.previousState();
     }
 
     private onSaveError() {
@@ -146,5 +169,14 @@ export class ProfileDetailComponent implements OnInit {
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    get follow() {
+        return this._follow;
+    }
+
+    set follow(follow: IFollow) {
+        this._follow = follow;
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
     }
 }

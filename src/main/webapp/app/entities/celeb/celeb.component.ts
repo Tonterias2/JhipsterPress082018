@@ -127,7 +127,7 @@ export class CelebComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
-                    this.communitiesCelebs();
+                    this.myProfileCelebs();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -154,7 +154,7 @@ export class CelebComponent implements OnInit, OnDestroy {
             );
     }
 
-    private communitiesCelebs() {
+    private myProfileCelebs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

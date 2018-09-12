@@ -143,14 +143,15 @@
 				            <hr>
 				            <jhi-alert-error></jhi-alert-error>
 				            <dl class="row-md jh-entity-details">
-				            	<dt><span jhiTranslate="jhipsterPress08App.profile.bio">Bio</span></dt>
-				                <dd>
-				                    <span>{{profile.bio}}</span>
-				                </dd>
-				                
+				            				                
 				                <!-- Interests -->
 								<div class="g-mb-30">
 								  <h6 class="g-color-gray-dark-v1">
+   								    <button id="jh-create-entity" 
+									        class="btn btn-primary float-right jh-create-entity create-interest" 
+									        [routerLink]="['/interest']">
+										<fa-icon [icon]="'plus'"></fa-icon>
+									</button>
 								    <strong class="g-mr-5">Interests:</strong>
 								    <span  *ngFor="let interest of profile.interests">
 								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{interest.interestName}}</a>
@@ -162,24 +163,39 @@
 								<!-- Activities -->
 								<div class="g-mb-30">
 								  <h6 class="g-color-gray-dark-v1">
+ 	   								    <button id="jh-create-entity" 
+										        class="btn btn-primary float-right jh-create-entity create-interest" 
+										        [routerLink]="['/activity']">
+											<fa-icon [icon]="'plus'"></fa-icon>
+										</button>
 								    <strong class="g-mr-5">Activities:</strong>
 								    <span  *ngFor="let activity of profile.activities">
 								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{activity.activityName}}</a>
 								    </span>
 								  </h6>
 								</div>
-								<!-- End Interests -->
+								<!-- End Activities -->
 								
-								<!-- Interests -->
+								<!-- Celebs -->
 								<div class="g-mb-30">
 								  <h6 class="g-color-gray-dark-v1">
+ 	   								    <button id="jh-create-entity" 
+										        class="btn btn-primary float-right jh-create-entity create-interest" 
+										        [routerLink]="['/celeb']">
+											<fa-icon [icon]="'plus'"></fa-icon>
+										</button>
 								    <strong class="g-mr-5">Celebs:</strong>
 								    <span  *ngFor="let celeb of profile.celebs">
 								    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{celeb.celebName}}</a>
 								    </span>
 								  </h6>
 								</div>
-								<!-- End Interests -->
+								<!-- End Celebs -->
+				                
+				                <dt><span jhiTranslate="jhipsterPress08App.profile.bio">Bio</span></dt>
+				                <dd>
+				                    <span>{{profile.bio}}</span>
+				                </dd>
 				                
 				                <dt><span jhiTranslate="jhipsterPress08App.profile.birthdate">Birthdate</span></dt>
 				                <dd>

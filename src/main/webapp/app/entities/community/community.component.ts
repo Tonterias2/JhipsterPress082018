@@ -156,6 +156,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.communities = data;
+        console.log('COMMUNITIES: ', this.communities);
     }
 
     private onError(errorMessage: string) {

@@ -148,7 +148,7 @@ export class InterestComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        this.interestsMessages();
+                        this.myProfileInterests();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -178,7 +178,7 @@ export class InterestComponent implements OnInit, OnDestroy {
             );
     }
 
-    private interestsMessages() {
+    private myProfileInterests() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

@@ -3,7 +3,10 @@ package com.jhipsterpress.web.service.dto;
 import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Lob;
 
 /**
@@ -31,6 +34,12 @@ public class CommunityDTO implements Serializable {
     private Boolean isActive;
 
     private Long userId;
+    
+    private Set<CustomActivityDTO> activities;
+    
+    private Set<CustomCelebDTO> celebs;
+    
+    private Set<CustomInterestDTO> interests;
 
     public Long getId() {
         return id;
@@ -96,7 +105,31 @@ public class CommunityDTO implements Serializable {
         this.userId = userId;
     }
 
-    @Override
+    public Set<CustomActivityDTO> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(Set<CustomActivityDTO> activities) {
+		this.activities = activities;
+	}
+
+	public Set<CustomCelebDTO> getCelebs() {
+		return celebs;
+	}
+
+	public void setCelebs(Set<CustomCelebDTO> celebs) {
+		this.celebs = celebs;
+	}
+
+	public Set<CustomInterestDTO> getInterests() {
+		return interests;
+	}
+
+	public void setInterests(Set<CustomInterestDTO> interests) {
+		this.interests = interests;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -117,16 +150,11 @@ public class CommunityDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "CommunityDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", communityname='" + getCommunityname() + "'" +
-            ", communitydescription='" + getCommunitydescription() + "'" +
-            ", image='" + getImage() + "'" +
-            ", isActive='" + isIsActive() + "'" +
-            ", user=" + getUserId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "CommunityDTO [id=" + id + ", creationDate=" + creationDate + ", communityname=" + communityname
+				+ ", communitydescription=" + communitydescription + ", image=" + Arrays.toString(image)
+				+ ", imageContentType=" + imageContentType + ", isActive=" + isActive + ", userId=" + userId
+				+ ", activities=" + activities + ", celebs=" + celebs + ", interests=" + interests + "]";
+	}
 }
