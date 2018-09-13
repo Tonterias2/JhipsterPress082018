@@ -6,6 +6,8 @@ import { ProfileService } from 'app/entities/profile';
 import { IProfile } from 'app/shared/model/profile.model';
 import { FollowService } from '../follow/follow.service';
 import { IFollow } from 'app/shared/model/follow.model';
+import { IBlockuser } from 'app/shared/model/blockuser.model';
+import { BlockuserService } from '../blockuser/blockuser.service';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -26,8 +28,12 @@ export class ProfileDetailComponent implements OnInit {
     follows: IFollow[];
     private _follow: IFollow;
 
+    blockusers: IBlockuser[];
+    private _blockuser: IBlockuser;
+
     currentAccount: any;
-    isFollow: boolean;
+    isFollowing: boolean;
+    isBlocked: boolean;
     loggedProfileId: number;
     creationDate: string;
     isSaving: boolean;
@@ -37,6 +43,7 @@ export class ProfileDetailComponent implements OnInit {
             private principal: Principal,
             private profileService: ProfileService,
             private followService: FollowService,
+            private blockuserService: BlockuserService,
             private jhiAlertService: JhiAlertService,
             private activatedRoute: ActivatedRoute
             ) {}
@@ -48,13 +55,14 @@ export class ProfileDetailComponent implements OnInit {
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            this.myProfiles();
+            this.currentLoggedProfile();
         });
         this.isSaving = false;
         this.follow = new Object();
+        this.blockuser = new Object();
     }
 
-    private myProfiles() {
+    private currentLoggedProfile() {
         const query = {
             };
         if ( this.currentAccount.id  != null) {
@@ -65,82 +73,102 @@ export class ProfileDetailComponent implements OnInit {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.loggedProfile = res.body;
-                        this.profilesFollows();
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-    }
-
-    private profilesFollows() {
-        const query = {
-            };
-        if ( this.loggedProfile  != null) {
-            this.loggedProfile.forEach(profile => {
-                this.loggedProfileId = profile.id;
-            });
-            query['followedId.in'] = this.loggedProfileId;
-        }
-        this.followService
-            .query(query)
-            .subscribe(
-                    (res: HttpResponse<IFollow[]>) => {
-                        this.follows = res.body;
-                        this.isFollow = false;
-                        console.log('ATENCION!!!! LISTA.follows: ', this.follows);
-                        console.log('ATENCION!!!! this.profile.id: ', this.profile.id);
-                        this.follows.forEach(follow => {
-                            if (follow.followingId === this.profile.id) {
-                                this.isFollow = true;
-                                console.log('BINGO!!!! Folllows PROFILE isFollowed: ', this.isFollow);
-                                console.log('BINGO!!!! follow.followingId: ', follow.followingId);
-                                console.log('BINGO 1 ! loggedProfileId FOLLOW-ED: ', this.loggedProfileId);
-                                console.log('BINGO!!!! Folllows PROFILE: ', follow);
-                            }
-                            console.log('NOOOO BINGO!!!! Folllows PROFILE: ', this.isFollow);
+                        this.loggedProfile.forEach(profile => {
+                            this.loggedProfileId = profile.id;
                         });
+                        this.isFollower();
+                        this.isBlockUser();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
-    following() {
-        console.log('BINGO!!!! Folllow: ', this.follow);
+    private isFollower( ) {
+        this.isFollowing = false;
+        const query = {
+        };
+    if ( this.currentAccount.id != null ) {
+        query['followedId.in'] = this.loggedProfileId;
+        query['followingId.in'] = this.profile.id;
+    }
+    this.followService
+        .query(query)
+        .subscribe(
+            ( res: HttpResponse<IFollow[]> ) => {
+                this.follows = res.body;
+                if ( this.follows.length > 0) {
+                    this.isFollowing = true;
+                    return this.follows[0];
+                }
+            },
+            ( res: HttpErrorResponse ) => this.onError( res.message )
+        );
+    }
+
+    private following() {
         this.isSaving = true;
-        this.follow.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
+        this.follow.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
         this.follow.followingId = this.profile.id;
-        this.follow.followedId =  this.loggedProfileId;
-        console.log('BINGO!!!! Folllow: ', this.follow);
-        if ( this.follow.id !== undefined ) {
-            console.log( 'From SAVE()al UPDATE print FOLLOWS: ' );
-            this.subscribeToSaveResponse( this.followService.update( this.follow ) );
-        } else {
-            console.log( 'From SAVE()al UPDATE print FOLLOWS: ' );
+        this.follow.followedId = this.loggedProfileId;
+        if ( this.isFollowing === false ) {
             this.subscribeToSaveResponse( this.followService.create( this.follow ) );
+            this.isFollowing = true;
+            this.reload();
         }
     }
 
-    unFollowing() {
-        const query = {
-            };
-        if ( this.currentAccount.id != null ) {
-            query['followedId.in'] = this.loggedProfileId;
-            query['followingId.in'] = this.profile.id;
+    private unFollowing() {
+        if ( this.isFollowing === true ) {
+            this.followService
+                .delete( this.follows[0].id )
+                .subscribe( response => { } );
+            this.reload();
         }
-        this.followService
-            .query(query)
-            .subscribe(
-                ( res: HttpResponse<IFollow[]> ) => {
-                    this.follows = res.body;
-                    console.log('BINGO!!!! Folllow RESPONDE: ', this.follow);
-                    this.followService
-                        .delete( this.follows[0].id )
-                        .subscribe( response => { } );
-                    this.previousState();
-                },
-                ( res: HttpErrorResponse ) => this.onError( res.message )
-            );
     }
 // BOTONES DE BLOCK Y UNBLOCK USER que más tarde pasaremos a los mensajes, pero ahora se quedan en el PROFILE
+
+    private isBlockUser( ) {
+        this.isBlocked = false;
+        const query = {
+        };
+    if ( this.currentAccount.id != null ) {
+        query['blockeduserId.in'] = this.loggedProfileId;
+        query['blockinguserId.in'] = this.profile.id;
+    }
+    this.blockuserService
+        .query(query)
+        .subscribe(
+            ( res: HttpResponse<IBlockuser[]> ) => {
+                this.blockusers = res.body;
+                if ( this.blockusers.length > 0) {
+                    this.isBlocked = true;
+                    return this.blockusers[0];
+                }
+            },
+            ( res: HttpErrorResponse ) => this.onError( res.message )
+        );
+    }
+
+    private blocking() {
+        this.isSaving = true;
+        this.blockuser.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
+        this.blockuser.blockinguserId = this.profile.id;
+        this.blockuser.blockeduserId = this.loggedProfileId;
+        if ( this.isBlocked === false ) {
+            this.subscribeToSaveResponse( this.blockuserService.create( this.blockuser ) );
+            this.isBlocked = true;
+            this.reload();
+        }
+    }
+
+    private unBlocking() {
+        if ( this.isBlocked === true ) {
+            this.blockuserService
+                .delete( this.blockusers[0].id )
+                .subscribe( response => { } );
+            this.reload();
+        }
+    }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
@@ -148,7 +176,7 @@ export class ProfileDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-//        this.previousState();
+        this.previousState();
     }
 
     private onSaveError() {
@@ -163,6 +191,9 @@ export class ProfileDetailComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
+    reload() {
+        window.location.reload();
+    }
     previousState() {
         window.history.back();
     }
@@ -177,6 +208,15 @@ export class ProfileDetailComponent implements OnInit {
 
     set follow(follow: IFollow) {
         this._follow = follow;
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
+    }
+
+    get blockuser() {
+        return this._blockuser;
+    }
+
+    set blockuser(blockuser: IBlockuser) {
+        this._blockuser = blockuser;
         this.creationDate = moment().format(DATE_TIME_FORMAT);
     }
 }

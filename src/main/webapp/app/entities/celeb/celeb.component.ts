@@ -172,13 +172,13 @@ export class CelebComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        this.myProfilesCelebs();
+                        this.myProfileCelebs();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
-    private myProfilesCelebs() {
+    private myProfileCelebs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

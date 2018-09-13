@@ -127,14 +127,25 @@
 				    <div class="col-8">
 				        <div *ngIf="profile">
 				            <h2>
-				            <button *ngIf="isFollow === true" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="unFollowing()">
+				            <button *ngIf="isFollowing === true" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="unFollowing()">
 							    <span jhiTranslate="jhipsterPress08App.profile.unfollow">
 							    UnFollow
 							    </span>
 							</button>
-							<button *ngIf="isFollow === false" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="following()">
+							<button *ngIf="isFollowing === false" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="following()">
 							    <span jhiTranslate="jhipsterPress08App.profile.follow">
 							    Follow
+							    </span>
+							</button>
+							
+							<button *ngIf="isBlocked === true" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="unBlocking()">
+							    <span jhiTranslate="jhipsterPress08App.profile.unblockuser">
+							    UnBlockUser
+							    </span>
+							</button>
+							<button *ngIf="isBlocked === false" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="blocking()">
+							    <span jhiTranslate="jhipsterPress08App.profile.blockuser">
+							    BlockUser
 							    </span>
 							</button>
 				            <span jhiTranslate="jhipsterPress08App.profile.detail.title">Profile</span> 

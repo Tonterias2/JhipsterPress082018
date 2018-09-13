@@ -31,6 +31,8 @@
             "ethnicGroup": "Ethnic Group",
             "follow": "Follow",
             "unfollow": "UnFollow",
+            "blockuser": "BlockUser",
+            "unblockuser": "UnBlockUser",
             "studies": "Studies",
             "sibblings": "Sibblings",
             "eyes": "Eyes",
