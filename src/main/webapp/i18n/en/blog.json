@@ -15,7 +15,8 @@
                 "question": "Are you sure you want to delete Blog {{ id }}?"
             },
             "detail": {
-                "title": "Blog"
+                "title": "Blog",
+                "blogposts": "Blog's Posts"
             },
             "creationDate": "Creation Date",
             "title": "Title",

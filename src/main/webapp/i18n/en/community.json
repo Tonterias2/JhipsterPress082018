@@ -15,7 +15,8 @@
                 "question": "Are you sure you want to delete Community {{ id }}?"
             },
             "detail": {
-                "title": "Community"
+                "title": "Community",
+                "cblog": "Communities' Blogs"
             },
             "creationDate": "Creation Date",
             "communityname": "Communityname",

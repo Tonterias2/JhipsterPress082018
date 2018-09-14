@@ -15,7 +15,8 @@
                 "question": "¿Seguro que quiere eliminar Community {{ id }}?"
             },
             "detail": {
-                "title": "Community"
+                "title": "Community",
+                "cblog": "Blogs de la Comunidad"
             },
             "creationDate": "Creation Date",
             "communityname": "Communityname",

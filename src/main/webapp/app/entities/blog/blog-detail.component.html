@@ -11,8 +11,35 @@
 	        <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
 	        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
 	        <p class="g-font-size-13">{{blog.creationDate | date:'medium'}}</p>
-	
-	
+			
+				<h3><span jhiTranslate="jhipsterPress08App.blog.detail.blogposts">Blogs´ Posts</span></h3>
+		           
+				<div class="table-responsive" *ngIf="posts">
+			        <table class="table table-striped">
+			            <thead>
+			            <th><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+			            <th><span jhiTranslate="jhipsterPress08App.post.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+			            <th><span jhiTranslate="jhipsterPress08App.post.headline">Headline</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+			            <th><span jhiTranslate="jhipsterPress08App.post.image">Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+			            <th></th>
+			            </tr>
+			            </thead>
+			            <tbody>
+			            <tr *ngFor="let post of posts ;trackBy: trackId">
+			                <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.id}}</a></td>
+			                <td>{{post.creationDate | date:'medium'}}</td>
+			                <td>{{post.headline}}</td>
+			                <td>
+			                    <a *ngIf="post.image" (click)="openFile(post.imageContentType, post.image)">
+			                        <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-height: 30px;" alt="post image"/>
+			                    </a>
+			                    <span *ngIf="post.image">{{post.imageContentType}}, {{byteSize(post.image)}}</span>
+			                </td>
+			            </tr>
+			            </tbody>
+			        </table>
+			    </div>
+		    
 	            <button type="submit"
 	                    (click)="previousState()"
 	                    class="btn btn-info">
@@ -27,57 +54,4 @@
 	        </div>
 	    </div>
 	</div>
-</div>
-
-
-
-
-
-ESTILO JHIPSTER -------------
-
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="blog">
-            <h2><span jhiTranslate="jhipsterPress08App.blog.detail.title">Blog</span> {{blog.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="jhipsterPress08App.blog.creationDate">Creation Date</span></dt>
-                <dd>
-                    <span>{{blog.creationDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.blog.title">Title</span></dt>
-                <dd>
-                    <span>{{blog.title}}</span>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.blog.image">Image</span></dt>
-                <dd>
-                    <div *ngIf="blog.image">
-                        <a (click)="openFile(blog.imageContentType, blog.image)">
-                            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
-                        </a>
-                        {{blog.imageContentType}}, {{byteSize(blog.image)}}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="jhipsterPress08App.blog.community">Community</span></dt>
-                <dd>
-                    <div *ngIf="blog.communityId">
-                        <a [routerLink]="['/community', blog.communityId, 'view']">{{blog.communityId}}</a>
-                    </div>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/blog', blog.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
-    </div>
 </div>
