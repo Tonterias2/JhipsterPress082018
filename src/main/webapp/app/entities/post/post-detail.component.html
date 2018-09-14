@@ -242,11 +242,16 @@
 		                  </form>
 		  -->
 						<!-- ADDED STUFF Comment -->
+						
+						!--
+						
 						<div class="row justify-content-center">
 						    <div class="col-8">
 						        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 						            <div>
 						                <jhi-alert-error></jhi-alert-error>
+						                
+						                -->
 						                <!--
 						                <div class="form-group" [hidden]="!comment.id">
 						                    <label for="id" jhiTranslate="global.field.id">ID</label>
@@ -254,10 +259,11 @@
 						                        [(ngModel)]="comment.id" readonly />
 						                </div>
 						                -->
+						                !--
 						                <div class="form-group">
 						                    <label class="form-control-label" jhiTranslate="jhipsterPress08App.comment.commentText" for="field_commentText">Comment Text</label>
 						                    <input type="text" class="form-control" name="commentText" id="field_commentText"
-						                        [(ngModel)]="_comment.commentText" required minlength="2" maxlength="65000"/>
+						                        [(ngModel)]="comment.commentText" required minlength="2" maxlength="65000"/>
 						                    <div [hidden]="!(editForm.controls.commentText?.dirty && editForm.controls.commentText?.invalid)">
 						                        <small class="form-text text-danger"
 						                        [hidden]="!editForm.controls.commentText?.errors?.required" jhiTranslate="entity.validation.required">
@@ -286,6 +292,10 @@
 						        </form>
 						    </div>
 						</div>
+						
+						-->
+						
+						
 						<!-- End ADDED STUFF Comment --> 
 		                </div>
 		                <!-- End Add Comment -->

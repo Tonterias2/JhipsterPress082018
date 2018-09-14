@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { ICommunity } from 'app/shared/model/community.model';
+import { IBlog } from 'app/shared/model/blog.model';
+import { BlogService } from 'app/entities/blog';
 
 @Component({
     selector: 'jhi-community-detail',
@@ -10,13 +13,38 @@ import { ICommunity } from 'app/shared/model/community.model';
 })
 export class CommunityDetailComponent implements OnInit {
     community: ICommunity;
+    blogs: IBlog[];
 
-    constructor(private dataUtils: JhiDataUtils, private activatedRoute: ActivatedRoute) {}
+    constructor(
+        private blogService: BlogService,
+        private dataUtils: JhiDataUtils,
+        private jhiAlertService: JhiAlertService,
+        private activatedRoute: ActivatedRoute
+        ) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ community }) => {
             this.community = community;
+            this.communitiesBlogs( community );
+            console.log('ngOnInit print this.community: ', this.community);
         });
+    }
+
+    private communitiesBlogs(community) {
+        const query = {
+            };
+        if ( this.community != null) {
+            query['communityId.in'] = community.id;
+        }
+        this.blogService
+            .query(query)
+            .subscribe(
+            (res: HttpResponse<IBlog[]>) => {
+                this.blogs = res.body;
+                console.log('communitiesBlogs print this.blogs: ', this.blogs);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     byteSize(field) {
@@ -28,5 +56,9 @@ export class CommunityDetailComponent implements OnInit {
     }
     previousState() {
         window.history.back();
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }
