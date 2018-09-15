@@ -74,12 +74,12 @@ export class PostDetailComponent implements OnInit {
 //                        this.id = this.profiles[0].id;
                         this.comment.profileId = this.profiles[0].id;
                         console.log('save My this.comment.profileId: ', this.comment.profileId);
+                        this.comment.isOffensive = false;
+                        console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
+                        this.subscribeToSaveResponse(this.commentService.create(this.comment));
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-            this.comment.isOffensive = false;
-            console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
-            this.subscribeToSaveResponse(this.commentService.create(this.comment));
         }
     }
 
@@ -127,6 +127,8 @@ export class PostDetailComponent implements OnInit {
         this._comment = comment;
 //        this._comment.commentText = '';
         this.creationDate = moment(comment.creationDate).format(DATE_TIME_FORMAT);
+        this._comment.id = undefined;
+        console.log('set comment - PRINT: this._comment: ', this._comment);
     }
 
     byteSize(field) {
