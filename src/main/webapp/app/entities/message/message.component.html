@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.message.home.title">Messages</span>
 
-        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myMessagesCommunities()">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myMessagesCommunities()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.message.home.myLabel">
             My Messages

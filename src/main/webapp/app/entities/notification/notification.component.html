@@ -1,7 +1,8 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterPress08App.notification.home.title">Notifications</span>
-        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myNotifications()">
+        
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myNotifications()">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span  jhiTranslate="jhipsterPress08App.notification.home.myLabel">
             My Notifications

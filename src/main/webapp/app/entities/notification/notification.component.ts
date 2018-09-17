@@ -102,12 +102,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.owner = account.id;
+//          console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
+//          console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
             this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
                 this.isAdmin = result;
+                if ( this.isAdmin === true ) {
+                    this.loadAll();
+                } else {
+                    this.myNotifications();
+                }
             });
         });
         this.registerChangeInNotifications();

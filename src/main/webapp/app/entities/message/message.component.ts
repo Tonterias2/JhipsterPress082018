@@ -111,12 +111,18 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.owner = account.id;
+//            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
+//            console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
             this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
                 this.isAdmin = result;
+                if ( this.isAdmin === true ) {
+                    this.loadAll();
+                } else {
+                    this.myMessagesCommunities();
+                }
             });
         });
         this.registerChangeInMessages();
@@ -143,6 +149,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     private myMessagesCommunities() {
+//        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -236,9 +243,9 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.totalItems = data.length;
         this.queryCount = this.totalItems;
         this.messages = data;
-        console.log('MESSAGES', this.messages);
-        console.log('OWNER', this.owner);
-        console.log('ISADMIN', this.isAdmin);
+        console.log('CONSOLOG: M:paginateFollows & O: this.messages : ',  this.messages);
+        console.log('CONSOLOG: M:paginateFollows & O: this.owner : ',  this.owner);
+        console.log('CONSOLOG: M:paginateFollows & O: this.isAdmin : ',  this.isAdmin);
     }
 
     private onError(errorMessage: string) {

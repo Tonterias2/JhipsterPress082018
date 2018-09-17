@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IProfile } from 'app/shared/model/profile.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProfileService } from './profile.service';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-profile',
@@ -145,20 +145,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if ( this.currentAccount.id  != null) {
             query['userId.equals'] = this.currentAccount.id;
         }
-//        console.log('Getting into the observalbe:');
         this.profileService
             .query(query)
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         if ( res.body.length !== 0 ) {
                             this.hasProfile = true;
-//                            console.log('hasProfile1???:', this.hasProfile);
-//                            console.log('res.body???:', res.body);
+//                          console.log('CONSOLOG: M:myProfile & O: res.body:', res.body);
                         }
                         this.paginateProfiles(res.body, res.headers);
                     } , (res: HttpErrorResponse) => this.onError(res.message)
             );
-//        console.log('hasProfile2???:', this.hasProfile);
+//          console.log('CONSOLOG: M:myProfile & O: this.hasProfile : ', this.hasProfile);
     }
 
     private paginateProfiles(data: IProfile[], headers: HttpHeaders) {
@@ -166,9 +164,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.profiles = data;
-        console.log('OWNER', this.owner);
-        console.log('isADMIN', this.isAdmin);
-        console.log('PROFILES:', this.profiles);
+        console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateProfiles & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateProfiles & O: this.profiles : ', this.profiles);
     }
 
     private onError(errorMessage: string) {
