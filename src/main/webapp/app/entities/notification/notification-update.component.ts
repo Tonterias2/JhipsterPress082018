@@ -77,6 +77,7 @@ export class NotificationUpdateComponent implements OnInit {
     trackUserById(index: number, item: IUser) {
         return item.id;
     }
+
     get notification() {
         return this._notification;
     }

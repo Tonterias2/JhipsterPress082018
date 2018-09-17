@@ -8,6 +8,9 @@ import { FollowService } from '../follow/follow.service';
 import { IFollow } from 'app/shared/model/follow.model';
 import { IBlockuser } from 'app/shared/model/blockuser.model';
 import { BlockuserService } from '../blockuser/blockuser.service';
+import { INotification } from 'app/shared/model/notification.model';
+import { NotificationService } from '../notification/notification.service';
+// import { IUser, UserService } from 'app/core';
 
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -31,6 +34,11 @@ export class ProfileDetailComponent implements OnInit {
     blockusers: IBlockuser[];
     private _blockuser: IBlockuser;
 
+    userId: number;
+    private _notification: INotification;
+    notificationDate: string;
+    notificationReason: any;
+
     currentAccount: any;
     isFollowing: boolean;
     isBlocked: boolean;
@@ -44,6 +52,7 @@ export class ProfileDetailComponent implements OnInit {
             private profileService: ProfileService,
             private followService: FollowService,
             private blockuserService: BlockuserService,
+            private notificationService: NotificationService,
             private jhiAlertService: JhiAlertService,
             private activatedRoute: ActivatedRoute
             ) {}
@@ -51,7 +60,8 @@ export class ProfileDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ profile }) => {
             this.profile = profile;
-            console.log('VIEWED-PROFILE: ', this.profile);
+            this.userId = profile.userId;
+            console.log('CONSOLOG: M:ngOnInit & O: this.profile : ', this.profile);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
@@ -111,7 +121,10 @@ export class ProfileDetailComponent implements OnInit {
         this.follow.followingId = this.profile.id;
         this.follow.followedId = this.loggedProfileId;
         if ( this.isFollowing === false ) {
+            console.log('CONSOLOG: M:following & O: this.follow : ', this.follow);
             this.subscribeToSaveResponse( this.followService.create( this.follow ) );
+            this.notificationReason = 'FOLLOWING';
+            this.createNotification( this.notificationReason );
             this.isFollowing = true;
             this.reload();
         }
@@ -119,10 +132,35 @@ export class ProfileDetailComponent implements OnInit {
 
     private unFollowing() {
         if ( this.isFollowing === true ) {
+            this.isFollower();
+            console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
             this.followService
                 .delete( this.follows[0].id )
-                .subscribe( response => { } );
+                .subscribe( response => {
+                    this.notificationReason = 'UNFOLLOWING';
+                    this.createNotification( this.notificationReason );
+                } );
             this.reload();
+        }
+    }
+
+    private createNotification(notificationReason) {
+        this.notification = new Object();
+        console.log('CONSOLOG: M:createNotification & O: this.notification : ', this.notification);
+        console.log('CONSOLOG: M:createNotification & O: this.userId : ', this.userId);
+        this.isSaving = true;
+        this.notification.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
+        this.notification.notificationDate = moment( this.creationDate, DATE_TIME_FORMAT );
+        this.notification.notificationReason = notificationReason;
+//        this.notification.notificationText = notificationReason + ': ' + this.profile.lastName + ' ' + profile.lastName;
+        this.notification.notificationText = notificationReason;
+        this.notification.isDeliverd = false;
+        this.notification.userId = this.userId;
+        if (this.notification.id !== undefined) {
+            this.subscribeToSaveResponse2(this.notificationService.update(this.notification));
+        } else {
+            console.log('CONSOLOG: M:createNotification & O: this.notification: ', this.notification);
+            this.subscribeToSaveResponse2(this.notificationService.create(this.notification));
         }
     }
 // BOTONES DE BLOCK Y UNBLOCK USER que más tarde pasaremos a los mensajes, pero ahora se quedan en el PROFILE
@@ -174,6 +212,10 @@ export class ProfileDetailComponent implements OnInit {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
+    private subscribeToSaveResponse2(result: Observable<HttpResponse<INotification>>) {
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
     private onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
@@ -218,5 +260,16 @@ export class ProfileDetailComponent implements OnInit {
     set blockuser(blockuser: IBlockuser) {
         this._blockuser = blockuser;
         this.creationDate = moment().format(DATE_TIME_FORMAT);
+    }
+
+    get notification() {
+        return this._notification;
+    }
+
+    set notification(notification: INotification) {
+        this._notification = notification;
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
+        this.notificationDate = moment().format(DATE_TIME_FORMAT);
+        this.notificationReason = '';
     }
 }
