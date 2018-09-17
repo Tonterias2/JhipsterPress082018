@@ -46,11 +46,11 @@ export class PostDetailComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
-            console.log('ngOnInit - POST#', this.post);
+//            console.log('ngOnInit - POST#', this.post);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            console.log('PRINCIPAL: ', this.currentAccount);
+//            console.log('PRINCIPAL: ', this.currentAccount);
         });
         this.comment = new Object();
         this.comment.commentText = '';
@@ -58,24 +58,18 @@ export class PostDetailComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        console.log('save My comment.id: ', this.comment.id);
         this.comment.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.comment.id !== undefined) {
             this.subscribeToSaveResponse(this.commentService.update(this.comment));
         } else {
-            console.log('READY 1 SAVE() print COMMENT1: ', this.comment);
             this.comment.postId = this.post.id;
             this.loggedProfile()
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        console.log('save My comment.profileId: ', this.profiles[0].id);
-                        console.log('save My comment.profileId: ', this.profiles);
-//                        this.id = this.profiles[0].id;
                         this.comment.profileId = this.profiles[0].id;
-                        console.log('save My this.comment.profileId: ', this.comment.profileId);
                         this.comment.isOffensive = false;
-                        console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
+//                        console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
                         this.subscribeToSaveResponse(this.commentService.create(this.comment));
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -84,7 +78,6 @@ export class PostDetailComponent implements OnInit {
     }
 
     private loggedProfile() {
-        console.log('ENTRO loggedProfile this.currentAccount.id: ', this.currentAccount.id);
         const query = {
             };
         if ( this.currentAccount.id  != null) {
@@ -125,10 +118,9 @@ export class PostDetailComponent implements OnInit {
 
     set comment(comment: IComment) {
         this._comment = comment;
-//        this._comment.commentText = '';
         this.creationDate = moment(comment.creationDate).format(DATE_TIME_FORMAT);
-        this._comment.id = undefined;
-        console.log('set comment - PRINT: this._comment: ', this._comment);
+//        this._comment.id = undefined;
+//        console.log('set comment - PRINT: this._comment: ', this._comment);
     }
 
     byteSize(field) {
@@ -139,6 +131,6 @@ export class PostDetailComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
     previousState() {
-//        window.history.back();
+        window.history.back();
     }
 }

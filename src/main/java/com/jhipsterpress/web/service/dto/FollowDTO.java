@@ -2,7 +2,10 @@ package com.jhipsterpress.web.service.dto;
 
 import java.time.Instant;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Follow entity.
@@ -20,7 +23,21 @@ public class FollowDTO implements Serializable {
     private Long followedId;
 
     private Long followingId;
+    
+    @Lob
+    private byte[] cfollowingImage;
+    private String cfollowingImageContentType;
+    
+    @Lob
+    private byte[] followingImage;
+    private String followingImageContentType;
 
+    private String cfollowingCommunityname;
+    
+    private String followingUserFirstName;
+    
+    private String followingUserLastName;
+    
     public Long getId() {
         return id;
     }
@@ -69,7 +86,63 @@ public class FollowDTO implements Serializable {
         this.followingId = profileId;
     }
 
-    @Override
+	public byte[] getCfollowingImage() {
+		return cfollowingImage;
+	}
+
+	public void setCfollowingImage(byte[] cfollowingImage) {
+		this.cfollowingImage = cfollowingImage;
+	}
+
+	public String getCfollowingImageContentType() {
+		return cfollowingImageContentType;
+	}
+
+	public void setCfollowingImageContentType(String cfollowingImageContentType) {
+		this.cfollowingImageContentType = cfollowingImageContentType;
+	}
+
+	public byte[] getFollowingImage() {
+		return followingImage;
+	}
+
+	public void setFollowingImage(byte[] followingImage) {
+		this.followingImage = followingImage;
+	}
+
+	public String getFollowingImageContentType() {
+		return followingImageContentType;
+	}
+
+	public void setFollowingImageContentType(String followingImageContentType) {
+		this.followingImageContentType = followingImageContentType;
+	}
+
+	public String getCfollowingCommunityname() {
+		return cfollowingCommunityname;
+	}
+
+	public void setCfollowingCommunityname(String cfollowingCommunityname) {
+		this.cfollowingCommunityname = cfollowingCommunityname;
+	}
+
+	public String getFollowingUserFirstName() {
+		return followingUserFirstName;
+	}
+
+	public void setFollowingUserFirstName(String followingUserFirstName) {
+		this.followingUserFirstName = followingUserFirstName;
+	}
+
+	public String getFollowingUserLastName() {
+		return followingUserLastName;
+	}
+
+	public void setFollowingUserLastName(String followingUserLastName) {
+		this.followingUserLastName = followingUserLastName;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -90,15 +163,14 @@ public class FollowDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "FollowDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", cfollowed=" + getCfollowedId() +
-            ", cfollowing=" + getCfollowingId() +
-            ", followed=" + getFollowedId() +
-            ", following=" + getFollowingId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "FollowDTO [id=" + id + ", creationDate=" + creationDate + ", cfollowedId=" + cfollowedId
+				+ ", cfollowingId=" + cfollowingId + ", followedId=" + followedId + ", followingId=" + followingId
+				+ ", cfollowingImage=" + Arrays.toString(cfollowingImage) + ", cfollowingImageContentType="
+				+ cfollowingImageContentType + ", followingImage=" + Arrays.toString(followingImage)
+				+ ", followingImageContentType=" + followingImageContentType + ", cfollowingCommunityname="
+				+ cfollowingCommunityname + ", followingUserFirstName=" + followingUserFirstName
+				+ ", followingUserLastName=" + followingUserLastName + "]";
+	}
 }

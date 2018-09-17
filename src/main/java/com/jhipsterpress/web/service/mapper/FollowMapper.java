@@ -8,13 +8,20 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity Follow and its DTO FollowDTO.
  */
-@Mapper(componentModel = "spring", uses = {CommunityMapper.class, ProfileMapper.class})
+@Mapper(componentModel = "spring", uses = {CommunityMapper.class, ProfileMapper.class, UserMapper.class})
 public interface FollowMapper extends EntityMapper<FollowDTO, Follow> {
 
     @Mapping(source = "cfollowed.id", target = "cfollowedId")
     @Mapping(source = "cfollowing.id", target = "cfollowingId")
+    @Mapping(source = "cfollowing.image", target = "cfollowingImage")
+    @Mapping(source = "cfollowing.imageContentType", target = "cfollowingImageContentType")
+    @Mapping(source = "cfollowing.communityname", target = "cfollowingCommunityname")
     @Mapping(source = "followed.id", target = "followedId")
     @Mapping(source = "following.id", target = "followingId")
+    @Mapping(source = "following.image", target = "followingImage")
+    @Mapping(source = "following.imageContentType", target = "followingImageContentType")
+    @Mapping(source = "following.user.firstName", target = "followingUserFirstName")
+    @Mapping(source = "following.user.lastName", target = "followingUserLastName")
     FollowDTO toDto(Follow follow);
 
     @Mapping(source = "cfollowedId", target = "cfollowed")

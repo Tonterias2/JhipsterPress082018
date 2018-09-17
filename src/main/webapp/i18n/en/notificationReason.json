@@ -2,12 +2,12 @@
     "jhipsterPress08App": {
         "NotificationReason" : {
             "null": "",
-            "FOLLOWING": "FOLLOWING",
-            "UNFOLLOWING": "UNFOLLOWING",
-            "PROPOSAL_RELEASED": "PROPOSAL_RELEASED",
-            "FOLLOWER_STATUS": "FOLLOWER_STATUS",
-            "AUTHORIZE_PARTY_FOLLOWER": "AUTHORIZE_PARTY_FOLLOWER",
-            "UNAUTHORIZE_PARTY_FOLLOWER": "UNAUTHORIZE_PARTY_FOLLOWER"
+            "FOLLOWING": "New Follower",
+            "UNFOLLOWING": "Unfollow",
+            "PROPOSAL_RELEASED": "Proposal Released",
+            "FOLLOWER_STATUS": "Follower Status",
+            "AUTHORIZE_PARTY_FOLLOWER": "Authorize Communtiy Follower",
+            "UNAUTHORIZE_PARTY_FOLLOWER": "Authorize Communtiy Follower"
         }
     }
 }

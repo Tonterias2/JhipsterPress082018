@@ -138,6 +138,7 @@ export class FollowComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.follows = data;
+        console.log('CONSOLOG: M:paginateFollows & O: this.follows : ', this.follows);
     }
 
     private onError(errorMessage: string) {

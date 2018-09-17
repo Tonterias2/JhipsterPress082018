@@ -13,8 +13,10 @@ public interface BlockuserMapper extends EntityMapper<BlockuserDTO, Blockuser> {
 
     @Mapping(source = "cblockeduser.id", target = "cblockeduserId")
     @Mapping(source = "cblockinguser.id", target = "cblockinguserId")
+    @Mapping(source = "cblockinguser.image", target = "cblockinguserImage")
     @Mapping(source = "blockeduser.id", target = "blockeduserId")
     @Mapping(source = "blockinguser.id", target = "blockinguserId")
+    @Mapping(source = "blockinguser.image", target = "blockinguserImage")
     BlockuserDTO toDto(Blockuser blockuser);
 
     @Mapping(source = "cblockeduserId", target = "cblockeduser")

@@ -2,7 +2,10 @@ package com.jhipsterpress.web.service.dto;
 
 import java.time.Instant;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
+
+import javax.persistence.Lob;
 
 /**
  * A DTO for the Blockuser entity.
@@ -20,6 +23,12 @@ public class BlockuserDTO implements Serializable {
     private Long blockeduserId;
 
     private Long blockinguserId;
+    
+    @Lob
+    private byte[] cblockinguserImage;
+    
+    @Lob
+    private byte[] blockinguserImage;
 
     public Long getId() {
         return id;
@@ -69,7 +78,23 @@ public class BlockuserDTO implements Serializable {
         this.blockinguserId = profileId;
     }
 
-    @Override
+    public byte[] getCblockinguserImage() {
+		return cblockinguserImage;
+	}
+
+	public void setCblockinguserImage(byte[] cblockinguserImage) {
+		this.cblockinguserImage = cblockinguserImage;
+	}
+
+	public byte[] getBlockinguserImage() {
+		return blockinguserImage;
+	}
+
+	public void setBlockinguserImage(byte[] blockinguserImage) {
+		this.blockinguserImage = blockinguserImage;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -90,15 +115,11 @@ public class BlockuserDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "BlockuserDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", cblockeduser=" + getCblockeduserId() +
-            ", cblockinguser=" + getCblockinguserId() +
-            ", blockeduser=" + getBlockeduserId() +
-            ", blockinguser=" + getBlockinguserId() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "BlockuserDTO [id=" + id + ", creationDate=" + creationDate + ", cblockeduserId=" + cblockeduserId
+				+ ", cblockinguserId=" + cblockinguserId + ", blockeduserId=" + blockeduserId + ", blockinguserId="
+				+ blockinguserId + ", cblockinguserImage=" + Arrays.toString(cblockinguserImage)
+				+ ", blockinguserImage=" + Arrays.toString(blockinguserImage) + "]";
+	}
 }
