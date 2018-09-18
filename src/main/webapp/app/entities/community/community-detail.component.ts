@@ -14,6 +14,8 @@ import { FollowService } from '../follow/follow.service';
 import { IFollow } from 'app/shared/model/follow.model';
 import { ProfileService } from 'app/entities/profile';
 import { IProfile } from 'app/shared/model/profile.model';
+import { INotification } from 'app/shared/model/notification.model';
+import { NotificationService } from '../notification/notification.service';
 
 @Component({
     selector: 'jhi-community-detail',
@@ -37,10 +39,16 @@ export class CommunityDetailComponent implements OnInit {
     creationDate: string;
     isSaving: boolean;
 
+    userId: number;
+    private _notification: INotification;
+    notificationDate: string;
+    notificationReason: any;
+
     constructor(
         private blogService: BlogService,
         private followService: FollowService,
         private profileService: ProfileService,
+        private notificationService: NotificationService,
         private dataUtils: JhiDataUtils,
         private principal: Principal,
         private jhiAlertService: JhiAlertService,
@@ -51,12 +59,14 @@ export class CommunityDetailComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ community }) => {
             this.community = community;
             this.communitiesBlogs( community );
-            console.log('ngOnInit print this.community: ', this.community);
+            this.userId = community.userId;
+            console.log('CONSOLOG: M:ngOnInit & O: this.community : ', this.community);
         });
-        this.activatedRoute.data.subscribe(({ profile }) => {
-            this.profile = profile;
-            console.log('VIEWED-PROFILE: ', this.profile);
-        });
+//        this.activatedRoute.data.subscribe(({ profile }) => {
+//            this.profile = profile;
+//            this.userId = profile.userId;
+//            console.log('CONSOLOG: M:ngOnInit & O: this.profile : ', this.profile);
+//        });
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.currentLoggedProfile();
@@ -76,7 +86,7 @@ export class CommunityDetailComponent implements OnInit {
             .subscribe(
             (res: HttpResponse<IBlog[]>) => {
                 this.blogs = res.body;
-                console.log('communitiesBlogs print this.blogs: ', this.blogs);
+                console.log('CONSOLOG: M:communitiesBlogs & O: this.blogs : ', this.blogs);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -122,7 +132,7 @@ export class CommunityDetailComponent implements OnInit {
             },
             ( res: HttpErrorResponse ) => this.onError( res.message )
         );
-    console.log('isFollower!!! - this.isFollowing', this.isFollowing);
+    console.log('CONSOLOG: M:isFollower & O: this.isFollowing : ', this.isFollowing);
     }
 
     private following() {
@@ -131,24 +141,55 @@ export class CommunityDetailComponent implements OnInit {
         this.follow.followedId = this.loggedProfileId;
         this.follow.cfollowingId = this.community.id;
         if ( this.isFollowing === false ) {
-            console.log('following!!! - this.follow', this.follow);
+            console.log('CONSOLOG: M:following & O: this.follow : ', this.follow);
             this.subscribeToSaveResponse( this.followService.create( this.follow ) );
+            this.notificationReason = 'FOLLOWING';
+            this.createNotification( this.notificationReason );
             this.isFollowing = true;
-            this.reload();
+//            this.reload();
         }
     }
 
     private unFollowing() {
         if ( this.isFollowing === true ) {
+            this.isFollower();
+            console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
             this.followService
                 .delete( this.follows[0].id )
-                .subscribe( response => { } );
-            this.reload();
+                .subscribe( response => {
+                    this.notificationReason = 'UNFOLLOWING';
+                    this.createNotification( this.notificationReason );
+                } );
+//            this.reload();
+        }
+    }
+
+    private createNotification( notificationReason ) {
+        this.notification = new Object();
+        console.log( 'CONSOLOG: M:createNotification & O: this.notification : ', this.notification );
+        console.log( 'CONSOLOG: M:createNotification & O: this.userId : ', this.userId );
+        this.isSaving = true;
+        this.notification.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
+        this.notification.notificationDate = moment( this.creationDate, DATE_TIME_FORMAT );
+        this.notification.notificationReason = notificationReason;
+        //        this.notification.notificationText = notificationReason + ': ' + this.profile.lastName + ' ' + profile.lastName;
+        this.notification.notificationText = notificationReason;
+        this.notification.isDeliverd = false;
+        this.notification.userId = this.userId;
+        if ( this.notification.id !== undefined ) {
+            this.subscribeToSaveResponse2( this.notificationService.update( this.notification ) );
+        } else {
+            console.log( 'CONSOLOG: M:createNotification & O: this.notification: ', this.notification );
+            this.subscribeToSaveResponse2( this.notificationService.create( this.notification ) );
         }
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse2(result: Observable<HttpResponse<INotification>>) {
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess() {
@@ -169,11 +210,11 @@ export class CommunityDetailComponent implements OnInit {
     }
 
     previousState() {
-        window.history.back();
+//        window.history.back();
     }
 
     reload() {
-        window.location.reload();
+//        window.location.reload();
     }
 
     private onError(errorMessage: string) {
@@ -187,5 +228,16 @@ export class CommunityDetailComponent implements OnInit {
     set follow(follow: IFollow) {
         this._follow = follow;
         this.creationDate = moment().format(DATE_TIME_FORMAT);
+    }
+
+    get notification() {
+        return this._notification;
+    }
+
+    set notification(notification: INotification) {
+        this._notification = notification;
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
+        this.notificationDate = moment().format(DATE_TIME_FORMAT);
+        this.notificationReason = '';
     }
 }
