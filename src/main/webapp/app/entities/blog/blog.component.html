@@ -16,9 +16,9 @@
     </h2>
 	<!-- News Section -->
 	<div class="row g-mb-70">
-	    <div class="col-sm-6 col-lg-4 g-mb-30" *ngFor="let blog of blogs ;trackBy: trackId">
+	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let blog of blogs ;trackBy: trackId">
 	    <!-- Article -->
-	    <article>
+	    <article class="text-center">
 	        <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
 	            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
 	        </a>
