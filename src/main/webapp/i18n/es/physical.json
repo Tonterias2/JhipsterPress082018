@@ -1,0 +1,14 @@
+{
+    "jhipsterPress08App": {
+        "Physical" : {
+            "null": "",
+            "NA": "NA",
+            "THIN": "THIN",
+            "ATHLETIC": "ATHLETIC",
+            "NORMAL": "NORMAL",
+            "CORPULENT": "CORPULENT",
+            "BULKY": "BULKY",
+            "OTHER": "OTHER"
+        }
+    }
+}

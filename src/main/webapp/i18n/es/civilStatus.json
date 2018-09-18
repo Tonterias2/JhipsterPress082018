@@ -1,0 +1,15 @@
+{
+    "jhipsterPress08App": {
+        "CivilStatus" : {
+            "null": "",
+            "NA": "NA",
+            "SINGLE": "SINGLE",
+            "MARRIED": "MARRIED",
+            "DIVORCED": "DIVORCED",
+            "WIDOWER": "WIDOWER",
+            "SEPARATED": "SEPARATED",
+            "PAIRED_UP": "PAIRED_UP",
+            "OTHER": "OTHER"
+        }
+    }
+}
