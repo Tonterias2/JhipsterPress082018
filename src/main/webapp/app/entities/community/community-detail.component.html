@@ -95,6 +95,12 @@
 				<!-- End Celebs -->
             </dl>
             
+            <br/>
+            <a [routerLink]="['/following']" [queryParams]="{ 'cfollowedIdEquals': community.id }" class="list-group-item list-group-item-action justify-content-between">
+                <h3><span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Following</span></h3>
+            </a>
+            <br/>
+            
             <h3><span jhiTranslate="jhipsterPress08App.community.detail.cblog">Communities' Blogs</span></h3>
             
 			<div class="table-responsive" *ngIf="blogs">
