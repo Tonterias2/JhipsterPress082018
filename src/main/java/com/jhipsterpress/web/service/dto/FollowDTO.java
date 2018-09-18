@@ -38,6 +38,20 @@ public class FollowDTO implements Serializable {
     
     private String followingUserLastName;
     
+    @Lob
+    private byte[] cfollowedImage;
+    private String cfollowedImageContentType;
+    
+    @Lob
+    private byte[] followedImage;
+    private String followedImageContentType;
+
+    private String cfollowedCommunityname;
+    
+    private String followedUserFirstName;
+    
+    private String followedUserLastName;
+    
     public Long getId() {
         return id;
     }
@@ -142,6 +156,62 @@ public class FollowDTO implements Serializable {
 		this.followingUserLastName = followingUserLastName;
 	}
 
+	public byte[] getCfollowedImage() {
+		return cfollowedImage;
+	}
+
+	public void setCfollowedImage(byte[] cfollowedImage) {
+		this.cfollowedImage = cfollowedImage;
+	}
+
+	public String getCfollowedImageContentType() {
+		return cfollowedImageContentType;
+	}
+
+	public void setCfollowedImageContentType(String cfollowedImageContentType) {
+		this.cfollowedImageContentType = cfollowedImageContentType;
+	}
+
+	public byte[] getFollowedImage() {
+		return followedImage;
+	}
+
+	public void setFollowedImage(byte[] followedImage) {
+		this.followedImage = followedImage;
+	}
+
+	public String getFollowedImageContentType() {
+		return followedImageContentType;
+	}
+
+	public void setFollowedImageContentType(String followedImageContentType) {
+		this.followedImageContentType = followedImageContentType;
+	}
+
+	public String getCfollowedCommunityname() {
+		return cfollowedCommunityname;
+	}
+
+	public void setCfollowedCommunityname(String cfollowedCommunityname) {
+		this.cfollowedCommunityname = cfollowedCommunityname;
+	}
+
+	public String getFollowedUserFirstName() {
+		return followedUserFirstName;
+	}
+
+	public void setFollowedUserFirstName(String followedUserFirstName) {
+		this.followedUserFirstName = followedUserFirstName;
+	}
+
+	public String getFollowedUserLastName() {
+		return followedUserLastName;
+	}
+
+	public void setFollowedUserLastName(String followedUserLastName) {
+		this.followedUserLastName = followedUserLastName;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -171,6 +241,11 @@ public class FollowDTO implements Serializable {
 				+ cfollowingImageContentType + ", followingImage=" + Arrays.toString(followingImage)
 				+ ", followingImageContentType=" + followingImageContentType + ", cfollowingCommunityname="
 				+ cfollowingCommunityname + ", followingUserFirstName=" + followingUserFirstName
-				+ ", followingUserLastName=" + followingUserLastName + "]";
+				+ ", followingUserLastName=" + followingUserLastName + ", cfollowedImage="
+				+ Arrays.toString(cfollowedImage) + ", cfollowedImageContentType=" + cfollowedImageContentType
+				+ ", followedImage=" + Arrays.toString(followedImage) + ", followedImageContentType="
+				+ followedImageContentType + ", cfollowedCommunityname=" + cfollowedCommunityname
+				+ ", followedUserFirstName=" + followedUserFirstName + ", followedUserLastName=" + followedUserLastName
+				+ "]";
 	}
 }
