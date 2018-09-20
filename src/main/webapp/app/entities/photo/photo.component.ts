@@ -148,7 +148,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private myUsersPhotos() {
+    myUsersPhotos() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

@@ -23,7 +23,7 @@ export class PostDetailComponent implements OnInit {
     private _comment: IComment;
     isSaving: boolean;
 
-    post: IPost;
+    post: any;
     posts: IPost[];
 
     profile: IProfile;
@@ -46,11 +46,11 @@ export class PostDetailComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
-//            console.log('ngOnInit - POST#', this.post);
+            console.log('CONSOLOG: M:ngOnInit & O: this.post : ', this.post);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
-//            console.log('PRINCIPAL: ', this.currentAccount);
+//            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
         });
         this.comment = new Object();
         this.comment.commentText = '';
@@ -69,7 +69,7 @@ export class PostDetailComponent implements OnInit {
                         this.profiles = res.body;
                         this.comment.profileId = this.profiles[0].id;
                         this.comment.isOffensive = false;
-//                        console.log('READY 2 SAVE() print COMMENT2: ', this.comment);
+//                        console.log('CONSOLOG: M:save & O: this.comment : ', this.comment);
                         this.subscribeToSaveResponse(this.commentService.create(this.comment));
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -120,7 +120,7 @@ export class PostDetailComponent implements OnInit {
         this._comment = comment;
         this.creationDate = moment(comment.creationDate).format(DATE_TIME_FORMAT);
 //        this._comment.id = undefined;
-//        console.log('set comment - PRINT: this._comment: ', this._comment);
+//        console.log('CONSOLOG: M:set comment & O: this.comment : ', this.comment);
     }
 
     byteSize(field) {

@@ -134,7 +134,7 @@ export class CommunityComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private myCommunities() {
+    myCommunities() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

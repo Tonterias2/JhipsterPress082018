@@ -20,7 +20,7 @@ export class AlbumUpdateComponent implements OnInit {
     private _album: IAlbum;
     isSaving: boolean;
 
-    users: IUser[];
+    user: IUser;
     creationDate: string;
     currentAccount: any;
 
@@ -37,7 +37,7 @@ export class AlbumUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ album }) => {
             this.album = album;
         });
-        console.log('1.-Testing: Printing this.isSaving = false', this.isSaving);
+        console.log('CONSOLOG: M:ngOnInit & O: this.isSaving : ', this.isSaving);
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.userServiceId(this.currentAccount);
@@ -50,6 +50,7 @@ export class AlbumUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.album.userId = this.user.id;
         this.album.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.album.id !== undefined) {
             this.subscribeToSaveResponse(this.albumService.update(this.album));
@@ -59,14 +60,14 @@ export class AlbumUpdateComponent implements OnInit {
     }
 
     private userServiceId(currentAccount) {
-        this.userService.query2(this.currentAccount.login).subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-                console.log('4.- Printing the res.body: ', res.body);
+        this.userService.find(this.currentAccount.login).subscribe(
+            (res: HttpResponse<IUser>) => {
+                this.user = res.body;
+                console.log('CONSOLOG: M:userServiceId & O: this.user : ', this.user);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:userServiceId & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IAlbum>>) {

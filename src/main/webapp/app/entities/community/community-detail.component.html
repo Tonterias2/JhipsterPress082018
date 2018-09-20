@@ -114,7 +114,7 @@
 		            </tr>
 		            </thead>
 		            <tbody>
-		            <tr *ngFor="let blog of blogs ;trackBy: trackId">
+		            <tr *ngFor="let blog of blogs">
 		                <td><a [routerLink]="['/blog', blog.id, 'view' ]">{{blog.id}}</a></td>
 		                <td>{{blog.creationDate | date:'medium'}}</td>
 		                <td>{{blog.title}}</td>

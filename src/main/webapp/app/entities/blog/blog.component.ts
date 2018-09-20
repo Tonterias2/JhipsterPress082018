@@ -139,7 +139,7 @@ export class BlogComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private myBlogs() {
+    myBlogs() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

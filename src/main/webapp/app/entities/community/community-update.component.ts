@@ -26,7 +26,7 @@ export class CommunityUpdateComponent implements OnInit {
     private _community: ICommunity;
     isSaving: boolean;
 
-    users: IUser[];
+    user: IUser;
 
     interests: IInterest[];
 
@@ -54,7 +54,7 @@ export class CommunityUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ community }) => {
             this.community = community;
         });
-        console.log('1.-Testing: Printing this.isSaving = false', this.isSaving);
+        console.log('CONSOLOG: M:ngOnInit & O: this.isSaving : ', this.isSaving);
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.userServiceId(this.currentAccount);
@@ -65,7 +65,7 @@ export class CommunityUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        console.log('2.- Bring the activities');
+//        console.log('CONSOLOG: M:ngOnInit & Bringing the activities...');
         this.activityService.query().subscribe(
             (res: HttpResponse<IActivity[]>) => {
                 this.activities = res.body;
@@ -82,15 +82,16 @@ export class CommunityUpdateComponent implements OnInit {
 
     private userServiceId(currentAccount) {
         this.userService
-           .query2(this.currentAccount.login)
+           .find(this.currentAccount.login)
            .subscribe(
-                    (res: HttpResponse<IUser[]>) => {
-                        this.users = res.body;
-                        console.log('4.- Printing the res.body: ', res.body);
+                    (res: HttpResponse<IUser>) => {
+                        this.user = res.body;
+                        console.log('CONSOLOG: M:userServiceId & O: this.res.body : ', res.body);
+                        console.log('CONSOLOG: M:userServiceId & O: this.users : ', this.user);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:userServiceId & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     byteSize(field) {
@@ -115,6 +116,7 @@ export class CommunityUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.community.userId = this.user.id;
         this.community.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.community.id !== undefined) {
             this.subscribeToSaveResponse(this.communityService.update(this.community));

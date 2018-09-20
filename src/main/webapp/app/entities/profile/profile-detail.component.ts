@@ -86,7 +86,16 @@ export class ProfileDetailComponent implements OnInit {
                         this.loggedProfile.forEach(profile => {
                             this.loggedProfileId = profile.id;
                         });
-                        this.isFollower();
+                        this.isFollower().subscribe((
+                                res2: HttpResponse<IFollow[]> ) => {
+                                    this.follows = res2.body;
+                                    if ( this.follows.length > 0) {
+                                        this.isFollowing = true;
+                                        // return this.follows[0];
+                                    }
+                                },
+                                ( res2: HttpErrorResponse ) => this.onError( res2.message )
+                        );
                         this.isBlockUser();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -101,9 +110,9 @@ export class ProfileDetailComponent implements OnInit {
         query['followedId.in'] = this.loggedProfileId;
         query['followingId.in'] = this.profile.id;
     }
-    this.followService
-        .query(query)
-        .subscribe(
+   return this.followService
+        .query(query);
+        /*.subscribe(
             ( res: HttpResponse<IFollow[]> ) => {
                 this.follows = res.body;
                 if ( this.follows.length > 0) {
@@ -112,7 +121,7 @@ export class ProfileDetailComponent implements OnInit {
                 }
             },
             ( res: HttpErrorResponse ) => this.onError( res.message )
-        );
+        );*/
     }
 
     private following() {
@@ -132,15 +141,24 @@ export class ProfileDetailComponent implements OnInit {
 
     private unFollowing() {
         if ( this.isFollowing === true ) {
-            this.isFollower();
-            console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
-            this.followService
-                .delete( this.follows[0].id )
-                .subscribe( response => {
-                    this.notificationReason = 'UNFOLLOWING';
-                    this.createNotification( this.notificationReason );
-                } );
-            this.reload();
+            this.isFollower().subscribe((
+                    res: HttpResponse<IFollow[]> ) => {
+                        this.follows = res.body;
+                        if ( this.follows.length > 0) {
+                            this.isFollowing = true;
+                            // return this.follows[0];
+                            console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
+                            this.followService
+                                .delete( this.follows[0].id )
+                                .subscribe( response => {
+                                    this.notificationReason = 'UNFOLLOWING';
+                                    this.createNotification( this.notificationReason );
+                                } );
+                            this.reload();
+                        }
+                    },
+                    ( res: HttpErrorResponse ) => this.onError( res.message )
+            );
         }
     }
 

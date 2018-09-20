@@ -130,7 +130,7 @@ export class CalbumComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private myCalbums() {
+    myCalbums() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,

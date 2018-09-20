@@ -38,6 +38,8 @@ export class InterestComponent implements OnInit, OnDestroy {
     reverse: any;
     owner: any;
     isAdmin: boolean;
+    arrayAux = [];
+    arrayIds = [];
 
     constructor(
         private interestService: InterestService,
@@ -114,7 +116,7 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.registerChangeInInterests();
     }
 
-    private myInterests() {
+    myInterests() {
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -205,19 +207,19 @@ export class InterestComponent implements OnInit, OnDestroy {
     }
 
     private filterInterests( interests ) {
-        let arrayAux = [];
-        let arrayIds = [];
+        this.arrayAux = [];
+        this.arrayIds = [];
         interests.map( x => {
-            if ( arrayIds.length >= 1 && arrayIds.includes( x.id ) === false ) {
-                arrayAux.push( x );
-                arrayIds.push( x.id );
-            } else if ( arrayIds.length === 0 ) {
-                arrayAux.push( x );
-                arrayIds.push( x.id );
+            if ( this.arrayIds.length >= 1 && this.arrayIds.includes( x.id ) === false ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
+            } else if ( this.arrayIds.length === 0 ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
             }
         } );
-        console.log( 'filterInterests', arrayIds, arrayAux );
-        return arrayAux;
+        console.log( 'filterInterests', this.arrayIds, this.arrayAux );
+        return this.arrayAux;
     }
 
     ngOnDestroy() {

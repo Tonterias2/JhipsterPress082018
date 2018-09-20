@@ -135,7 +135,7 @@ export class CommunityDetailComponent implements OnInit {
     console.log('CONSOLOG: M:isFollower & O: this.isFollowing : ', this.isFollowing);
     }
 
-    private following() {
+    following() {
         this.isSaving = true;
         this.follow.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
         this.follow.followedId = this.loggedProfileId;
@@ -150,7 +150,7 @@ export class CommunityDetailComponent implements OnInit {
         }
     }
 
-    private unFollowing() {
+    unFollowing() {
         if ( this.isFollowing === true ) {
             this.isFollower();
             console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
