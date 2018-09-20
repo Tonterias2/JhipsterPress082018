@@ -148,7 +148,7 @@ export class MessageComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    private myMessagesCommunities() {
+    myMessagesCommunities() {
 //        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
         const query = {
                 page: this.page - 1,

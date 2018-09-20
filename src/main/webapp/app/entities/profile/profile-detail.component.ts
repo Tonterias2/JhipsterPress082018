@@ -24,7 +24,7 @@ import { Principal } from 'app/core';
     templateUrl: './profile-detail.component.html'
 })
 export class ProfileDetailComponent implements OnInit {
-    profile: IProfile;
+    profile: any;
     profiles: IProfile[];
     loggedProfile: IProfile[];
 
@@ -124,7 +124,7 @@ export class ProfileDetailComponent implements OnInit {
         );*/
     }
 
-    private following() {
+    following() {
         this.isSaving = true;
         this.follow.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
         this.follow.followingId = this.profile.id;
@@ -139,7 +139,7 @@ export class ProfileDetailComponent implements OnInit {
         }
     }
 
-    private unFollowing() {
+    unFollowing() {
         if ( this.isFollowing === true ) {
             this.isFollower().subscribe((
                     res: HttpResponse<IFollow[]> ) => {
@@ -205,7 +205,7 @@ export class ProfileDetailComponent implements OnInit {
         );
     }
 
-    private blocking() {
+    blocking() {
         this.isSaving = true;
         this.blockuser.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
         this.blockuser.blockinguserId = this.profile.id;
@@ -217,7 +217,7 @@ export class ProfileDetailComponent implements OnInit {
         }
     }
 
-    private unBlocking() {
+    unBlocking() {
         if ( this.isBlocked === true ) {
             this.blockuserService
                 .delete( this.blockusers[0].id )
