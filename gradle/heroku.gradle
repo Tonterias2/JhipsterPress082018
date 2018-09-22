@@ -1,7 +1,7 @@
 apply plugin: 'com.heroku.sdk.heroku-gradle'
 
 heroku {
-  appName = "jhipster-press-08"
+  appName = "jhipster-press-08-b"
 }
 
 gradle.taskGraph.whenReady {taskGraph ->

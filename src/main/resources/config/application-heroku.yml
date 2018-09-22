@@ -12,7 +12,7 @@
 
 eureka:
     instance:
-        hostname: jhipster-press-08.herokuapp.com
+        hostname: jhipster-press-08-b.herokuapp.com
         non-secure-port: 80
         prefer-ip-address: false
     client:
