@@ -14,70 +14,84 @@
             </span>
         </button>
     </h2>
-	<!-- News Section -->
-	<div class="row g-mb-70">
-	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let blog of blogs ;trackBy: trackId">
-	    <!-- Article -->
-	    <article class="text-center">
-	        <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
-	            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
-	        </a>
+	<jhi-alert></jhi-alert>
+    <br/>
 	
-	        <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
-	        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
-	        <p class="g-font-size-13">{{blog.creationDate | date:'longDate'}}</p>
+	 <!-- User Blocks v16 https://htmlstream.com/public/preview/unify-v2.5.1/unify-main/shortcodes/shortcode-blocks-users.html-->
+      <section class="g-bg-secondary g-py-100">
+        <div class="container" *ngFor="let blog of blogs ;trackBy: trackId">
+          <div id="shortcode16">
+            <div class="shortcode-html">
+              <!-- Users -->
+              <div class="row g-mb-70">
+                <div class="col-md-12 g-mb-30">
+                  <!-- Listing - Agents -->
+                  <div class="u-shadow-v11 text-center">
+                    <div class="g-bg-white g-pa-20">
+                      <div class="g-width-130 g-height-130 mx-auto mb-4">
+				        <!-- Figure Image -->
+				        <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
+				            <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-width: 100%;" alt="blog image"/>
+				        </a>
 	
-	        <hr class="g-brd-secondary-light-v2 my-3">
+				        <!-- Figure Image -->
+                      </div>
+                      <div class="mb-3">
+                        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
+	        			<p class="g-font-size-13">{{blog.creationDate | date:'longDate'}}</p>
+                      </div>
+						<!-- Info -->
+				        <ul class="row list-inline g-py-20 g-ma-0">
+				            <li class="col g-brd-right g-brd-gray-light-v4">
+				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-pr-5 g-py-4" href="#!">
+				                <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>
+				                	<button type="submit"
+				                             [routerLink]="['/blog', blog.id, 'view' ]"
+				                             class="btn btn-info btn-sm">
+				                         <fa-icon [icon]="'eye'"></fa-icon>
+				                         <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+				                     </button>
+				            </a>
+				            </li>
+				            <li class="col g-brd-right g-brd-gray-light-v4">
+				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
+				                <i class="align-middle mr-1 icon-finance-206 u-line-icon-pro"></i>
+				     	               <button *ngIf="owner === blog.userId || isAdmin == true"
+				                      		type="submit"
+				                              [routerLink]="['/blog', blog.id, 'edit']"
+				                              class="btn btn-primary btn-sm">
+				                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
+				                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+				                      </button>
+				            </a>
+				            </li>
+				            <li class="col g-brd-right g-brd-gray-light-v4">
+				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
+				                <i class="align-middle mr-1 icon-education-097 u-line-icon-pro"></i>
+						                <button *ngIf="owner === blog.userId || isAdmin == true"
+						                 		type="submit"
+						                         [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
+						                         replaceUrl="true"
+						                         queryParamsHandling="merge"
+						                         class="btn btn-danger btn-sm">
+						                     <fa-icon [icon]="'times'"></fa-icon>
+						                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+						                 </button>
+				            </a>
+				            </li>
+				        </ul>
+				        <!-- End Info -->
+                    </div>
+                  <!-- End Listing - Agents -->
+                </div>
+              </div>
+              <!-- End Users -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End User Blocks v16 -->
 	
-	        <!-- Info -->
-	        <ul class="row list-inline g-py-20 g-ma-0">
-	            <li class="col g-brd-right g-brd-gray-light-v4">
-	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-pr-5 g-py-4" href="#!">
-	                <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>
-	                	<button type="submit"
-	                             [routerLink]="['/blog', blog.id, 'view' ]"
-	                             class="btn btn-info btn-sm">
-	                         <fa-icon [icon]="'eye'"></fa-icon>
-	                         <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-	                     </button>
-	            </a>
-	            </li>
-	            <li class="col g-brd-right g-brd-gray-light-v4">
-	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
-	                <i class="align-middle mr-1 icon-finance-206 u-line-icon-pro"></i>
-	     	               <button *ngIf="owner === blog.userId || isAdmin == true"
-	                      		type="submit"
-	                              [routerLink]="['/blog', blog.id, 'edit']"
-	                              class="btn btn-primary btn-sm">
-	                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
-	                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-	                      </button>
-	            </a>
-	            </li>
-	            <li class="col g-brd-right g-brd-gray-light-v4">
-	            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
-	                <i class="align-middle mr-1 icon-education-097 u-line-icon-pro"></i>
-			                <button *ngIf="owner === blog.userId || isAdmin == true"
-			                 		type="submit"
-			                         [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
-			                         replaceUrl="true"
-			                         queryParamsHandling="merge"
-			                         class="btn btn-danger btn-sm">
-			                     <fa-icon [icon]="'times'"></fa-icon>
-			                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-			                 </button>
-	            </a>
-	            </li>
-	        </ul>
-	        <!-- End Info -->
-	        </div>
-	    </article>
-	    <!-- End Article -->
-	    </div>
-	
-	    <div class="col-sm-6 col-lg-4 g-mb-30">
-	    </div>
-	</div>
 	<!-- End News Section -->
 	<div *ngIf="blogs && blogs.length">
         <div class="row justify-content-center">
@@ -89,8 +103,6 @@
     </div>
 </div>
 
-
-------------------------------------------------------------------------------------------------------------------------
 
 <div>
     <h2 id="page-heading">
