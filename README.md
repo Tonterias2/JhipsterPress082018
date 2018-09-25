@@ -1,5 +1,55 @@
-# JhipsterPress08
-This application was generated using JHipster 5.3.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.3.0](https://www.jhipster.tech/documentation-archive/v5.3.0).
+# JHIPSTER LEARNING PROJECT:
+
+
+![](ReadMe/homepage.png)
+
+I would like to make an App that helps me and others to learn Jhipster and, at the same time, that becomes an interesting project that can grow over time with different parts. This should be a collaborative project that should be interesting for other developers to join, at any point (by mailing me at raroraroraro@gmail.com), either because you want to learn about how we have done it (beginners) or propose new ideas to make it grow and excel (experienced). Moreover, you can download the App and create your own Website if you wish to do so. 
+
+This project is a live example of the solutions that are difficult to find elsewhere in a working App. 
+
+The App is the combination of several sub-apps or parts: a dating site, a newspaper with a blog, a proposal and voting site and a bulletin board. Let�s start with a brief description of each part:
+
+* Dating site: A user can fill a profile detailing the activities or interest he has. He can follow other user with similar tastes, activities or sports, to join groups that meet together. A user, or group profile, can upload an Album with photographs. A profile can also receive messages and notifications.
+* Newspaper: The admin can manage the FrontPage of the site placing news that he considers interesting. This news can be general news, or specific ones about main interests or activities that are important for him or his gorup. A profile or a group can have a Blog, post news and users can comment those posts that would be grouped with tags and topics that are related with the interests and activities of the dating site.
+* Proposals: Think of a proposal as a general idea. A user thinks about something that wants to present to other users for consideration, so he fills a proposal. This proposal could be explained in a Post and it can be voted by other users, a group or the general visitor.
+* Bulletin Board: will be used to post offers and demands for things or services.
+* Other ideas: I have a few more ideas, but first I would like to start with the ones already mentioned here.
+
+## Starting Point.
+
+Start by taking a look and understanding the JDL file: /src/main/scripts/raro.jh 
+
+I�m not a professional programmer (actually I have a BA degree), so I have the point of view of the inexperienced.
+
+I learned Spring and Angular. Then I learned Jhipster with these books:
+
+* The JHipster Mini-Book 4.5 by Matt Raible. Now with a chapter on microservices!
+* Full Stack Development with JHipster by Deepu K Sasidharan and Sendil Kumar. Get it on Packt and Amazon. https://www.safaribooksonline.com/library/view/full-stack-development/9781788476317/ 
+* If your need to learn Spring I recommend to check John Purcell https://www.caveofprogramming.com and Maximilian Schwarzm�ller https://www.udemy.com/the-complete-guide-to-angular-2/ they worked for me and I�m not wiser than you are ;-)
+
+So this is the starting point. Anyone who reads these books should have, at least, the same level as I have. We should offer examples and solutions for the problems that are not covered in the books or the courses. Let me give you some examples, so they might be a problem for beginners:
+
+All of them will be explained in the READMEs directory 
+
+* Cascade deletion
+* Create a new user
+* [Open access to the REST Api:](ReadMe/Solution1.md)
+* Different ways to block un-authorized code
+* [Change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
+* [Change DTOs with MapStruct:](ReadMe/Solution6.md)
+* [Translations: Text and Enums:](ReadMe/Solution7.md)
+* [Entity with double relation to another entity:](ReadMe/Solution8.md)
+* And more that we will find.
+
+# DOWNLOAD & DATA INSERTIONS:
+
+Once you download and follow the JHipster instructions, you will need to fill the database with data. Use the [InsertsInH2DatabaseV5.txt](InsertsInH2DatabaseV5.txt) file in the root path with your H2 database and restart the App. You should see a HomePage like this.!
+
+
+# JHIPSTER INFO
+
+## skeletonv5
+This application was generated using JHipster 5.0.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.0.0](https://www.jhipster.tech/documentation-archive/v5.0.0).
 
 ## Development
 
@@ -7,25 +57,27 @@ Before you can build this project, you must install and configure the following 
 
 1. [Node.js][]: We use Node to run a development web server and build the project.
    Depending on your system, you can install Node either from source or as a pre-packaged bundle.
+2. [Yarn][]: We use Yarn to manage Node dependencies.
+   Depending on your system, you can install Yarn either from source or as a pre-packaged bundle.
 
 After installing Node, you should be able to run the following command to install development tools.
 You will only need to run this command when dependencies change in [package.json](package.json).
 
-    npm install
+    yarn install
 
-We use npm scripts and [Webpack][] as our build system.
+We use yarn scripts and [Webpack][] as our build system.
 
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
     ./gradlew
-    npm start
+    yarn start
 
-[Npm][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
-specifying a newer version in [package.json](package.json). You can also run `npm update` and `npm install` to manage dependencies.
-Add the `help` flag on any command to see how you can use it. For example, `npm help update`.
+[Yarn][] is also used to manage CSS and JavaScript dependencies used in this application. You can upgrade dependencies by
+specifying a newer version in [package.json](package.json). You can also run `yarn update` and `yarn install` to manage dependencies.
+Add the `help` flag on any command to see how you can use it. For example, `yarn help update`.
 
-The `npm run` command will list all of the scripts available to run for this project.
+The `yarn run` command will list all of the scripts available to run for this project.
 
 ### Service workers
 
@@ -49,11 +101,11 @@ Note: workbox creates the respective service worker and dynamically generate the
 
 For example, to add [Leaflet][] library as a runtime dependency of your application, you would run following command:
 
-    npm install --save --save-exact leaflet
+    yarn add --exact leaflet
 
 To benefit from TypeScript type definitions from [DefinitelyTyped][] repository in development, you would run following command:
 
-    npm install --save-dev --save-exact @types/leaflet
+    yarn add --dev --exact @types/leaflet
 
 Then you would import the JS and CSS files specified in library's installation instructions so that [Webpack][] knows about them:
 Edit [src/main/webapp/app/vendor.ts](src/main/webapp/app/vendor.ts) file:
@@ -86,7 +138,7 @@ will generate few files:
 
 ## Building for production
 
-To optimize the JhipsterPress08 application for production, run:
+To optimize the skeletonv5 application for production, run:
 
     ./gradlew -Pprod clean bootWar
 
@@ -109,39 +161,23 @@ To launch your application's tests, run:
 
 Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
 
-    npm test
+    yarn test
 
 
 
 For more information, refer to the [Running tests page][].
 
-### Code quality
-
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
-
-```
-docker-compose -f src/main/docker/sonar.yml up -d
-```
-
-Then, run a Sonar analysis:
-
-```
-./gradlew -Pprod clean test sonarqube
-```
-
-For more information, refer to the [Code quality page][].
-
 ## Using Docker to simplify development (optional)
 
 You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
 
-For example, to start a postgresql database in a docker container, run:
+For example, to start a mysql database in a docker container, run:
 
-    docker-compose -f src/main/docker/postgresql.yml up -d
+    docker-compose -f src/main/docker/mysql.yml up -d
 
 To stop it and remove the container, run:
 
-    docker-compose -f src/main/docker/postgresql.yml down
+    docker-compose -f src/main/docker/mysql.yml down
 
 You can also fully dockerize your application and all the services that it depends on.
 To achieve this, first build a docker image of your app by running:
@@ -159,14 +195,13 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
 [JHipster Homepage and latest documentation]: https://www.jhipster.tech
-[JHipster 5.3.0 archive]: https://www.jhipster.tech/documentation-archive/v5.3.0
+[JHipster 5.0.0 archive]: https://www.jhipster.tech/documentation-archive/v5.0.0
 
-[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.3.0/development/
-[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.3.0/docker-compose
-[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.3.0/production/
-[Running tests page]: https://www.jhipster.tech/documentation-archive/v5.3.0/running-tests/
-[Code quality page]: https://www.jhipster.tech/documentation-archive/v5.3.0/code-quality/
-[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.3.0/setting-up-ci/
+[Using JHipster in development]: https://www.jhipster.tech/documentation-archive/v5.0.0/development/
+[Using Docker and Docker-Compose]: https://www.jhipster.tech/documentation-archive/v5.0.0/docker-compose
+[Using JHipster in production]: https://www.jhipster.tech/documentation-archive/v5.0.0/production/
+[Running tests page]: https://www.jhipster.tech/documentation-archive/v5.0.0/running-tests/
+[Setting up Continuous Integration]: https://www.jhipster.tech/documentation-archive/v5.0.0/setting-up-ci/
 
 
 [Node.js]: https://nodejs.org/

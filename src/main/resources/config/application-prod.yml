@@ -27,9 +27,9 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://ec2-54-243-147-162.compute-1.amazonaws.com:5432/d8hesh82sm3gk1
-        username: mvwitqkxcxwmjw
-        password: 8e2b5e09ba4306f140179d285a28065bd1bf962cd137cc917575b66aa752c52c
+        url: jdbc:postgresql://@ec2-50-17-250-38.compute-1.amazonaws.com:5432/d5u8osf3cgtlgv
+        username: seejtnnivrlcdw
+        password: e9ed17c73da7ec36bf6eead010968106439debe16ed3df9039be0a9aef9314db
         hikari:
             auto-commit: false
     jpa:

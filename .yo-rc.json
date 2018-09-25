@@ -35,6 +35,6 @@
       "es"
     ],
     "herokuDeployType": "jar",
-    "herokuAppName": null
+    "herokuAppName": "jhipster-press-08"
   }
 }
