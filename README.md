@@ -3,7 +3,7 @@
 
 First, I would like to thank Jon Rudell https://github.com/ruddell 
 
-Without his help, this would have not been possible!
+Without his help, this would not have been possible!
 
 ![](ReadMe/homepage.png)
 
@@ -35,33 +35,47 @@ To get an idea of the entities and fields start by taking a look and understandi
 
 All of them will be explained in the READMEs directory 
 
-BEGGINERS:
+STARTERS:
 
 * [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 
-INTERMEDIATE:
+BEGGINERS:
 
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
+* [List screen shows only user’s data:](ReadMe/Solution2.md)
+* [Create a new Authority:](ReadMe/Solution9.md)
+* [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
+* [How to Configure the confirmation email in Heroku:](ReadMe/Solution11.md)
+
+INTERMEDIATE:
+
 * [How to change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
-* [Create a new Authority:](ReadMe/Solution9.md)
-* [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
-* [How to Configure the confirmation email in Heroku:](ReadMe/Solution11.md)
+
+ADVANCED:
+
 * Different ways to block un-authorized code
 * Cascade deletion
 
+ADVANCED:
+
+* [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
 
 * And more that we will find.
 
 # DOWNLOAD & DATA INSERTIONS:
 
-Once you download and follow the JHipster instructions, you will need to fill the database with data. Use the [InsertsInPOSTGRESQLDatabaseV8BLANK.txt](InsertsInPOSTGRESQLDatabaseV?BLANK.txt) file in the root path with your H2 database and restart the App. You should see a HomePage like this.!
+Once you download and follow the JHipster instructions, you will need to fill the database with data. Use the InsertsInPOSTGRESQLDatabaseV?BLANK.txt file in the root path with your H2 database and restart the App. 
 
 
-# JHIPSTER INFO
+
+
+
+
+# REGULAR JHIPSTER INFO
 
 ## Jhipster Version
 
