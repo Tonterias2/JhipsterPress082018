@@ -4,7 +4,7 @@ For the very begginer, you should start by downloading the project from GitHub
 
 ![](images/sol12image2.png) 
 
-and taking a look at it in your IDE:
+and importing them as a Maven or Gradle project in your IDE:
 
 ![](images/sol12image1.png)
 

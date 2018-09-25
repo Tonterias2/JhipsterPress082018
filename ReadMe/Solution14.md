@@ -6,11 +6,14 @@ Using a template like UNIFY can save you tons of hours:
 
 ![](images/sol14image1.png) 
 
+... into ...
+
 ![](images/sol14image2.png) 
 
 2.	Import unify.css and font-awesome in vendor.css
 
 	/* after changing this file run 'yarn run webpack:build' */
+	
 	@import '~bootstrap/dist/css/bootstrap.min.css';
 	@import '~font-awesome/css/font-awesome.css';
 	@import '~font-awesome/css/font-awesome.min.css';

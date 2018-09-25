@@ -1,9 +1,13 @@
 # JHIPSTER LEARNING PROJECT:
 
 
+First, I would like to thank Jon Rudell https://github.com/ruddell 
+
+Without his help, this would have not been possible!
+
 ![](ReadMe/homepage.png)
 
-I would like to make an App that helps me (and hopefully others) to learn Jhipster and, at the same time, that becomes an interesting project that can grow over time with different parts. This should be a collaborative project that should be interesting for other developers to join, at any point (by mailing me at jhipsterpress@gmail.com), either because you want to learn about how we have done it (beginners) or propose new ideas to make it grow and excel (experienced). Moreover, you can download the App and create your own Website if you wish to do so. 
+When I started, I wanted to make an App that helped me (and hopefully others) to learn Jhipster and, at the same time, that would become an interesting project that could grow over time with different parts. I thought about it as a collaborative project that should be interesting for other developers to join, at any point (you can mail me at jhipsterpress@gmail.com), either because you wanted to learn how we have done it (beginners) or propose new ideas to make it grow and excel. Moreover, you can download the App and create your own Website if you wish to do so. 
 
 This project is a live example of the solutions that are difficult to find elsewhere in a working App. 
 
@@ -18,7 +22,7 @@ The App is the combination of several sub-apps or parts: a newspaper with a blog
 
 ## Starting Point.
 
-I'm not a programmer (actually I have a BA degree), so I have the point of view of the inexperienced.
+I'm not a programmer (actually I have a BA degree but always fascinated by computers), so I have the point of view of the inexperienced.
 
 I learned Spring (thanks to a great teacher: John Purcell https://caveofprogramming.com/) and Angular (with a course from Maximilian Schwarzmüller: https://www.udemy.com/the-complete-guide-to-angular-2/). Then I learned Jhipster with these books:
 
@@ -33,19 +37,19 @@ All of them will be explained in the READMEs directory
 
 BEGGINERS:
 
-* [Importing your project in STS Maven - Gradle:](ReadMe/Solution12.md)
-* [Importing a template like UNIFY in your project:](ReadMe/Solution14.md)
+* [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
+* [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 
 INTERMEDIATE:
 
-* [Open access to the REST Api:](ReadMe/Solution1.md)
-* [Change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
-* [Change DTOs with MapStruct:](ReadMe/Solution6.md)
+* [How to open access to the REST Api:](ReadMe/Solution1.md)
+* [How to change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
+* [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 * [Create a new Authority:](ReadMe/Solution9.md)
-* [Connecting PGAdmin4 to Heroku:](ReadMe/Solution10.md)
-* [Configuring the confirmation email in Heroku:](ReadMe/Solution11.md)
+* [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
+* [How to Configure the confirmation email in Heroku:](ReadMe/Solution11.md)
 * Different ways to block un-authorized code
 * Cascade deletion
 
