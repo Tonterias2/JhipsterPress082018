@@ -113,4 +113,4 @@ src/main/java/com/jhipsterpress2/web/service/mapper/FrontPagePostMapper.java
 		}
 	}
 
-
+Other examples at: PostsMapper (CustomTagMapper+CustomTagDTO y CustomTopicMapper+CustomTopicDTO), en ProfileMapper (Activities: CustomActivityMappers+CustomActivityDTO, Celebs: CustomCelebMappers+CustomCelebDTO, Interests: CustomInterestMappers+CustomInterestDTO).

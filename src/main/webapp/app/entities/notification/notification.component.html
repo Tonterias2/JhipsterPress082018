@@ -39,7 +39,7 @@
                 <td>{{notification.creationDate | date:'medium'}}</td>
                 <td>{{notification.notificationDate | date:'medium'}}</td>
                 <td jhiTranslate="{{'jhipsterPress08App.NotificationReason.' + notification.notificationReason}}">{{notification.notificationReason}}</td>
-                <td>{{notification.notificationText}}</td>
+                <td [innerHTML]="notification.notificationText"></td>
                 <td>{{notification.isDeliverd}}</td>
                 <td>
                     {{notification.userId}}

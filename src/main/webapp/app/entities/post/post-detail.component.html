@@ -8,7 +8,7 @@
 		            <div class="col-lg-9 g-mb-50 g-mb-0--lg">
 		              <article class="g-mb-60">
 		                <header class="g-mb-30">
-		                  <h2 class="h1 g-mb-15">{{post.headline}}</h2>post.id: {{post.id}}
+		                  <h2 class="h1 g-mb-15">{{post.headline}}</h2>
 		
 		                  <ul class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
 		                    <li class="list-inline-item" *ngIf="post.profileId">
@@ -64,10 +64,7 @@
 		                        </a>
 			                </div>
 		                  </figure>
-		
-		                  <p class="g-color-gray-dark-v2">{{post.bodytext}}</p>
-
-                  
+		                  	<p class="g-color-gray-dark-v2" [innerHTML]="post.bodytext"></p>                
 		                  <div class="g-width-70x--md g-my-40">
 		                    <blockquote class="blockquote g-brd-left g-brd-2 g-brd-gray-light-v4 g-brd-primary--hover text-uppercase g-font-size-22 g-transition-0_2 g-pl-20 g-mb-30">
 		                      <p class="g-color-primary">{{post.quote}}</p>
@@ -193,7 +190,7 @@
 			                      </div>
 			
 			                      <div class="g-mb-15">
-			                        <p class="g-color-gray-dark-v2">{{comment.commentText}}</p>
+			                      	<p class="g-color-gray-dark-v2" [innerHTML]="comment.commentText"></p>
 			                      </div>
 			
 			                      <ul class="list-inline d-sm-flex my-0">

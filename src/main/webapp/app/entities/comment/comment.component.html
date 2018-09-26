@@ -55,6 +55,7 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
+                        <!--
                         <button *ngIf="owner === comment.userId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/comment', comment.id, 'edit']"
@@ -62,6 +63,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
+                        
                         <button *ngIf="owner === comment.userId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'comment/'+ comment.id + '/delete'} }]"
@@ -71,6 +73,7 @@
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
+                        -->
                     </div>
                 </td>
             </tr>

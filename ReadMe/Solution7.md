@@ -78,7 +78,7 @@ Locate the part you want to translate (Usuarios): userManagement.home.title and 
 	    }
 	}
 
-
+NOTE: if you see weird characters like this: "createdDate": "Fecha de creaciÃ³n", for accents you will need to change your project to UTF-8
 
 
 2) Enums from the database: ie: [MALE, FEMALE]. Let's imagine a Gender Enum for both English(en) and Spanish (es)

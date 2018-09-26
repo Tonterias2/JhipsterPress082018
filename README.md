@@ -7,9 +7,9 @@ Without his help, this would not have been possible!
 
 ![](ReadMe/homepage.png)
 
-When I started, I wanted to make an App that helped me (and hopefully others) to learn Jhipster and, at the same time, that would become an interesting project that could grow over time with different parts. I thought about it as a collaborative project that should be interesting for other developers to join, at any point (you can mail me at jhipsterpress@gmail.com), either because you wanted to learn how we have done it (beginners) or propose new ideas to make it grow and excel. Moreover, you can download the App and create your own Website if you wish to do so. 
+When I started, I wanted to make an App that helped me (and hopefully others) to learn Jhipster and, at the same time, that would become an interesting project that could grow over time with different parts. This project is a live example of the solutions that are difficult to find elsewhere and you can see them in a working App. Check the Starting Point for a list of examples.
 
-This project is a live example of the solutions that are difficult to find elsewhere in a working App. 
+I thought about it as a collaborative project that should be interesting for other developers to join, at any point (you can mail me at jhipsterpress@gmail.com), either because you wanted to learn how we have done it (beginners) or propose new ideas to make it grow and excel. Moreover, you can download the App and create your own Website if you wish to do so. 
 
 The App is the combination of several sub-apps or parts: a newspaper with a blog and a dating or gruoping site. Let's start with a brief description of each part:
 
@@ -27,7 +27,7 @@ I'm not a programmer (actually I have a BA degree but always fascinated by compu
 I learned Spring (thanks to a great teacher: John Purcell https://caveofprogramming.com/) and Angular (with a course from Maximilian Schwarzmüller: https://www.udemy.com/the-complete-guide-to-angular-2/). Then I learned Jhipster with these books:
 
 * The JHipster Mini-Book 4.5 by Matt Raible. Now with a chapter on microservices!
-* Full Stack Development with JHipster by Deepu K Sasidharan and Sendil Kumar. Get it on Packt and Amazon. https://www.safaribooksonline.com/library/view/full-stack-development/9781788476317/ 
+* Full Stack Development with JHipster by Deepu K Sasidharan and Sendil Kumar. Get it on Packt and Amazon. https://www.safaribooksonline.com/library/view/full-stack-development/9781788476317/ A must read cause I'm going to explain things that are not fully enough covered there.
 
 So this is the starting point. Anyone who reads these books should have, at least, the same level as I have. We should offer examples and solutions for the problems that are not covered in the books or the courses. Let me give you some examples, so they might be a problem for beginners:
 
@@ -39,32 +39,34 @@ STARTERS:
 
 * [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
+* [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
 
 BEGGINERS:
 
+* [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
 * [List screen shows only user’s data:](ReadMe/Solution2.md)
 * [Create a new Authority:](ReadMe/Solution9.md)
 * [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
-* [How to Configure the confirmation email in Heroku:](ReadMe/Solution11.md)
+* [How to configure the confirmation email in Heroku:](ReadMe/Solution11.md)
 
 INTERMEDIATE:
 
+* [How to avoid unauthorized calls to the API:](ReadMe/Solution17.md)
 * [How to change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
-* [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
+* [How to change DTOs to load entities:](ReadMe/Solution18.md)
+* [How to change DTOs to load attributes of other entities:](ReadMe/Solution19.md)
+* [How to change DTOs to load attributes of other not directly related entities:](ReadMe/Solution20.md)
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 
 ADVANCED:
 
+* [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
+* [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
 * Different ways to block un-authorized code
 * Cascade deletion
-
-ADVANCED:
-
-* [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
-
-* And more that we will find.
+* And more that will appear.
 
 # DOWNLOAD & DATA INSERTIONS:
 

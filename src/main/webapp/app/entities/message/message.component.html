@@ -34,7 +34,7 @@
             <tr *ngFor="let message of messages ;trackBy: trackId">
                 <td><a [routerLink]="['/message', message.id, 'view' ]">{{message.id}}</a></td>
                 <td>{{message.creationDate | date:'medium'}}</td>
-                <td>{{message.messageText}}</td>
+                <td [innerHTML]="message.messageText"></td>
                 <td>{{message.isDeliverd}}</td>
                 <td>
                     <div *ngIf="message.communityId">
