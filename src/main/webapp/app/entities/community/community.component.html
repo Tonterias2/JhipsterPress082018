@@ -38,7 +38,7 @@
 				        <!-- Figure Image -->
                       </div>
                       <div class="mb-3">
-                         <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/community', community.id, 'view' ]">{{community.communityname}}</a></h3>
+                         <h2 class="h3 mb-4"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/community', community.id, 'view' ]">{{community.communityname}}</a></h2>
                       </div>
                       <span class="d-block g-font-weight-500 g-font-size-13">{{community.communitydescription}}</span>
                       <span class="d-block g-font-weight-500 g-font-size-13">{{community.creationDate | date:'longDate'}}</span>
@@ -95,52 +95,30 @@
 					<!-- End Celebs -->
 					
 					<!-- Figure List -->
-				        <ul class="row list-inline g-py-20 g-ma-0">
-				        <li class="col g-brd-right g-brd-gray-light-v4">
-				            <button type="submit"
-	                                [routerLink]="['/community', community.id, 'view' ]"
-	                                class="btn btn-info btn-sm">
-	                            <fa-icon [icon]="'eye'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-	                        </button>
-				        </li>
-				        <li class="col g-brd-right g-brd-gray-light-v4">
-				        	<button *ngIf="owner === community.userId || isAdmin == true"
-				              		type="submit"
-	                                [routerLink]="['/community', community.id, 'edit']"
-	                                class="btn btn-primary btn-sm">
-	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-	                        </button>
-				            <!--  <button *ngIf="owner === community.user.id || isAdmin == true"
-				              		type="submit"
-	                                [routerLink]="['/community', community.id, 'edit']"
-	                                class="btn btn-primary btn-sm">
-	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-	                        </button> -->
-				        </li>
-				        <li class="col">
-				        	<button *ngIf="owner === community.userId || isAdmin == true"
-				              		type="submit"
-	                                [routerLink]="['/', { outlets: { popup: 'community/'+ community.id + '/delete'} }]"
-	                                replaceUrl="true"
-	                                queryParamsHandling="merge"
-	                                class="btn btn-danger btn-sm">
-	                            <fa-icon [icon]="'times'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-	                        </button>
-	                        <!-- <button *ngIf="owner === community.user.id || isAdmin == true"
-				              		type="submit"
-	                                [routerLink]="['/', { outlets: { popup: 'community/'+ community.id + '/delete'} }]"
-	                                replaceUrl="true"
-	                                queryParamsHandling="merge"
-	                                class="btn btn-danger btn-sm">
-	                            <fa-icon [icon]="'times'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-	                        </button>  -->
-				        </li>
-				        </ul>
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/community', community.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button *ngIf="owner === community.userId || isAdmin == true"
+            					type="submit"
+                                [routerLink]="['/community', community.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button *ngIf="owner === community.userId || isAdmin == true"
+            					type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'community/'+ community.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
 			        </div>
 			        <!-- End Figure List -->
                   <!-- End Listing - Agents -->
@@ -226,14 +204,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        <button *ngIf="owner === community.userId || isAdmin == true"
             					type="submit"
                                 [routerLink]="['/community', community.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        <button *ngIf="owner === community.userId || isAdmin == true"
             					type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'community/'+ community.id + '/delete'} }]"
                                 replaceUrl="true"

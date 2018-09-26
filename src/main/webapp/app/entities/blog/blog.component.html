@@ -37,49 +37,34 @@
 				        <!-- Figure Image -->
                       </div>
                       <div class="mb-3">
-                        <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>
+                        <h2 class="h3 mb-4"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h2>
 	        			<p class="g-font-size-13">{{blog.creationDate | date:'longDate'}}</p>
                       </div>
 						<!-- Info -->
-				        <ul class="row list-inline g-py-20 g-ma-0">
-				            <li class="col g-brd-right g-brd-gray-light-v4">
-				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-pr-5 g-py-4" href="#!">
-				                <i class="align-middle mr-1 icon-medical-022 u-line-icon-pro"></i>
-				                	<button type="submit"
-				                             [routerLink]="['/blog', blog.id, 'view' ]"
-				                             class="btn btn-info btn-sm">
-				                         <fa-icon [icon]="'eye'"></fa-icon>
-				                         <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-				                     </button>
-				            </a>
-				            </li>
-				            <li class="col g-brd-right g-brd-gray-light-v4">
-				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
-				                <i class="align-middle mr-1 icon-finance-206 u-line-icon-pro"></i>
-				     	               <button *ngIf="owner === blog.userId || isAdmin == true"
-				                      		type="submit"
-				                              [routerLink]="['/blog', blog.id, 'edit']"
-				                              class="btn btn-primary btn-sm">
-				                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
-				                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-				                      </button>
-				            </a>
-				            </li>
-				            <li class="col g-brd-right g-brd-gray-light-v4">
-				            <a class="d-inline-block g-color-secondary-dark-v1 g-color-primary--hover g-font-size-12 g-text-underline--none--hover g-px-5 g-py-4" href="#!">
-				                <i class="align-middle mr-1 icon-education-097 u-line-icon-pro"></i>
-						                <button *ngIf="owner === blog.userId || isAdmin == true"
-						                 		type="submit"
-						                         [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
-						                         replaceUrl="true"
-						                         queryParamsHandling="merge"
-						                         class="btn btn-danger btn-sm">
-						                     <fa-icon [icon]="'times'"></fa-icon>
-						                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-						                 </button>
-				            </a>
-				            </li>
-				        </ul>
+						<div class="btn-group flex-btn-group-container">
+	                        <button type="submit"
+	                                [routerLink]="['/blog', blog.id, 'view' ]"
+	                                class="btn btn-info btn-sm">
+	                            <fa-icon [icon]="'eye'"></fa-icon>
+	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+	                        </button>
+	                        <button *ngIf="owner === blog.userId || isAdmin == true"
+	                        		type="submit"
+	                                [routerLink]="['/blog', blog.id, 'edit']"
+	                                class="btn btn-primary btn-sm">
+	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+	                        </button>
+	                        <button *ngIf="owner === blog.userId || isAdmin == true"
+	                        		type="submit"
+	                                [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
+	                                replaceUrl="true"
+	                                queryParamsHandling="merge"
+	                                class="btn btn-danger btn-sm">
+	                            <fa-icon [icon]="'times'"></fa-icon>
+	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+	                        </button>
+	                    </div>
 				        <!-- End Info -->
                     </div>
                   <!-- End Listing - Agents -->
@@ -158,14 +143,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        <button *ngIf="owner === blog.userId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/blog', blog.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button *jhiHasAnyAuthority="'ROLE_ADMIN'"
+                        <button *ngIf="owner === blog.userId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'blog/'+ blog.id + '/delete'} }]"
                                 replaceUrl="true"
