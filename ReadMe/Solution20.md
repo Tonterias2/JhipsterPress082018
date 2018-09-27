@@ -1,4 +1,4 @@
-# Problem 20: How to change DTOs to load attributes of other not directly related entities
+# Problem 20: How to change DTOs to load attributes of not related entities
 
 
 We have a comment (Comment  Profile  User) that is not an Entity directly related to the User Entity and we need to know who is the author (userId) of that comment. So we can not get directly to the userID. 

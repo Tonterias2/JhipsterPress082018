@@ -16,19 +16,46 @@ public class BlockuserDTO implements Serializable {
 
     private Instant creationDate;
 
+    
     private Long cblockeduserId;
+    
+    @Lob
+    private byte[] cblockeduserImage;
+    private String cblockeduserImageContentType;
+
+    private String cblockeduserCommunityname;
+
 
     private Long cblockinguserId;
 
-    private Long blockeduserId;
-
-    private Long blockinguserId;
-    
     @Lob
     private byte[] cblockinguserImage;
-    
+    private String cblockinguserImageContentType;
+
+    private String cblockinguserCommunityname;
+
+
+    private Long blockeduserId;
+
+    @Lob
+    private byte[] blockeduserImage;
+    private String blockeduserImageContentType;
+
+    private String blockeduserUserFirstName;
+
+    private String blockeduserUserLastName;
+
+
+    private Long blockinguserId;
+
     @Lob
     private byte[] blockinguserImage;
+    private String blockinguserImageContentType;
+
+    private String blockinguserUserFirstName;
+
+    private String blockinguserUserLastName;
+
 
     public Long getId() {
         return id;
@@ -94,6 +121,102 @@ public class BlockuserDTO implements Serializable {
 		this.blockinguserImage = blockinguserImage;
 	}
 
+	public byte[] getCblockeduserImage() {
+		return cblockeduserImage;
+	}
+
+	public void setCblockeduserImage(byte[] cblockeduserImage) {
+		this.cblockeduserImage = cblockeduserImage;
+	}
+
+	public String getCblockeduserImageContentType() {
+		return cblockeduserImageContentType;
+	}
+
+	public void setCblockeduserImageContentType(String cblockeduserImageContentType) {
+		this.cblockeduserImageContentType = cblockeduserImageContentType;
+	}
+
+	public String getCblockeduserCommunityname() {
+		return cblockeduserCommunityname;
+	}
+
+	public void setCblockeduserCommunityname(String cblockeduserCommunityname) {
+		this.cblockeduserCommunityname = cblockeduserCommunityname;
+	}
+
+	public String getCblockinguserImageContentType() {
+		return cblockinguserImageContentType;
+	}
+
+	public void setCblockinguserImageContentType(String cblockinguserImageContentType) {
+		this.cblockinguserImageContentType = cblockinguserImageContentType;
+	}
+
+	public String getCblockinguserCommunityname() {
+		return cblockinguserCommunityname;
+	}
+
+	public void setCblockinguserCommunityname(String cblockinguserCommunityname) {
+		this.cblockinguserCommunityname = cblockinguserCommunityname;
+	}
+
+	public byte[] getBlockeduserImage() {
+		return blockeduserImage;
+	}
+
+	public void setBlockeduserImage(byte[] blockeduserImage) {
+		this.blockeduserImage = blockeduserImage;
+	}
+
+	public String getBlockeduserImageContentType() {
+		return blockeduserImageContentType;
+	}
+
+	public void setBlockeduserImageContentType(String blockeduserImageContentType) {
+		this.blockeduserImageContentType = blockeduserImageContentType;
+	}
+
+	public String getBlockeduserUserFirstName() {
+		return blockeduserUserFirstName;
+	}
+
+	public void setBlockeduserUserFirstName(String blockeduserUserFirstName) {
+		this.blockeduserUserFirstName = blockeduserUserFirstName;
+	}
+
+	public String getBlockeduserUserLastName() {
+		return blockeduserUserLastName;
+	}
+
+	public void setBlockeduserUserLastName(String blockeduserUserLastName) {
+		this.blockeduserUserLastName = blockeduserUserLastName;
+	}
+
+	public String getBlockinguserImageContentType() {
+		return blockinguserImageContentType;
+	}
+
+	public void setBlockinguserImageContentType(String blockinguserImageContentType) {
+		this.blockinguserImageContentType = blockinguserImageContentType;
+	}
+
+	public String getBlockinguserUserFirstName() {
+		return blockinguserUserFirstName;
+	}
+
+	public void setBlockinguserUserFirstName(String blockinguserUserFirstName) {
+		this.blockinguserUserFirstName = blockinguserUserFirstName;
+	}
+
+	public String getBlockinguserUserLastName() {
+		return blockinguserUserLastName;
+	}
+
+	public void setBlockinguserUserLastName(String blockinguserUserLastName) {
+		this.blockinguserUserLastName = blockinguserUserLastName;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -118,8 +241,16 @@ public class BlockuserDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "BlockuserDTO [id=" + id + ", creationDate=" + creationDate + ", cblockeduserId=" + cblockeduserId
-				+ ", cblockinguserId=" + cblockinguserId + ", blockeduserId=" + blockeduserId + ", blockinguserId="
-				+ blockinguserId + ", cblockinguserImage=" + Arrays.toString(cblockinguserImage)
-				+ ", blockinguserImage=" + Arrays.toString(blockinguserImage) + "]";
+				+ ", cblockeduserImage=" + Arrays.toString(cblockeduserImage) + ", cblockeduserImageContentType="
+				+ cblockeduserImageContentType + ", cblockeduserCommunityname=" + cblockeduserCommunityname
+				+ ", cblockinguserId=" + cblockinguserId + ", cblockinguserImage=" + Arrays.toString(cblockinguserImage)
+				+ ", cblockinguserImageContentType=" + cblockinguserImageContentType + ", cblockinguserCommunityname="
+				+ cblockinguserCommunityname + ", blockeduserId=" + blockeduserId + ", blockeduserImage="
+				+ Arrays.toString(blockeduserImage) + ", blockeduserImageContentType=" + blockeduserImageContentType
+				+ ", blockeduserUserFirstName=" + blockeduserUserFirstName + ", blockeduserUserLastName="
+				+ blockeduserUserLastName + ", blockinguserId=" + blockinguserId + ", blockinguserImage="
+				+ Arrays.toString(blockinguserImage) + ", blockinguserImageContentType=" + blockinguserImageContentType
+				+ ", blockinguserUserFirstName=" + blockinguserUserFirstName + ", blockinguserUserLastName="
+				+ blockinguserUserLastName + "]";
 	}
 }

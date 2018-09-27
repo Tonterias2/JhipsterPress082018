@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { JhipsterPress08SharedModule } from 'app/shared';
 import {
     BlockuserComponent,
+    BlockinguserComponent,
+    BlockeduserComponent,
     BlockuserDetailComponent,
     BlockuserUpdateComponent,
     BlockuserDeletePopupComponent,
@@ -18,12 +20,14 @@ const ENTITY_STATES = [...blockuserRoute, ...blockuserPopupRoute];
     imports: [JhipsterPress08SharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         BlockuserComponent,
+        BlockinguserComponent,
+        BlockeduserComponent,
         BlockuserDetailComponent,
         BlockuserUpdateComponent,
         BlockuserDeleteDialogComponent,
         BlockuserDeletePopupComponent
     ],
-    entryComponents: [BlockuserComponent, BlockuserUpdateComponent, BlockuserDeleteDialogComponent, BlockuserDeletePopupComponent],
+    entryComponents: [BlockuserComponent, BlockinguserComponent, BlockeduserComponent, BlockuserUpdateComponent, BlockuserDeleteDialogComponent, BlockuserDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class JhipsterPress08BlockuserModule {}

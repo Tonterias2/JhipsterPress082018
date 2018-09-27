@@ -11,10 +11,10 @@ When I started, I wanted to make an App that helped me (and hopefully others) to
 
 I thought about it as a collaborative project that should be interesting for other developers to join, at any point (you can mail me at jhipsterpress@gmail.com), either because you wanted to learn how we have done it (beginners) or propose new ideas to make it grow and excel. Moreover, you can download the App and create your own Website if you wish to do so. 
 
-The App is the combination of several sub-apps or parts: a newspaper with a blog and a dating or gruoping site. Let's start with a brief description of each part:
+The App is the combination of several sub-apps or parts: a newspaper with a blog and a meeting site (or grouping site). Let's start with a brief description of each part:
 
-* Newspaper: The admin can manage the FrontPage of the site placing news that he considers interesting. This news can be general news, or specific ones about main interests or activities that are important for him or his gorup. A profile or a group can have a Blog, post news and users can comment those posts that would be grouped with tags and topics that are related with the interests and activities of the dating site.
-* Dating site: A user can fill a profile detailing the activities or interest he has. He can follow other user with similar tastes, activities or sports, to join groups that meet together. A user, or group profile, can upload an Album with photographs. A profile can also receive messages and notifications.
+* Newspaper: The admin can manage the FrontPage of the site placing news that he considers interesting. This news can be general news, or specific ones about main interests or activities that are important for him or his gorup. A profile or a group can have a Blog, post news and users can comment those posts that would be grouped with tags and topics that are related with the interests and activities of the meeting site.
+* Meeting site: A user can fill a profile detailing the activities or interest he has. He can follow other user with similar tastes, activities or sports, to join groups that meet together. A user, or group profile, can upload an Album with photographs. A profile can also receive messages and notifications.
 
 * WIP: Proposals: Think of a proposal as a general idea. A user thinks about something that wants to present to other users for consideration, so he fills a proposal. This proposal could be explained in a Post and it can be voted by other users, a group or the general visitor.
 * WIP: Bulletin Board: will be used to post offers and demands for things or services.
@@ -41,7 +41,7 @@ STARTERS:
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 * [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
 
-BEGGINERS:
+BEGINNERS:
 
 * [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
@@ -56,7 +56,7 @@ INTERMEDIATE:
 * [How to change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
 * [How to change DTOs to load entities:](ReadMe/Solution18.md)
 * [How to change DTOs to load attributes of other entities:](ReadMe/Solution19.md)
-* [How to change DTOs to load attributes of other not directly related entities:](ReadMe/Solution20.md)
+* [How to change DTOs to load attributes of not related entities:](ReadMe/Solution20.md)
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 
@@ -64,6 +64,7 @@ ADVANCED:
 
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
+* [How to use create new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
 * Different ways to block un-authorized code
 * Cascade deletion
 * And more that will appear.
