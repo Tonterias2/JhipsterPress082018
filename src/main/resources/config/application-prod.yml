@@ -48,7 +48,7 @@ spring:
     mail:
         host: smtp.gmail.com
         port: 587
-        username: jhipstrpress@gmail.com
+        username: jhipsterpress@gmail.com
         password: donotbeakid     
         protocol: smtp
         tls: true
