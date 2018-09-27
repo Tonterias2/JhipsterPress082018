@@ -96,13 +96,13 @@
               <!-- End Reviews -->
               
               <!-- Blocking Users -->
-              <a [routerLink]="['/blockuser']" [queryParams]="{ 'blockingUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+              <a [routerLink]="['/blockinguser']" [queryParams]="{ 'blockingUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocking Users</span>
               </a>
               <!-- End Blocking Users -->
 
               <!-- Blocked Users -->
-              <a [routerLink]="['/blockuser']" [queryParams]="{ 'blockedUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
+              <a [routerLink]="['/blockeduser']" [queryParams]="{ 'blockedUserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-fire g-pos-rel g-top-1 g-mr-8"></i> Blocked Users</span>
               </a>
               <!-- End Blocked Users -->

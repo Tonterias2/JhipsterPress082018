@@ -12,7 +12,7 @@ import { BlockuserService } from './blockuser.service';
 
 @Component({
     selector: 'jhi-blockuser',
-    templateUrl: './blockuser.component.html'
+    templateUrl: './blockeduser.component.html'
 })
 export class BlockeduserComponent implements OnInit, OnDestroy {
     currentAccount: any;
