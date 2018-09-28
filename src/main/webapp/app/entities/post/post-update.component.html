@@ -69,22 +69,23 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.post.bodytext" for="field_bodytext">Bodytext</label>
-                    <input type="text" class="form-control" name="bodytext" id="field_bodytext"
-                        [(ngModel)]="post.bodytext" required minlength="2" maxlength="65000"/>
-                    <div [hidden]="!(editForm.controls.bodytext?.dirty && editForm.controls.bodytext?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.bodytext?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.bodytext?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
-                        This field is required to be at least 2 characters.
-                        </small>
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.bodytext?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 65000 }">
-                        This field cannot be longer than 65000 characters.
-                        </small>
-                    </div>
+                    <textarea type="text" rows="10" cols="50" class="form-control" name="bodytext" id="field_bodytext"
+                        [(ngModel)]="post.bodytext" required minlength="2" maxlength="65000">
+	                    <div [hidden]="!(editForm.controls.bodytext?.dirty && editForm.controls.bodytext?.invalid)">
+	                        <small class="form-text text-danger"
+	                        [hidden]="!editForm.controls.bodytext?.errors?.required" jhiTranslate="entity.validation.required">
+	                        This field is required.
+	                        </small>
+	                        <small class="form-text text-danger"
+	                        [hidden]="!editForm.controls.bodytext?.errors?.minlength" jhiTranslate="entity.validation.minlength" translateValues="{ min: 2 }">
+	                        This field is required to be at least 2 characters.
+	                        </small>
+	                        <small class="form-text text-danger"
+	                        [hidden]="!editForm.controls.bodytext?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 65000 }">
+	                        This field cannot be longer than 65000 characters.
+	                        </small>
+	                    </div>
+	              	</textarea>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.post.quote" for="field_quote">Quote</label>
