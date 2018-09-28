@@ -21,6 +21,48 @@
             "cblockinguser": "Cblockinguser",
             "blockeduser": "Blockeduser",
             "blockinguser": "Blockinguser"
+        },
+        "blockinguser" : {
+            "home": {
+                "title": "Blocking Users",
+                "createLabel": "Create a new Blockuser",
+                "createOrEditLabel": "Create or edit a Blocking User"
+            },
+            "created": "A new Blocking User is created with identifier {{ param }}",
+            "updated": "A Blocking User is updated with identifier {{ param }}",
+            "deleted": "A Blocking User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Blocking User {{ id }}?"
+            },
+            "detail": {
+                "title": "Blocking User"
+            },
+            "creationDate": "Creation Date",
+            "cblockeduser": "Cblockeduser",
+            "cblockinguser": "Cblockinguser",
+            "blockeduser": "Blockeduser",
+            "blockinguser": "Blockinguser"
+        },
+        "blockeduser" : {
+            "home": {
+                "title": "Blocked Users",
+                "createLabel": "Create a new Blockuser",
+                "createOrEditLabel": "Create or edit a Blocked User"
+            },
+            "created": "A new Blocked User is created with identifier {{ param }}",
+            "updated": "A Blocked User is updated with identifier {{ param }}",
+            "deleted": "A Blocked User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Blocked User {{ id }}?"
+            },
+            "detail": {
+                "title": "Blocked User"
+            },
+            "creationDate": "Creation Date",
+            "cblockeduser": "Cblockeduser",
+            "cblockinguser": "Cblockinguser",
+            "blockeduser": "Blockeduser",
+            "blockinguser": "Blockinguser"
         }
     }
 }

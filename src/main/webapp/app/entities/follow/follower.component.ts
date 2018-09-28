@@ -73,6 +73,7 @@ export class FollowerComponent implements OnInit, OnDestroy {
                 (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        console.log('CONSOLOG: M:loadAll & O: this.query : ', query);
     }
 
     loadPage(page: number) {

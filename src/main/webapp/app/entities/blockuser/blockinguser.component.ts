@@ -51,9 +51,9 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
             this.predicate = data.pagingParams.predicate;
         });
         this.activatedRoute.queryParams.subscribe( params => {
-            if (params.blockedUserIdEquals != null) {
+            if (params.blockinguserIdEquals != null) {
                 this.nameParamBlockUser = 'blockeduserId.equals';
-                this.valueParamBlockUser = params.blockedUserIdEquals;
+                this.valueParamBlockUser = params.blockinguserIdEquals;
             }
             if (params.cblockedUserIdEquals != null) {
                 this.nameParamBlockUser = 'cblockeduserId.equals';

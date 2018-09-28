@@ -23,3 +23,17 @@ When using gmail you have to enable a setting "to allow access for less secure a
 https://support.google.com/accounts/answer/6010255?hl=en
 
 ... and on your first email from a gmail address it may send an error to your email saying you logged in from a weird place (your server instead of where you created the email) and you have to confirm that.
+
+NOTE: Do not forget to change /src/main/resources/config/application-prod.yml URL of your website.
+
+        base-url: http://www.jhipsterpress.com # Modify according to your server's URL
+
+for the confirmation mail to include it:
+
+	Dear localhost21
+	Your JhipsterPress08 account has been created, please click on the URL below to activate it:
+	http://127.0.0.1:8080/#/activate?key=95048173305135711535 
+	Regards, 
+	JhipsterPress08 Team.
+	
+NOTE: I had trouble with the one space at the config, so make sure everything is exactly the same.

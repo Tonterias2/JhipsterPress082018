@@ -106,7 +106,7 @@ jhipster:
             key: a9b7e3917b05e67b4fb96ab4d97b8a0179ade18d4fee95ee8aaf93401a48afbcdacba1dce8a05249d167e21a19703a1eedcc
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: JhipsterPress08@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        base-url: http://www.jhipsterpress.com # Modify according to your server's URL
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
             enabled: true

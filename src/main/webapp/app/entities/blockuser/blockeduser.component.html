@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="jhipsterPress08App.blockuser.home.title">Blockusers</span>
+        <span jhiTranslate="jhipsterPress08App.blockeduser.home.title">Blockusers</span>
         <!--
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-blockuser" [routerLink]="['/blockuser/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
@@ -14,7 +14,7 @@
     <br/>
 
     <!-- Profile Content -->
-	<div class="col-lg-9" *ngIf="blockusers">
+	<div class="col-lg-9" *ngIf="blockusers?.length; else zipZeroResults"> 
 	  <!-- User Contacts -->
 	  <div class="row g-mb-40">
 	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let blockuser of blockusers ;trackBy: trackId">
@@ -73,7 +73,11 @@
 	      </figure>
 	      <!-- End Figure -->
 	    </div>
+	 </div>
 	</div>
+	<ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+	</ng-template>
 	<!-- End Profile Content -->
 
 

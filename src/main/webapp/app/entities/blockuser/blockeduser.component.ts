@@ -51,9 +51,9 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
             this.predicate = data.pagingParams.predicate;
         });
         this.activatedRoute.queryParams.subscribe( params => {
-            if (params.blockinguserIdEquals != null) {
+            if (params.blockeduserIdEquals != null) {
                 this.nameParamBlockUser = 'blockinguserId.equals';
-                this.valueParamBlockUser = params.blockinguserIdEquals;
+                this.valueParamBlockUser = params.blockeduserIdEquals;
             }
             if (params.cblockinguserIdEquals != null) {
                 this.nameParamBlockUser = 'cblockinguserId.equals';
@@ -75,6 +75,7 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
                 (res: HttpResponse<IBlockuser[]>) => this.paginateBlockusers(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        console.log('CONSOLOG: M:loadAll & O: this.query : ', query);
     }
 
     loadPage(page: number) {
@@ -144,9 +145,9 @@ export class BlockeduserComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blockusers = data;
-        console.log('blockusers', this.blockusers);
-        console.log('OWNER', this.owner);
-        console.log('ISADMIN', this.isAdmin);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.blockusers : ', this.blockusers);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {
