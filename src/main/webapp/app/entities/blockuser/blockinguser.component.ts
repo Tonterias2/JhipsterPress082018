@@ -33,6 +33,7 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
     valueParamBlockUser: any;
     owner: any;
     isAdmin: boolean;
+    zipZeroResults: any;
 
     constructor(
         private blockuserService: BlockuserService,
