@@ -1,4 +1,3 @@
-
 {
     "jhipsterPress08App": {
         "blockuser" : {
@@ -15,6 +14,48 @@
             },
             "detail": {
                 "title": "Blockuser"
+            },
+            "creationDate": "Creation Date",
+            "cblockeduser": "Cblockeduser",
+            "cblockinguser": "Cblockinguser",
+            "blockeduser": "Blockeduser",
+            "blockinguser": "Blockinguser"
+        },
+        "blockinguser" : {
+            "home": {
+                "title": "Blocking Users",
+                "createLabel": "Crear nuevo Blockuser",
+                "createOrEditLabel": "Crear o editar Blockuser"
+            },
+            "created": "Un nuevo Blockuser ha sido creado con el identificador {{ param }}",
+            "updated": "Un Blockuser ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Blockuser ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Blockuser {{ id }}?"
+            },
+            "detail": {
+                "title": "Blocking User"
+            },
+            "creationDate": "Creation Date",
+            "cblockeduser": "Cblockeduser",
+            "cblockinguser": "Cblockinguser",
+            "blockeduser": "Blockeduser",
+            "blockinguser": "Blockinguser"
+        },
+        "blockeduser" : {
+            "home": {
+                "title": "Blocked Users",
+                "createLabel": "Crear nuevo Blockuser",
+                "createOrEditLabel": "Crear o editar Blockuser"
+            },
+            "created": "Un nuevo Blockuser ha sido creado con el identificador {{ param }}",
+            "updated": "Un Blockuser ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Blockuser ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Blockuser {{ id }}?"
+            },
+            "detail": {
+                "title": "Blocked User"
             },
             "creationDate": "Creation Date",
             "cblockeduser": "Cblockeduser",

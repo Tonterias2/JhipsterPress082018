@@ -1,4 +1,24 @@
-# Problem 21: How to use create new component pages on the frontend: Follows and BlockedUser case
+# Problem 22: How to create the FrontPage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 The regular Follow (and BlockUser) entities had to be duplicated into Following and Followers pages (and Blocking and Blocked Users pages).

@@ -40,9 +40,6 @@ STARTERS:
 * [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 * [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
-
-BEGINNERS:
-
 * [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
 * [List screen shows only user’s data:](ReadMe/Solution2.md)
@@ -50,7 +47,7 @@ BEGINNERS:
 * [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
 * [How to configure the confirmation email in Heroku:](ReadMe/Solution11.md)
 
-INTERMEDIATE:
+BEGINNERS:
 
 * [How to avoid unauthorized calls to the API:](ReadMe/Solution17.md)
 * [How to change H2 Database from In-memory to Disk:](ReadMe/Solution5.md)
@@ -60,14 +57,16 @@ INTERMEDIATE:
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 
-ADVANCED:
-
+INTERMEDIATE:
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
 * [How to use create new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
+* [How to create the FrontPage:](ReadMe/Solution22.md)
 * Different ways to block un-authorized code
 * Cascade deletion
 * And more that will appear.
+
+ADVANCED:
 
 # DOWNLOAD & DATA INSERTIONS:
 
