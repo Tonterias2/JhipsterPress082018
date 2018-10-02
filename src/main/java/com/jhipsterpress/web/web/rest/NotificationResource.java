@@ -59,6 +59,7 @@ public class NotificationResource {
         if (notificationDTO.getId() != null) {
             throw new BadRequestAlertException("A new notification cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        System.out.println("NotificationResource:createNotification!!________!!!!!!!!!:" + notificationDTO);
         NotificationDTO result = notificationService.save(notificationDTO);
         return ResponseEntity.created(new URI("/api/notifications/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

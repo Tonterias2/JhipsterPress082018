@@ -51,8 +51,10 @@ export class NotificationUpdateComponent implements OnInit {
         this.notification.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         this.notification.notificationDate = moment(this.notificationDate, DATE_TIME_FORMAT);
         if (this.notification.id !== undefined) {
+            console.log('CONSOLOG: M:save.update & O: this.notification : ', this.notification);
             this.subscribeToSaveResponse(this.notificationService.update(this.notification));
         } else {
+            console.log('CONSOLOG: M:save.create & O: this.notification : ', this.notification);
             this.subscribeToSaveResponse(this.notificationService.create(this.notification));
         }
     }

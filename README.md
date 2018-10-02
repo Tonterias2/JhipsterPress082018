@@ -1,9 +1,7 @@
-# JHIPSTER LEARNING PROJECT:
+# http://www.jhipsterpress.com/ LEARNING PROJECT:
 
 
-First, I would like to thank Jon Rudell https://github.com/ruddell 
-
-Without his help, this would not have been possible!
+First, I would like to thank Jon Rudell (https://github.com/ruddell). Without his help, http://www.jhipsterpress.com/ would not have been possible!
 
 ![](ReadMe/homepage.png)
 

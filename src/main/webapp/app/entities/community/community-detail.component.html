@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="community">
-            <h2><span jhiTranslate="jhipsterPress08App.community.detail.title">Community</span> {{community.id}}
+            <h2><span>{{community.communityname}}</span>
 	            <button *ngIf="isFollowing === true" style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="unFollowing()">
 				    <span jhiTranslate="jhipsterPress08App.profile.unfollow">
 				    UnFollow
@@ -117,7 +117,7 @@
 		            <tr *ngFor="let blog of blogs">
 		                <td><a [routerLink]="['/blog', blog.id, 'view' ]">{{blog.id}}</a></td>
 		                <td>{{blog.creationDate | date:'medium'}}</td>
-		                <td>{{blog.title}}</td>
+		                <td><a [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></td>
 		                <td>
 		                    <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
 		                        <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-height: 30px;" alt="blog image"/>
