@@ -146,7 +146,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         // this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = 1;
         this.frontpageconfigs.push(data);
-        console.log('FRONTPAGE', this.frontpageconfigs);
+        console.log('CONSOLOG: M:paginateFrontpageconfigs & O: this.frontpageconfigs : ', this.frontpageconfigs);
     }
 
     private onError(errorMessage: string) {

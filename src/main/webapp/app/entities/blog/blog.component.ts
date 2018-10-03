@@ -182,7 +182,7 @@ export class BlogComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blogs = data;
-        console.log('Communty+Blog?id', this.blogs);
+        console.log('CONSOLOG: M:paginateBlogs & O: this.blogs : ', this.blogs);
     }
 
     private paginateCommunities(data: ICommunity[], headers: HttpHeaders) {

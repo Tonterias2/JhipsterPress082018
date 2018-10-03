@@ -81,7 +81,7 @@ export class PhotoUpdateComponent implements OnInit {
         if (this.photo.id !== undefined) {
             this.subscribeToSaveResponse(this.photoService.update(this.photo));
         } else {
-            console.log('0.- Printing photo', this.photo);
+            console.log('CONSOLOG: M:save & O: this.photo : ', this.photo);
             this.subscribeToSaveResponse(this.photoService.create(this.photo));
         }
     }
@@ -97,12 +97,12 @@ export class PhotoUpdateComponent implements OnInit {
             .subscribe(
                     (res: HttpResponse<ICommunity[]>) => {
                         this.communities = res.body;
-                        console.log('4.- Printing the res.body: ', res.body);
+                        console.log('CONSOLOG: M:myCommunities & O: res.body : ', res.body);
                         this.communitiesBlogs(this.communities);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:myCommunities & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private communitiesBlogs(communities) {
@@ -136,11 +136,11 @@ export class PhotoUpdateComponent implements OnInit {
             .subscribe(
                     (res: HttpResponse<IAlbum[]>) => {
                         this.albums = res.body;
-                        console.log('4.- Printing the res.body: ', res.body);
+                        console.log('CONSOLOG: M:myAlbums & O: res.body : ', res.body);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:myAlbums & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IPhoto>>) {

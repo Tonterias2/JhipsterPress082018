@@ -117,12 +117,12 @@ export class ProfileUpdateComponent implements OnInit {
            .subscribe(
                     (res: HttpResponse<IUser>) => {
                         this.user = res.body;
-                        console.log('4A.- Printing the res.body: ', res.body);
-                        console.log('4B.- Printing the this.user: ', this.user);
+                        console.log('CONSOLOG: M:userServiceId & O: res.body : ', res.body);
+                        console.log('CONSOLOG: M:userServiceId & O: this.user : ', this.user);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:userServiceId & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IProfile>>) {

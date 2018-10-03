@@ -173,9 +173,9 @@ export class CalbumComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.calbums = data;
-        console.log('OWNER', this.owner);
-        console.log('isADMIN', this.isAdmin);
-        console.log('C_ALBUMS:', this.calbums);
+        console.log('CONSOLOG: M:paginateCalbums & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateCalbums & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateCalbums & O: this.calbums : ', this.calbums);
     }
 
     private paginateCommunities(data: ICommunity[], headers: HttpHeaders) {

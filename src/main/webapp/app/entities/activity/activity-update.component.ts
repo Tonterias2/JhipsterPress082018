@@ -83,7 +83,7 @@ export class ActivityUpdateComponent implements OnInit {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
-                        console.log('4.1.- Printing the res.body: ', res.body);
+                        console.log('CONSOLOG: M:myProfiles & O: res.body : ', res.body);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -100,11 +100,11 @@ export class ActivityUpdateComponent implements OnInit {
             .subscribe(
                     (res: HttpResponse<ICommunity[]>) => {
                         this.communities = res.body;
-                        console.log('4.- Printing the res.body: ', res.body);
+                        console.log('CONSOLOG: M:myCommunities & O: res.body : ', res.body);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
-        console.log('5.- Printing the this.currentAccount.id', this.currentAccount.id);
+        console.log('CONSOLOG: M:myCommunities & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IActivity>>) {

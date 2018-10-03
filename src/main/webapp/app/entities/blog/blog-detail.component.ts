@@ -26,7 +26,7 @@ constructor(
         this.activatedRoute.data.subscribe(({ blog }) => {
             this.blog = blog;
             this.communitiesPosts( blog );
-            console.log('ngOnInit print this.blog: ', this.blog);
+            console.log('CONSOLOG: M:ngOnInit & O: this.blog : ', this.blog);
         });
     }
 
@@ -41,7 +41,7 @@ constructor(
             .subscribe(
             (res: HttpResponse<IPost[]>) => {
                 this.posts = res.body;
-                console.log('communitiesBlogs print this.blogs: ', this.posts);
+                console.log('CONSOLOG: M:communitiesPosts & O: this.posts : ', this.posts);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

@@ -181,9 +181,9 @@ export class CommentComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.comments = data;
-        console.log('OWNER', this.owner);
-        console.log('isADMIN', this.isAdmin);
-        console.log('COMMENTS: ', this.comments);
+        console.log('CONSOLOG: M:paginateComments & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateComments & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateComments & O: this.follows : ', this.comments);
     }
 
     private onError(errorMessage: string) {

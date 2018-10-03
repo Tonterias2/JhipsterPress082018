@@ -161,9 +161,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.notifications = data;
-        console.log('OWNER', this.owner);
-        console.log('isADMIN', this.isAdmin);
-        console.log('NOTIFICATIONS: ', this.notifications);
+        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.owner);
+        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.notifications);
     }
 
     private onError(errorMessage: string) {

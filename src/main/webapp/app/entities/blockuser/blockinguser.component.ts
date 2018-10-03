@@ -145,9 +145,9 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blockusers = data;
-        console.log('blockusers', this.blockusers);
-        console.log('OWNER', this.owner);
-        console.log('ISADMIN', this.isAdmin);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.follows : ', this.blockusers);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.follows : ', this.owner);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.follows : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {

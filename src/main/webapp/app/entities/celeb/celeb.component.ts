@@ -217,7 +217,7 @@ export class CelebComponent implements OnInit, OnDestroy {
                 this.arrayIds.push( x.id );
             }
         } );
-        console.log( 'filterInterests', this.arrayIds, this.arrayAux );
+        console.log('CONSOLOG: M:filterCelebs & O: filterInterests', this.arrayIds, this.arrayAux );
         return this.arrayAux;
     }
 
@@ -246,9 +246,9 @@ export class CelebComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.celebs = data;
-        console.log('MESSAGES', this.celebs);
-        console.log('OWNER', this.owner);
-        console.log('ISADMIN', this.isAdmin);
+        console.log('CONSOLOG: M:paginateCelebs & O: this.celebs : ', this.celebs);
+        console.log('CONSOLOG: M:paginateCelebs & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateCelebs & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {

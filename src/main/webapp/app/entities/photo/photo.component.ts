@@ -265,10 +265,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         this.totalItems = data.length;
         this.queryCount = this.totalItems;
         this.photos = data;
-        console.log('PHOTOS', this.photos);
-//        console.log('ALBUMS', this.albums);
-//        console.log('CALBUMS', this.calbums);
-//        console.log('COMMUNITIES', this.communities);
+        console.log('CONSOLOG: M:paginatePhotos & O: this.photos : ', this.photos);
     }
 
     private onError(errorMessage: string) {

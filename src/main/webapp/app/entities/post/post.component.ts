@@ -182,9 +182,9 @@ export class PostComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.posts = data;
-        console.log('OWNER', this.owner);
-        console.log('isADMIN', this.isAdmin);
-        console.log('POSTS', this.posts);
+        console.log('CONSOLOG: M:paginatePosts & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginatePosts & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginatePosts & O: this.posts : ', this.posts);
     }
 
     private paginateProfiles(data: IProfile[], headers: HttpHeaders) {

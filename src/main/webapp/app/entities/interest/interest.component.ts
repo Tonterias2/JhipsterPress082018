@@ -218,7 +218,7 @@ export class InterestComponent implements OnInit, OnDestroy {
                 this.arrayIds.push( x.id );
             }
         } );
-        console.log( 'filterInterests', this.arrayIds, this.arrayAux );
+        console.log('CONSOLOG: M:filterInterests & O: this.follows : ', this.arrayIds, this.arrayAux );
         return this.arrayAux;
     }
 
@@ -247,9 +247,9 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.interests = data;
-        console.log('MESSAGES', this.interests);
-        console.log('OWNER', this.owner);
-        console.log('ISADMIN', this.isAdmin);
+        console.log('CONSOLOG: M:paginateInterests & O: this.interests : ', this.interests);
+        console.log('CONSOLOG: M:paginateInterests & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateInterests & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {
