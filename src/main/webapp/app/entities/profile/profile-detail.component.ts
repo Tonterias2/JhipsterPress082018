@@ -96,7 +96,16 @@ export class ProfileDetailComponent implements OnInit {
                                 },
                                 ( res2: HttpErrorResponse ) => this.onError( res2.message )
                         );
-                        this.isBlockUser();
+                        this.isBlockUser().subscribe((
+                                res3: HttpResponse<IBlockuser[]> ) => {
+                                    this.blockusers = res3.body;
+                                    if ( this.blockusers.length > 0) {
+                                        this.isBlocked = true;
+                                        return this.blockusers[0];
+                                    }
+                                },
+                                ( res3: HttpErrorResponse ) => this.onError( res3.message )
+                            );
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -104,14 +113,14 @@ export class ProfileDetailComponent implements OnInit {
 
     private isFollower( ) {
         this.isFollowing = false;
-        const query = {
+        const query2 = {
         };
     if ( this.currentAccount.id != null ) {
-        query['followedId.in'] = this.loggedProfileId;
-        query['followingId.in'] = this.profile.id;
+        query2['followedId.in'] = this.loggedProfileId;
+        query2['followingId.in'] = this.profile.id;
     }
    return this.followService
-        .query(query);
+        .query(query2);
         /*.subscribe(
             ( res: HttpResponse<IFollow[]> ) => {
                 this.follows = res.body;
@@ -191,18 +200,18 @@ export class ProfileDetailComponent implements OnInit {
         query['blockeduserId.in'] = this.loggedProfileId;
         query['blockinguserId.in'] = this.profile.id;
     }
-    this.blockuserService
-        .query(query)
-        .subscribe(
-            ( res: HttpResponse<IBlockuser[]> ) => {
-                this.blockusers = res.body;
-                if ( this.blockusers.length > 0) {
-                    this.isBlocked = true;
-                    return this.blockusers[0];
-                }
-            },
-            ( res: HttpErrorResponse ) => this.onError( res.message )
-        );
+    return this.blockuserService
+        .query(query);
+//        .subscribe(
+//            ( res: HttpResponse<IBlockuser[]> ) => {
+//                this.blockusers = res.body;
+//                if ( this.blockusers.length > 0) {
+//                    this.isBlocked = true;
+//                    return this.blockusers[0];
+//                }
+//            },
+//            ( res: HttpErrorResponse ) => this.onError( res.message )
+//        );
     }
 
     blocking() {
@@ -219,10 +228,20 @@ export class ProfileDetailComponent implements OnInit {
 
     unBlocking() {
         if ( this.isBlocked === true ) {
-            this.blockuserService
-                .delete( this.blockusers[0].id )
-                .subscribe( response => { } );
-            this.reload();
+            this.isBlockUser().subscribe((
+                    res4: HttpResponse<IBlockuser[]> ) => {
+                        this.blockusers = res4.body;
+                        if ( this.blockusers.length > 0) {
+                            this.isBlocked = true;
+                            console.log('CONSOLOG: M:unBlocking & O2: this.blockusers[0].id : ', this.blockusers[0].id);
+                            this.blockuserService
+                            .delete( this.blockusers[0].id )
+                            .subscribe( response => { } );
+                        this.reload();
+                        }
+                    },
+                    ( res4: HttpErrorResponse ) => this.onError( res4.message )
+            );
         }
     }
 

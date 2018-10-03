@@ -1,7 +1,7 @@
 # http://www.jhipsterpress.com/ LEARNING PROJECT:
 
 
-First, I would like to thank Jon Rudell (https://github.com/ruddell). Without his help, http://www.jhipsterpress.com/ would not have been possible!
+First, I would like to thank Jon Rudell (https://github.com/ruddell). Without his help, http://www.jhipsterpress.com/ would not have been possible! Note that it takes +30 seconds to wake up http://www.jhipsterpress.com/ in Heroku free account.
 
 ![](ReadMe/homepage.png)
 
@@ -54,6 +54,7 @@ BEGINNERS:
 * [How to change DTOs to load attributes of not related entities:](ReadMe/Solution20.md)
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
+* [How to put logic inside an observable:](ReadMe/Solution23.md)
 
 INTERMEDIATE:
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
