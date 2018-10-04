@@ -12,6 +12,8 @@ import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community';
 import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from 'app/entities/profile';
+import { IFollow } from 'app/shared/model/follow.model';
+import { FollowService } from '../follow/follow.service';
 
 @Component({
     selector: 'jhi-message-update',
@@ -26,11 +28,14 @@ export class MessageUpdateComponent implements OnInit {
     profiles: IProfile[];
     creationDate: string;
 
+    follows: IFollow[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private messageService: MessageService,
         private communityService: CommunityService,
         private profileService: ProfileService,
+        private followService: FollowService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -63,7 +68,28 @@ export class MessageUpdateComponent implements OnInit {
         if (this.message.id !== undefined) {
             this.subscribeToSaveResponse(this.messageService.update(this.message));
         } else {
-            this.subscribeToSaveResponse(this.messageService.create(this.message));
+            if (this.message.communityId !== undefined) {
+                const query = {};
+                query['cfollowingId.equals'] = this.message.communityId;
+                this.followService
+                .query(query)
+                .subscribe(
+                    ( res: HttpResponse<IFollow[]> ) => {
+                        this.follows = res.body;
+                        console.log('CONSOLOG: M:save & O: this.follows : ', this.follows);
+                        this.follows.forEach(follow => {
+                            if (follow.followedId !== null) {
+                                this.message.profileId = follow.followedId;
+                                console.log('CONSOLOG: M:save & O: this.message : ', this.message);
+                                this.subscribeToSaveResponse(this.messageService.create(this.message));
+                            }
+                        });
+                    },
+                    ( res: HttpErrorResponse ) => this.onError( res.message )
+                );
+            } else {
+                this.subscribeToSaveResponse(this.messageService.create(this.message));
+            }
         }
     }
 

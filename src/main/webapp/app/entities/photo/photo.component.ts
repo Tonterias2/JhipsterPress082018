@@ -42,6 +42,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
     reverse: any;
     owner: any;
     isAdmin: boolean;
+    arrayAux = [];
+    arrayIds = [];
 
     constructor(
         private photoService: PhotoService,
@@ -253,11 +255,28 @@ export class PhotoComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<IPhoto[]>) => {
-                        this.photos = this.photos.concat(res.body);
+//                        this.photos = this.photos.concat(res.body);
+                        this.photos = this.filterPhotos(this.photos.concat(res.body));
                         this.paginatePhotos(this.photos, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    private filterPhotos( photos ) {
+        this.arrayAux = [];
+        this.arrayIds = [];
+        photos.map( x => {
+            if ( this.arrayIds.length >= 1 && this.arrayIds.includes( x.id ) === false ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
+            } else if ( this.arrayIds.length === 0 ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
+            }
+        } );
+        console.log('CONSOLOG: M:filterInterests & O: this.follows : ', this.arrayIds, this.arrayAux );
+        return this.arrayAux;
     }
 
     private paginatePhotos(data: IPhoto[], headers: HttpHeaders) {

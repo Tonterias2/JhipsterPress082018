@@ -39,6 +39,8 @@ export class MessageComponent implements OnInit, OnDestroy {
     paramMessageProfileId: any;
     owner: any;
     isAdmin: boolean;
+    arrayAux = [];
+    arrayIds = [];
 
     constructor(
         private messageService: MessageService,
@@ -116,14 +118,15 @@ export class MessageComponent implements OnInit, OnDestroy {
             this.owner = account.id;
 //            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
 //            console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
-            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
-                this.isAdmin = result;
-                if ( this.isAdmin === true ) {
-                    this.loadAll();
-                } else {
-                    this.myMessagesCommunities();
-                }
-            });
+            this.myMessagesCommunities();
+//            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+//                this.isAdmin = result;
+//                if ( this.isAdmin === true ) {
+//                    this.loadAll();
+//                } else {
+//                    this.myMessagesCommunities();
+//                }
+//            });
         });
         this.registerChangeInMessages();
     }
@@ -149,7 +152,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     myMessagesCommunities() {
-//        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
+        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -163,6 +166,8 @@ export class MessageComponent implements OnInit, OnDestroy {
             .subscribe(
                 (res: HttpResponse<ICommunity[]>) => {
                     this.communities = res.body;
+                    // ADEMAS de las que es dueño necesitamos las COM que el tipo está siguiendo.
+                    console.log('CONSOLOG: M:myMessagesCommunities & O: this.communities : ',  this.communities);
                     this.communitiesMessages();
                     },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -184,6 +189,7 @@ export class MessageComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IProfile[]>) => {
                         this.profiles = res.body;
+                        console.log('CONSOLOG: M:myMessagesCommunities & O: this.profiles : ',  this.profiles);
                         this.profilesMessages();
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -208,6 +214,7 @@ export class MessageComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IMessage[]>) => {
                         this.messages = res.body;
+                        console.log('CONSOLOG: M:communitiesMessages & O: this.messages : ',  this.messages);
                         this.myMessagesProfiles(); // ????????????????????????????????????????????????????????????????????
                      },
                     (res: HttpErrorResponse) => this.onError(res.message)
@@ -231,11 +238,29 @@ export class MessageComponent implements OnInit, OnDestroy {
             .query(query)
             .subscribe(
                     (res: HttpResponse<IMessage[]>) => {
-                        this.messages = this.messages.concat(res.body);
+//                        this.messages = this.messages.concat(res.body);
+                        this.messages = this.filterMessages(this.messages.concat(res.body));
+                        console.log('CONSOLOG: M:profilesMessages & O: this.messages : ',  this.messages);
                         this.paginateMessages(this.messages, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    private filterMessages( messages ) {
+        this.arrayAux = [];
+        this.arrayIds = [];
+        messages.map( x => {
+            if ( this.arrayIds.length >= 1 && this.arrayIds.includes( x.id ) === false ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
+            } else if ( this.arrayIds.length === 0 ) {
+                this.arrayAux.push( x );
+                this.arrayIds.push( x.id );
+            }
+        } );
+        console.log('CONSOLOG: M:filterMessages & O: this.messages : ', this.arrayIds, this.arrayAux );
+        return this.arrayAux;
     }
 
     private paginateMessages(data: IMessage[], headers: HttpHeaders) {

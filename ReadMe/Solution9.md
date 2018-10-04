@@ -1,10 +1,8 @@
 # Problem 9: Create a new Authority
 
-Let's imagine you need a new authority besides the ones given of ADMIN and USER.
+Let's say that you need a new authority besides the given ones of ADMIN and USER.
 
-You will end up modify the (src/main/java/location/security/)AuthoritiesConstants.java file:
-
-package es3.security;
+Modify /src/main/java/com/jhipsterpress/web/security/AuthoritiesConstants.java file to include your new authorities:
 
 	/**
 	 * Constants for Spring Security authorities.
@@ -21,7 +19,7 @@ package es3.security;
 	    }
 	}
 
-Do not forget to include it in your /src/main/resources/config/liquibase/authorities.csv:
+Do not forget to include your new role in your /src/main/resources/config/liquibase/authorities.csv:
 
 	name
 	ROLE_ADMIN
@@ -29,7 +27,7 @@ Do not forget to include it in your /src/main/resources/config/liquibase/authori
 	ROLE_ANONYMOUS
 
 
-With that, you will be able to use in your /src/main/java/es3/config/SecurityConfiguration.java or in (src/main/java/com/jhipsterpress2/web/web/rest/FrontpageconfigResource.java) for example
+With that, you will be able to use it in your /src/main/java/es3/config/SecurityConfiguration.java or in (src/main/java/com/jhipsterpress/web/web/rest/FrontpageconfigResource.java), for example:
 	
 	@DeleteMapping("/order-items/{id}")
 	@Timed
@@ -38,7 +36,7 @@ With that, you will be able to use in your /src/main/java/es3/config/SecurityCon
 	    ...
 	}
 
-and/or Angular files: jhiHasAnyAuthority=[‘ROLE_ADMIN’. ‘ROLE_X’ ……] or even consider to use it on the routes:
+and/or Angular files: jhiHasAnyAuthority=[‘ROLE_ADMIN’. ‘ROLE_X’ ……] or even consider to use it in the routes:
 
 	export const messageRoute: Routes = [
 	    {
@@ -51,3 +49,5 @@ and/or Angular files: jhiHasAnyAuthority=[‘ROLE_ADMIN’. ‘ROLE_X’ ……]
 	        canActivate: [UserRouteAccessService]
 	    }
 	];
+	
+
