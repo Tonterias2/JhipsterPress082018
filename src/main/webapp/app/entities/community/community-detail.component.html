@@ -96,9 +96,74 @@
             </dl>
             
             <br/>
-            <a [routerLink]="['/following']" [queryParams]="{ 'cfollowedIdEquals': community.id }" class="list-group-item list-group-item-action justify-content-between">
-                <h3><span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Following</span></h3>
-            </a>
+            
+            <div>
+	            <a [routerLink]="['/following']" [queryParams]="{ 'cfollowedIdEquals': community.id }" class="list-group-item list-group-item-action justify-content-between">
+	                <h3><span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span></h3>
+	            </a>
+			    <!-- Profile Content -->
+				<div class="col-lg-9" *ngIf="follows">
+				  <!-- User Contacts -->
+				  <div class="row g-mb-40">
+				    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let follow of follows ;trackBy: trackId">
+				      <!-- Figure -->
+				      <figure class="g-bg-white g-brd-around g-brd-gray-light-v4 g-brd-cyan--hover g-transition-0_2 text-center">
+				        <div class="g-py-40 g-px-20">
+				          <!-- Figure Image -->
+				          <a *ngIf="follow.cfollowedImage" [routerLink]="['/community', follow.cfollowedId, 'view' ]">
+			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.cfollowedImageContentType + ';base64,' + follow.cfollowedImage" style="max-height: 30px;" alt="image"/>
+			              </a>
+			              <a *ngIf="follow.followedImage" [routerLink]="['/profile', follow.followedId, 'view' ]">
+			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.followedImageContentType + ';base64,' + follow.followedImage" style="max-height: 30px;" alt="image"/>
+			              </a>
+				          <!-- Figure Image -->
+				
+				          <!-- Figure Info -->
+			
+						  <a *ngIf="follow.cfollowedImage" [routerLink]="['/community', follow.cfollowedId, 'view' ]">
+				          	<h4 class="h5 g-mb-5">{{follow.cfollowedCommunityname}}</h4>
+				          </a>
+				          <a *ngIf="follow.followedImage" [routerLink]="['/profile', follow.followedId, 'view' ]">
+				          	<h4 class="h5 g-mb-5">{{follow.followedUserFirstName}} {{follow.followedUserLastName}}</h4>
+				          </a>
+				          
+				          <!--
+				          <div class="d-block">
+				            <span class="g-color-cyan g-font-size-default g-mr-3">
+				              <i class="icon-user"></i>
+				            </span>
+				            <em class="g-color-gray-dark-v4 g-font-style-normal g-font-size-default">Employee</em>
+				          </div>
+				          -- End Figure Info -->
+				        </div>
+				
+				        <hr class="g-brd-gray-light-v4 g-my-0">
+				
+				        <!-- Figure List --
+				        <ul class="row list-inline g-py-20 g-ma-0">
+				          <li class="col g-brd-right g-brd-gray-light-v4">
+				            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-cyan--hover" href="#!">
+				              <i class="icon-speech"></i>
+				            </a>
+				          </li>
+				          <li class="col g-brd-right g-brd-gray-light-v4">
+				            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-red--hover" href="#!">
+				              <i class="icon-envelope-letter"></i>
+				            </a>
+				          </li>
+				          <li class="col">
+				            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-purple--hover" href="#!">
+				              <i class="icon-screen-smartphone"></i>
+				            </a>
+				          </li>
+				        </ul>
+				        -- End Figure List -->
+				      </figure>
+				      <!-- End Figure -->
+				    </div>
+				</div>
+				<!-- End Profile Content -->
+				
             <br/>
             
             <h3><span jhiTranslate="jhipsterPress08App.community.detail.cblog">Communities' Blogs</span></h3>

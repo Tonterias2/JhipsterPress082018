@@ -62,6 +62,17 @@ export class CommunityDetailComponent implements OnInit {
             this.userId = community.userId;
             console.log('CONSOLOG: M:ngOnInit & O: this.community : ', this.community);
         });
+        const query = {};
+        query['cfollowingId.equals'] = this.community.id;
+        this.followService
+        .query(query)
+        .subscribe(
+            ( res: HttpResponse<IFollow[]> ) => {
+                this.follows = res.body;
+                console.log('CONSOLOG: M:ngOnInit & O: this.follows : ', this.follows);
+            },
+            ( res: HttpErrorResponse ) => this.onError( res.message )
+        );
 //        this.activatedRoute.data.subscribe(({ profile }) => {
 //            this.profile = profile;
 //            this.userId = profile.userId;
