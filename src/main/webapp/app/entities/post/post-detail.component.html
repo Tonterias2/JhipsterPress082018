@@ -21,7 +21,7 @@
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item g-mr-10">
 		                      <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#comments">
-		                        <i class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="post.comments">{{ post.comments.length }} Comments</i>
+		                        <i class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-1" *ngIf="comments">{{comments.length }} Comments</h2>
 		                      </a>
 		                    </li>
 		                    <li class="list-inline-item ml-auto">
@@ -170,11 +170,12 @@
 		                <!-- Comments -->
 		                <div class="g-mb-60">
 		                  <div class="u-heading-v3-1 g-mb-30" id="comments">
-		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="post.comments">{{post.comments.length }} Comments</h2>
+		                    <h2 class="h5 u-heading-v3__title g-color-gray-dark-v1 text-uppercase g-brd-primary" *ngIf="comments">{{comments.length }} Comments</h2>
 		                  </div>
 		
 		                   <!-- Comment 1 -->
-			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of post.comments">
+		                   <!-- <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of post.comments"> -->
+			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
 			                    <a (click)="openFile(comment.profileImageContentType, comment.profileImage)">
 		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.profileImageContentType + ';base64,' + comment.profileImage" style="max-width: 100%;" alt="comment.profileImage"/>
 		                        </a>
@@ -192,7 +193,7 @@
 			                      <div class="g-mb-15">
 			                      	<p class="g-color-gray-dark-v2" [innerHTML]="comment.commentText"></p>
 			                      </div>
-			
+			<!--
 			                      <ul class="list-inline d-sm-flex my-0">
 			                        <li class="list-inline-item g-mr-20">
 			                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
@@ -206,19 +207,30 @@
 			                        </li>
 			                        <li class="list-inline-item ml-auto">
 			                          <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!">
-			                            <!-- <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i> Reply  -->
+			                            <i class="icon-note g-pos-rel g-top-1 g-mr-3"></i> Reply
 			                          </a>
 			                        </li>
 			                      </ul>
+			-->
 			                    </div>
 			                  </div>
 			                  <!-- End Comment 1 -->
-		
+		                      <div *ngIf="comments && comments.length">
+							        <div class="row justify-content-center">
+							            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+							        </div>
+							        <div class="row justify-content-center">
+							            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+							        </div>
+							    </div>
+						<!--  
 		                  <div class="text-center g-mt-30">
 		                    <a class="btn u-btn-outline-primary g-font-size-12 text-uppercase g-px-25 g-py-13" href="#!">
 		                      <i class="icon-finance-206 u-line-icon-pro align-middle g-pos-rel g-top-1 mr-2"></i> Load More Comments
 		                    </a>
 		                  </div>
+		                  -->
+		                  
 		                </div>
 		                <!-- Comments -->
 		

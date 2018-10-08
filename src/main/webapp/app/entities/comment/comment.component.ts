@@ -139,6 +139,7 @@ export class CommentComponent implements OnInit, OnDestroy {
         if ( this.currentAccount.id  != null) {
             query['userId.equals'] = this.currentAccount.id;
         }
+        console.log('CONSOLOG: M:myComments & O: query : ', query);
         this.profileService
             .query(query)
             .subscribe(
@@ -160,6 +161,7 @@ export class CommentComponent implements OnInit, OnDestroy {
             });
             query['profileId.in'] = arrayProfiles;
         }
+        console.log('CONSOLOG: M:profilesComments & O: query : ', query);
         this.commentService
             .query(query)
             .subscribe(
