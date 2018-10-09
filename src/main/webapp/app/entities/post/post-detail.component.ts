@@ -63,16 +63,10 @@ export class PostDetailComponent implements OnInit {
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
-//        this.itemsPerPage = ITEMS_PER_PAGE;
-//        this.routeData = this.activatedRoute.data.subscribe(data => {
-//            this.page = 1;
-//            this.previousPage = 0;
-//            this.reverse = 'asc';
-//            this.predicate = 'id';
+            this.page = 0;
+            this.previousPage = 0;
+            this.reverse = false;
+            this.predicate = 'id';
         });
     }
 
@@ -175,8 +169,13 @@ export class PostDetailComponent implements OnInit {
         window.history.back();
     }
 
+    loadPage(page) {
+        this.previousPage = page;
+        this.page = page;
+        this.loadAll();
+    }
+
     loadAll() {
-        // TODO: Necesito traer solo los comments de ese POST en concreto!
         const query = {
                 page: this.page - 1,
                 size: this.itemsPerPage,
@@ -196,13 +195,6 @@ export class PostDetailComponent implements OnInit {
     }
 
     transition() {
-//        this.router.navigate(['/comment'], {
-//            queryParams: {
-//                page: this.page,
-//                size: this.itemsPerPage,
-//                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-//            }
-//        });
         this.loadAll();
     }
 
@@ -239,8 +231,6 @@ export class PostDetailComponent implements OnInit {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.comments = data;
-//        console.log('CONSOLOG: M:paginateComments & O: this.owner : ', this.owner);
-//        console.log('CONSOLOG: M:paginateComments & O: this.isAdmin : ', this.isAdmin);
-        console.log('CONSOLOG: M:paginateComments & O: this.comments : ', this.comments);
+//        console.log('CONSOLOG: M:paginateComments & O: this.comments : ', this.comments);
     }
 }
