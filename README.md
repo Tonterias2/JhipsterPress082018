@@ -44,6 +44,8 @@ STARTERS:
 * [Create a new Authority:](ReadMe/Solution9.md)
 * [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
 * [How to configure the confirmation email in Heroku:](ReadMe/Solution11.md)
+* [How to add a new font-awesome icon:](ReadMe/Solution26.md)
+* [Project miscelanea:](ReadMe/Solution25.md)
 
 BEGINNERS:
 

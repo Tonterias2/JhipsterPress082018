@@ -28,8 +28,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.message.messageText" for="field_messageText">Message Text</label>
-                    <input type="text" class="form-control" name="messageText" id="field_messageText"
-                        [(ngModel)]="message.messageText" required minlength="2" maxlength="8000"/>
+                    <textarea type="text" rows="4" cols="50" class="form-control" name="messageText" id="field_messageText"
+                        [(ngModel)]="message.messageText" required minlength="2" maxlength="8000">
                     <div [hidden]="!(editForm.controls.messageText?.dirty && editForm.controls.messageText?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.messageText?.errors?.required" jhiTranslate="entity.validation.required">
@@ -44,14 +44,13 @@
                         This field cannot be longer than 8000 characters.
                         </small>
                     </div>
+                    </textarea>
                 </div>
-                <!--  
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.message.isDeliverd" for="field_isDeliverd">Is Deliverd</label>
                     <input type="checkbox" class="form-control" name="isDeliverd" id="field_isDeliverd"
                         [(ngModel)]="message.isDeliverd" />
                 </div>
-				-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.message.community" for="field_community">Community</label>
                     <select class="form-control" id="field_community" name="community" [(ngModel)]="message.communityId" >

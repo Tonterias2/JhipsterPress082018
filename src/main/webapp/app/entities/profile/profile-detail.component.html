@@ -53,15 +53,15 @@
               <!-- Overall -->
               <a [routerLink]="['/profile', profile.id, 'view' ]" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-home g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
-                <span class="u-label g-font-size-11 g-bg-gray-dark-v2 g-rounded-20 g-px-10">2</span>
+                <!-- <span class="u-label g-font-size-11 g-bg-gray-dark-v2 g-rounded-20 g-px-10">2</span> -->
               </a>
               <!-- End Overall -->
 
-              <!-- Profile -->
+              <!-- Profile 
               <a href="page-profile-profile-1.html" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-cursor g-pos-rel g-top-1 g-mr-8"></i> Profile</span>
               </a>
-              <!-- End Profile -->
+              End Profile -->
 
               <!-- Following Contacts http://localhost:9000/api/follows?followedId.equals=1 -->
               <a [routerLink]="['/following']" [queryParams]="{ 'followedIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
@@ -78,22 +78,22 @@
               <!-- Messages http://localhost:9000/api/messages?profileId.equals=1-->
               <a [routerLink]="['/message']" [queryParams]="{ 'profileIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-bubbles g-pos-rel g-top-1 g-mr-8"></i> Messages</span>
-                <span class="u-label g-font-size-11 g-bg-pink g-rounded-20 g-px-8">24</span>
+                <!-- <span class="u-label g-font-size-11 g-bg-pink g-rounded-20 g-px-8">24</span> -->
               </a>
               <!-- End Messages -->
 
               <!-- My Notifications -->
               <a [routerLink]="['/notification']" [queryParams]="{ 'userIdEquals': profile.userId }" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-layers g-pos-rel g-top-1 g-mr-8"></i> Notifications</span>
-                <span class="u-label g-font-size-11 g-bg-primary g-rounded-20 g-px-10">9</span>
+                <!-- <span class="u-label g-font-size-11 g-bg-primary g-rounded-20 g-px-10">9</span> -->
               </a>
               <!-- End My Notifications -->
               
-              <!-- Reviews -->
+              <!-- Reviews
               <a href="page-profile-reviews-1.html" class="list-group-item list-group-item-action justify-content-between">
                 <span><i class="icon-heart g-pos-rel g-top-1 g-mr-8"></i> Reviews</span>
               </a>
-              <!-- End Reviews -->
+              End Reviews -->
               
               <!-- Blocking Users -->
               <a [routerLink]="['/blockinguser']" [queryParams]="{ 'blockinguserIdEquals': profile.id }" class="list-group-item list-group-item-action justify-content-between">
@@ -107,12 +107,12 @@
               </a>
               <!-- End Blocked Users -->
 
-              <!-- Settings -->
+              <!-- Settings
               <a href="page-profile-settings-1.html" class="list-group-item justify-content-between active">
                 <span><i class="icon-settings g-pos-rel g-top-1 g-mr-8"></i> Settings</span>
                 <span class="u-label g-font-size-11 g-bg-cyan g-rounded-20 g-px-8">3</span>
               </a>
-              <!-- End Settings -->
+              End Settings -->
             </div>
             <!-- End Sidebar Navigation -->
           </div>

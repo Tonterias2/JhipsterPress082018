@@ -107,14 +107,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
             this.owner = account.id;
 //          console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
 //          console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
-            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
-                this.isAdmin = result;
-                if ( this.isAdmin === true ) {
-                    this.loadAll();
-                } else {
+// Leave the option to go back to an Admin able to see all the notifications in case it makes sense.
+//            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
+//                this.isAdmin = result;
+//                if ( this.isAdmin === true ) {
+//                    this.loadAll();
+//                } else {
                     this.myNotifications();
-                }
-            });
+//                }
+//            });
         });
         this.registerChangeInNotifications();
     }

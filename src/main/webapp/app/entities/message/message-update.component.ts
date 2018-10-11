@@ -15,6 +15,8 @@ import { ProfileService } from 'app/entities/profile';
 import { IFollow } from 'app/shared/model/follow.model';
 import { FollowService } from '../follow/follow.service';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-message-update',
     templateUrl: './message-update.component.html'
@@ -30,12 +32,15 @@ export class MessageUpdateComponent implements OnInit {
 
     follows: IFollow[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private messageService: MessageService,
         private communityService: CommunityService,
         private profileService: ProfileService,
         private followService: FollowService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -44,12 +49,18 @@ export class MessageUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ message }) => {
             this.message = message;
         });
-        this.communityService.query().subscribe(
-            (res: HttpResponse<ICommunity[]>) => {
-                this.communities = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+//            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
+//            console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
+            this.myMessagesCommunities();
+        });
+//        this.communityService.query().subscribe(
+//            (res: HttpResponse<ICommunity[]>) => {
+//                this.communities = res.body;
+//            },
+//            (res: HttpErrorResponse) => this.onError(res.message)
+//        );
         this.profileService.query().subscribe(
             (res: HttpResponse<IProfile[]>) => {
                 this.profiles = res.body;
@@ -91,6 +102,23 @@ export class MessageUpdateComponent implements OnInit {
                 this.subscribeToSaveResponse(this.messageService.create(this.message));
             }
         }
+    }
+
+    myMessagesCommunities() {
+        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<ICommunity[]>) => {
+                    this.communities = res.body;
+                    },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IMessage>>) {

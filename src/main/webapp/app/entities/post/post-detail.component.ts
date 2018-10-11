@@ -128,7 +128,7 @@ export class PostDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        this.reload();
     }
 
     private onSaveError() {
@@ -165,8 +165,13 @@ export class PostDetailComponent implements OnInit {
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
     previousState() {
         window.history.back();
+    }
+
+    reload() {
+        window.location.reload();
     }
 
     loadPage(page) {
