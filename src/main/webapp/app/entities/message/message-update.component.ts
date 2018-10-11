@@ -14,6 +14,8 @@ import { IProfile } from 'app/shared/model/profile.model';
 import { ProfileService } from 'app/entities/profile';
 import { IFollow } from 'app/shared/model/follow.model';
 import { FollowService } from '../follow/follow.service';
+import { IBlockuser } from 'app/shared/model/blockuser.model';
+import { BlockuserService } from '../blockuser/blockuser.service';
 
 import { Principal } from 'app/core';
 
@@ -31,8 +33,17 @@ export class MessageUpdateComponent implements OnInit {
     creationDate: string;
 
     follows: IFollow[];
+    loggedProfile: IProfile[];
+    blockusers: IBlockuser[];
 
     currentAccount: any;
+    isBlocked: boolean;
+    loggedProfileId: number;
+
+    routeData: any;
+    nameParamFollows: any;
+    valueParamFollows: number;
+    blockedByUser: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -40,9 +51,17 @@ export class MessageUpdateComponent implements OnInit {
         private communityService: CommunityService,
         private profileService: ProfileService,
         private followService: FollowService,
+        private blockuserService: BlockuserService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        this.activatedRoute.queryParams.subscribe( params => {
+            if (params.profileIdEquals != null) {
+                this.nameParamFollows = 'profileId';
+                this.valueParamFollows = params.profileIdEquals;
+            }
+        });
+    }
 
     ngOnInit() {
         this.isSaving = false;
@@ -54,19 +73,8 @@ export class MessageUpdateComponent implements OnInit {
 //            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
 //            console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
             this.myMessagesCommunities();
+            this.currentLoggedProfile();
         });
-//        this.communityService.query().subscribe(
-//            (res: HttpResponse<ICommunity[]>) => {
-//                this.communities = res.body;
-//            },
-//            (res: HttpErrorResponse) => this.onError(res.message)
-//        );
-        this.profileService.query().subscribe(
-            (res: HttpResponse<IProfile[]>) => {
-                this.profiles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     previousState() {
@@ -99,7 +107,17 @@ export class MessageUpdateComponent implements OnInit {
                     ( res: HttpErrorResponse ) => this.onError( res.message )
                 );
             } else {
-                this.subscribeToSaveResponse(this.messageService.create(this.message));
+                if (this.message.profileId !== undefined) {
+                    if (this.isBlocked === false) {
+                        console.log('CONSOLOG: M:save & O: this.isBlockUser.length : NO-BLOCKED ', this.isBlockUser.length);
+                        this.subscribeToSaveResponse(this.messageService.create(this.message));
+                    } else {
+                        this.jhiAlertService.addAlert({type: 'info', msg: 'BLOCKED BY USER', timeout: 10000}, []);
+                        this.blockedByUser = 'BLOCKED BY USER';
+                        console.log('CONSOLOG: M:save & O: this.blockedByUser : ', this.blockedByUser);
+//                        this.onBlockedUserError(this.blockedByUser);
+                    }
+                }
             }
         }
     }
@@ -121,6 +139,49 @@ export class MessageUpdateComponent implements OnInit {
             );
     }
 
+    private currentLoggedProfile() {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.profileService
+            .query(query)
+            .subscribe(
+                    (res: HttpResponse<IProfile[]>) => {
+                        this.loggedProfile = res.body;
+                        this.loggedProfile.forEach(profile => {
+                            this.loggedProfileId = profile.id;
+                        });
+                        this.isBlockUser().subscribe((
+                                res3: HttpResponse<IBlockuser[]> ) => {
+                                    this.blockusers = res3.body;
+                                    if ( this.blockusers.length > 0) {
+                                        this.isBlocked = true;
+                                        console.log('CONSOLOG: M:currentLoggedProfile & O:  this.isBlocked : ',   this.isBlocked);
+                                        return this.blockusers[0];
+                                    }
+                                },
+                                ( res3: HttpErrorResponse ) => this.onError( res3.message )
+                            );
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private isBlockUser( ) {
+        this.isBlocked = false;
+        const query = {
+        };
+    if ( this.currentAccount.id != null ) {
+        query['blockeduserId.in'] = this.loggedProfileId;
+        query['blockinguserId.in'] = Number(this.valueParamFollows);
+    }
+    console.log('CONSOLOG: M:isBlockUser & O: query : ',  query);
+    return this.blockuserService
+        .query(query);
+    }
+
     private subscribeToSaveResponse(result: Observable<HttpResponse<IMessage>>) {
         result.subscribe((res: HttpResponse<IMessage>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
@@ -137,6 +198,11 @@ export class MessageUpdateComponent implements OnInit {
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
     }
+//
+//    private onBlockedUserError(blockedByUser: string) {
+//        console.log('CONSOLOG: M:onBlockedUserError & O: this.blockedByUser : ', blockedByUser);
+//        this.jhiAlertService.info(blockedByUser, null, null);
+//    }
 
     trackCommunityById(index: number, item: ICommunity) {
         return item.id;

@@ -217,8 +217,8 @@ export class ProfileDetailComponent implements OnInit {
     blocking() {
         this.isSaving = true;
         this.blockuser.creationDate = moment( this.creationDate, DATE_TIME_FORMAT );
-        this.blockuser.blockinguserId = this.profile.id;
         this.blockuser.blockeduserId = this.loggedProfileId;
+        this.blockuser.blockinguserId = this.profile.id;
         if ( this.isBlocked === false ) {
             this.subscribeToSaveResponse( this.blockuserService.create( this.blockuser ) );
             this.isBlocked = true;

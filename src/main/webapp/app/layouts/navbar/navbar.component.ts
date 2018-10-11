@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
     currentAccount: any;
+    loginName: string;
 
     numberOfNotifications: number;
     numberOfMessages: number;
@@ -50,9 +51,11 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.loginName = this.currentAccount.login;
+            console.log('CONSOLOG: M:ngOnInit & O: this.loginName : ', this.loginName);
             this.notifications().subscribe(
                     (res: HttpResponse<INotification[]>) => {
-                        console.log('CONSOLOG: M:notifications & O: res.body : ', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: res.body : ', res.body);
                         this.numberOfNotifications = res.body.length;
                         return this.numberOfNotifications;
                     },
@@ -60,7 +63,7 @@ export class NavbarComponent implements OnInit {
             );
             this.messages().subscribe(
                     (res: HttpResponse<IMessage[]>) => {
-                        console.log('CONSOLOG: M:messages & O: res.body : ', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: res.body : ', res.body);
                         this.numberOfMessages = res.body.length;
                         return this.numberOfMessages;
                     },

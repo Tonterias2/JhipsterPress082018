@@ -62,7 +62,8 @@
                     <label class="form-control-label" jhiTranslate="jhipsterPress08App.message.profile" for="field_profile">Profile</label>
                     <select class="form-control" id="field_profile" name="profile" [(ngModel)]="message.profileId" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.id}}</option>
+                        <!-- <option [ngValue]="profileOption.id" *ngFor="let profileOption of profiles; trackBy: trackProfileById">{{profileOption.id}}</option> -->
+                        <option [ngValue]="valueParamFollows">{{valueParamFollows}}</option>
                     </select>
                 </div>
             </div>
