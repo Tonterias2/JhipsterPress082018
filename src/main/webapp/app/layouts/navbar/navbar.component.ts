@@ -55,7 +55,8 @@ export class NavbarComponent implements OnInit {
             console.log('CONSOLOG: M:ngOnInit & O: this.loginName : ', this.loginName);
             this.notifications().subscribe(
                     (res: HttpResponse<INotification[]>) => {
-                        console.log('CONSOLOG: M:ngOnInit & O: res.body : ', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: notifications.res.body : ', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: notifications.res.body.length : ', res.body.length);
                         this.numberOfNotifications = res.body.length;
                         return this.numberOfNotifications;
                     },
@@ -63,7 +64,7 @@ export class NavbarComponent implements OnInit {
             );
             this.messages().subscribe(
                     (res: HttpResponse<IMessage[]>) => {
-                        console.log('CONSOLOG: M:ngOnInit & O: res.body : ', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: messages.res.body : ', res.body);
                         this.numberOfMessages = res.body.length;
                         return this.numberOfMessages;
                     },

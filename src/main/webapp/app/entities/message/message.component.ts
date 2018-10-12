@@ -239,8 +239,9 @@ export class MessageComponent implements OnInit, OnDestroy {
             .subscribe(
                     (res: HttpResponse<IMessage[]>) => {
 //                        this.messages = this.messages.concat(res.body);
+                        console.log('CONSOLOG: M:profilesMessages & O: this.messages1 : ',  this.messages);
                         this.messages = this.filterMessages(this.messages.concat(res.body));
-                        console.log('CONSOLOG: M:profilesMessages & O: this.messages : ',  this.messages);
+                        console.log('CONSOLOG: M:profilesMessages & O: this.messages2 : ',  this.messages);
                         this.paginateMessages(this.messages, res.headers);
                     },
                     (res: HttpErrorResponse) => this.onError(res.message)

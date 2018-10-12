@@ -3,12 +3,16 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { INotification } from 'app/shared/model/notification.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { NotificationService } from './notification.service';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { IUser, UserService } from 'app/core';
 
 @Component({
     selector: 'jhi-notification',
@@ -32,9 +36,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
     paramNotificationUserId: any;
     owner: any;
     isAdmin: boolean;
+    creationDate: string;
+    notificationDate: string;
+    private _notification: INotification;
+    isSaving: boolean;
+    users: IUser[];
 
     constructor(
         private notificationService: NotificationService,
+        private userService: UserService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -102,21 +112,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.principal.identity().then(account => {
+        this.isSaving = false;
+        this.principal.identity().then( account => {
             this.currentAccount = account;
             this.owner = account.id;
-//          console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ',  this.currentAccount);
-//          console.log('CONSOLOG: M:ngOnInit & O: this.owner : ',  this.owner);
-// Leave the option to go back to an Admin able to see all the notifications in case it makes sense.
-//            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then( result => {
-//                this.isAdmin = result;
-//                if ( this.isAdmin === true ) {
-//                    this.loadAll();
-//                } else {
-                    this.myNotifications();
-//                }
-//            });
-        });
+            this.myNotifications();
+        } );
+        this.userService.query().subscribe(
+            ( res: HttpResponse<IUser[]> ) => {
+                this.users = res.body;
+            },
+            ( res: HttpErrorResponse ) => this.onError( res.message )
+        );
         this.registerChangeInNotifications();
     }
 
@@ -157,17 +164,50 @@ export class NotificationComponent implements OnInit, OnDestroy {
             );
     }
 
+    isDeliveredUpdate(notifications: INotification[]) {
+        this.isSaving = true;
+        this.notifications.forEach(notification => {
+//            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications PRE-Date : ', notifications);
+//            this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
+//            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', notifications);
+            notification.isDeliverd = true;
+            this.subscribeToSaveResponse(this.notificationService.create(notification));
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications : ', notifications);
+        });
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<INotification>>) {
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
+    }
+
     private paginateNotifications(data: INotification[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.notifications = data;
-        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.owner);
-        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.isAdmin);
-        console.log('CONSOLOG: M:paginateNotifications & O: this.follows : ', this.notifications);
+        this.isDeliveredUpdate(this.notifications);
+        console.log('CONSOLOG: M:paginateNotifications & O: this.notifications : ', this.notifications);
     }
 
     private onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    get notification() {
+        return this._notification;
+    }
+
+    set notification(notification: INotification) {
+        this._notification = notification;
+        this.creationDate = moment(notification.creationDate).format(DATE_TIME_FORMAT);
+        this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
     }
 }

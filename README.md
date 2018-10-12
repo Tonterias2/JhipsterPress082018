@@ -40,6 +40,7 @@ STARTERS:
 * [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
 * [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
+* [How to add static pages to the project:](ReadMe/Solution27.md)
 * [List screen shows only user’s data:](ReadMe/Solution2.md)
 * [Create a new Authority:](ReadMe/Solution9.md)
 * [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
