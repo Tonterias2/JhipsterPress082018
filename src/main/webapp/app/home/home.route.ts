@@ -8,6 +8,7 @@ import { PrivacyComponent } from 'app/static/privacy/privacy.component';
 import { TermsComponent } from 'app/static/terms/terms.component';
 import { ClientsComponent } from 'app/static/clients/clients.component';
 import { CommingsoonComponent } from 'app/static/commingsoon/commingsoon.component';
+import { PricingComponent } from 'app/static/pricing/pricing.component';
 
 export const HOME_ROUTE: Route = {
     path: '',
@@ -78,5 +79,14 @@ export const COMMINGSOON_ROUTE: Route = {
     data: {
         authorities: [],
         pageTitle: 'global.menu.commingsoon'
+    }
+};
+
+export const PRICING_ROUTE: Route = {
+    path: 'pricing',
+    component: PricingComponent,
+    data: {
+        authorities: [],
+        pageTitle: 'global.menu.pricing'
     }
 };

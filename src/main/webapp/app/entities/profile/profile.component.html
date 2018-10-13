@@ -28,7 +28,8 @@
 	        <div class="g-py-40 g-px-20">
 	          <!-- Figure Image -->
 	          <a *ngIf="profile.image" [routerLink]="['/profile', profile.id, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-height: 30px;" alt="profile image"/>
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" 
+                  [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-height: 30px;" alt="profile image"/>
               </a>
 	          <!-- Figure Image -->
 	

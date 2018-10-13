@@ -49,36 +49,49 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-            this.loginName = this.currentAccount.login;
-            console.log('CONSOLOG: M:ngOnInit & O: this.loginName : ', this.loginName);
-            this.notifications().subscribe(
-                    (res: HttpResponse<INotification[]>) => {
-                        console.log('CONSOLOG: M:ngOnInit & O: notifications.res.body : ', res.body);
-                        console.log('CONSOLOG: M:ngOnInit & O: notifications.res.body.length : ', res.body.length);
-                        this.numberOfNotifications = res.body.length;
-                        return this.numberOfNotifications;
-                    },
-//                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-            this.messages().subscribe(
-                    (res: HttpResponse<IMessage[]>) => {
-                        console.log('CONSOLOG: M:ngOnInit & O: messages.res.body : ', res.body);
-                        this.numberOfMessages = res.body.length;
-                        return this.numberOfMessages;
-                    },
-//                    (res: HttpErrorResponse) => this.onError(res.message)
-            );
-        });
-        this.languageHelper.getAll().then(languages => {
+        this.principal.getAuthenticationState().subscribe( state => {
+            if ( state ) {
+                this.loginService.editLoginStatus( true );
+            }
+        } );
+        this.loginService.loginCast.subscribe( status => {
+            if ( status ) {
+                this.loginData();
+            }
+        } );
+        this.languageHelper.getAll().then( languages => {
             this.languages = languages;
-        });
+        } );
 
-        this.profileService.getProfileInfo().then(profileInfo => {
+        this.profileService.getProfileInfo().then( profileInfo => {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
-        });
+        } );
+    }
+
+    loginData() {
+        this.principal.identity().then( account => {
+            this.currentAccount = account;
+            this.loginName = this.currentAccount.login;
+            console.log( 'CONSOLOG: M:ngOnInit & O: this.loginName : ', this.loginName );
+            this.notifications().subscribe(
+                ( res: HttpResponse<INotification[]> ) => {
+                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body : ', res.body );
+                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body.length : ', res.body.length );
+                    this.numberOfNotifications = res.body.length;
+                    return this.numberOfNotifications;
+                },
+                //                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+            this.messages().subscribe(
+                ( res: HttpResponse<IMessage[]> ) => {
+                    console.log( 'CONSOLOG: M:ngOnInit & O: messages.res.body : ', res.body );
+                    this.numberOfMessages = res.body.length;
+                    return this.numberOfMessages;
+                },
+                //                    (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } );
     }
 
     changeLanguage(languageKey: string) {
@@ -100,6 +113,7 @@ export class NavbarComponent implements OnInit {
     logout() {
         this.collapseNavbar();
         this.loginService.logout();
+        this.loginName = '';
         this.router.navigate(['']);
     }
 

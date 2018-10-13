@@ -4,13 +4,23 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { Principal } from '../auth/principal.service';
 import { AuthServerProvider } from '../auth/auth-session.service';
 
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 @Injectable({ providedIn: 'root' })
 export class LoginService {
+
+    private loginStatus = new BehaviorSubject<boolean>( false );
+    public loginCast = this.loginStatus.asObservable();
+
     constructor(
         private languageService: JhiLanguageService,
         private principal: Principal,
         private authServerProvider: AuthServerProvider
-    ) {}
+    ) { }
+
+    editLoginStatus( status ) {
+        this.loginStatus.next( status );
+    }
 
     login(credentials, callback?) {
         const cb = callback || function() {};
