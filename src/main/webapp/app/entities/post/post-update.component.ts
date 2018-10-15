@@ -67,18 +67,6 @@ export class PostUpdateComponent implements OnInit {
             this.myCommunities(this.currentAccount);
             this.myProfiles(this.currentAccount);
         });
-//        this.blogService.query().subscribe(
-//            (res: HttpResponse<IBlog[]>) => {
-//                this.blogs = res.body;
-//            },
-//            (res: HttpErrorResponse) => this.onError(res.message)
-//        );
-//        this.profileService.query().subscribe(
-//            (res: HttpResponse<IProfile[]>) => {
-//                this.profiles = res.body;
-//            },
-//            (res: HttpErrorResponse) => this.onError(res.message)
-//        );
         this.tagService.query().subscribe(
             (res: HttpResponse<ITag[]>) => {
                 this.tags = res.body;

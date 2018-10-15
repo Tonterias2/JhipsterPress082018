@@ -26,10 +26,10 @@
                   <!-- Listing - Agents -->
                   <div class="u-shadow-v11 text-center">
                     <div class="g-bg-white g-pa-20">
-                      <div class="g-width-130 g-height-130 mx-auto mb-4">
+                      <div class="mx-auto mb-4">
 				        <!-- Figure Image -->
 				        <a *ngIf="post.image" (click)="openFile(post.imageContentType, post.image)">
-		                    <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-height: 30px;" alt="post image"/>
+		                    <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" alt="post image"/>
 		                </a>
 				        <!-- Figure Image -->
                       </div>
@@ -47,14 +47,14 @@
 	                            <fa-icon [icon]="'eye'"></fa-icon>
 	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
 	                        </button>
-	                        <button *ngIf="owner === post.userId || isAdmin == true"
+	                        <button *ngIf="owner === post.profileUserId || isAdmin == true"
 	                        		type="submit"
 	                                [routerLink]="['/post', post.id, 'edit']"
 	                                class="btn btn-primary btn-sm">
 	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
 	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
 	                        </button>
-	                        <button *ngIf="owner === post.userId || isAdmin == true"
+	                        <button *ngIf="owner === post.profileUserId || isAdmin == true"
 	                        		type="submit"
 	                                [routerLink]="['/', { outlets: { popup: 'post/'+ post.id + '/delete'} }]"
 	                                replaceUrl="true"
@@ -153,14 +153,14 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button *ngIf="owner === post.userId || isAdmin == true"
+                        <button *ngIf="owner === post.profileUserId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/post', post.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button *ngIf="owner === post.userId || isAdmin == true"
+                        <button *ngIf="owner === post.profileUserId || isAdmin == true"
                         		type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'post/'+ post.id + '/delete'} }]"
                                 replaceUrl="true"

@@ -47,11 +47,23 @@ export const postRoute: Routes = [
             post: PostResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'jhipsterPress08App.post.home.title'
         },
         canActivate: [UserRouteAccessService]
     },
+//    {
+//        path: 'post/:id/view',
+//        component: PostDetailComponent,
+//        resolve: {
+//            post: PostResolve
+//        },
+//        data: {
+//            authorities: [],
+//            pageTitle: 'jhipsterPress08App.post.home.title'
+//        },
+//        canActivate: [UserRouteAccessService]
+//    },
     {
         path: 'post/new',
         component: PostUpdateComponent,

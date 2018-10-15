@@ -91,7 +91,7 @@ export class PostDetailComponent implements OnInit {
 //        console.log('CONSOLOG: M:ngOnInit & O: this.comments : ', this.comments);
     }
 
-    save() {
+    saveComment() {
         this.isSaving = true;
         this.comment.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         if (this.comment.id !== undefined) {

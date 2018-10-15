@@ -2,9 +2,9 @@
 
 May be you need to use PGAdmin to load the database with test data as in our InsertsInPOSTGRESQLDatabaseV8BLANK.txt
 
-Here is a video that can help you with it. 
+You can either see this video: https://www.youtube.com/watch?v=GAHsl0AfK-0 or follow the steps:
 
-The short version is to use the data from your Database Credentials of your Heroku Account and use it in the Create a New Server PGAdmin's form:
+First, use the data from your Database Credentials at your Heroku Account to fill the Create a New Server PGAdmin's form:
 
 ![](images/sol10image1.png)
 

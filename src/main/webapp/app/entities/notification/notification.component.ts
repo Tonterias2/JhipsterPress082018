@@ -159,7 +159,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.notificationService
             .query(query)
             .subscribe(
-                    (res: HttpResponse<INotification[]>) => this.paginateNotifications(res.body, res.headers),
+                    (res: HttpResponse<INotification[]>) => {
+                        this.paginateNotifications(res.body, res.headers);
+                        this.notifications = res.body;
+                        console.log('CONSOLOG: M:isDeliveredUpdate & O: res.body : ', res.body);
+                        this.isDeliveredUpdate(this.notifications);
+                        },
                     (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
@@ -167,11 +172,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
     isDeliveredUpdate(notifications: INotification[]) {
         this.isSaving = true;
         this.notifications.forEach(notification => {
-//            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications PRE-Date : ', notifications);
-//            this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
-//            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', notifications);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications PRE-Date : ', notifications);
+            this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.notificationDate : ', this.notificationDate);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', notifications);
             notification.isDeliverd = true;
-            this.subscribeToSaveResponse(this.notificationService.create(notification));
+//            this.notificationService.update(notification);
+            this.subscribeToSaveResponse(this.notificationService.update(notification));
+//            this.subscribeToSaveResponse(this.notificationService.update(notification));
             console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications : ', notifications);
         });
     }
@@ -193,7 +201,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.notifications = data;
-        this.isDeliveredUpdate(this.notifications);
         console.log('CONSOLOG: M:paginateNotifications & O: this.notifications : ', this.notifications);
     }
 
@@ -201,13 +208,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    get notification() {
-        return this._notification;
-    }
-
-    set notification(notification: INotification) {
-        this._notification = notification;
-        this.creationDate = moment(notification.creationDate).format(DATE_TIME_FORMAT);
-        this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
-    }
+//    get notification() {
+//        return this._notification;
+//    }
+//
+//    set notification(notification: INotification) {
+//        this._notification = notification;
+//        this.creationDate = moment(notification.creationDate).format(DATE_TIME_FORMAT);
+//        this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
+//    }
 }

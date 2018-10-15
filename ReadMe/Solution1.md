@@ -37,4 +37,14 @@ You should get you successful answer:
 PROCEED:
 
 * 1.- Change your /src/main/webapp/app/home/home.component.ts so it can bring your Data (Frontpageconfig with the desired Posts)
-* 2.- Modify your HTML so it can show the data that the components is populating /src/main/webapp/app/home/home.component.html
+* 2.- Do not forget to delete the authorities: [] array so all user are allowed into the home.route.ts
+
+	export const HOME_ROUTE: Route = {
+	    path: '',
+	    component: HomeComponent,
+	    data: {
+	        authorities: [],
+	        pageTitle: 'home.title'
+	    }
+	};
+* 3.- Modify your HTML so it can show the data that the components is populating /src/main/webapp/app/home/home.component.html

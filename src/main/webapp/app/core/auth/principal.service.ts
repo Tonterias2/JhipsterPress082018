@@ -69,7 +69,6 @@ export class Principal {
                 if (account) {
                     this.userIdentity = account;
                     this.authenticated = true;
-//                    this.loginService.editLoginStatus(true);
                 } else {
                     this.userIdentity = null;
                     this.authenticated = false;
