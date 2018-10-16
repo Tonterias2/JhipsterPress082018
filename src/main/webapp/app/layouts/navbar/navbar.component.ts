@@ -5,14 +5,16 @@ import { JhiLanguageService } from 'ng-jhipster';
 
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
-
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
+
 import { ProfileService } from '../profiles/profile.service';
 import { INotification } from 'app/shared/model/notification.model';
 import { NotificationService } from '../.././../app/entities/notification/notification.service';
 import { IMessage } from 'app/shared/model/message.model';
 import { MessageService } from '../.././../app/entities/message/message.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../.././../app/entities/community/community.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -31,6 +33,10 @@ export class NavbarComponent implements OnInit {
 
     numberOfNotifications: number;
     numberOfMessages: number;
+    numberOfCommunities: number;
+
+    messages: IMessage[];
+    communities: ICommunity[];
 
     constructor(
         private loginService: LoginService,
@@ -40,6 +46,7 @@ export class NavbarComponent implements OnInit {
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
         private notificationService: NotificationService,
+        private communityService: CommunityService,
         private messageService: MessageService,
         private jhiAlertService: JhiAlertService,
         private router: Router
@@ -76,20 +83,37 @@ export class NavbarComponent implements OnInit {
             console.log( 'CONSOLOG: M:ngOnInit & O: this.loginName : ', this.loginName );
             this.notifications().subscribe(
                 ( res: HttpResponse<INotification[]> ) => {
-                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body : ', res.body );
-                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body.length : ', res.body.length );
+                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body INotification : ', res.body );
+                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body.length INotification : ', res.body.length );
                     this.numberOfNotifications = res.body.length;
                     return this.numberOfNotifications;
                 },
-                //                    (res: HttpErrorResponse) => this.onError(res.message)
+                (res: HttpErrorResponse) => this.onError(res.message)
             );
-            this.messages().subscribe(
+            this.mymessages().subscribe(
                 ( res: HttpResponse<IMessage[]> ) => {
-                    console.log( 'CONSOLOG: M:ngOnInit & O: messages.res.body : ', res.body );
+                    console.log( 'CONSOLOG: M:ngOnInit & O: messages.res.body IMessage : ', res.body );
+                    console.log( 'CONSOLOG: M:ngOnInit & O: notifications.res.body.length IMessage : ', res.body.length );
                     this.numberOfMessages = res.body.length;
                     return this.numberOfMessages;
                 },
-                //                    (res: HttpErrorResponse) => this.onError(res.message)
+                (res: HttpErrorResponse) => this.onError(res.message)
+                );
+            this.myMessagesCommunities().subscribe(
+                ( res2: HttpResponse<ICommunity[]> ) => {
+                    this.communities = res2.body;
+                    console.log('CONSOLOG: M:loginData & O: this.communities : ',  this.communities);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+                );
+            this.communitiesMessages().subscribe(
+                (res3: HttpResponse<IMessage[]>) => {
+                    console.log('CONSOLOG: M:loginData & O: res3.body.length .numberOfMessages : ',  res3.body.length);
+                    console.log('CONSOLOG: M:loginData & O: res3.body : ',  res3.body);
+                    this.numberOfMessages = this.numberOfMessages + res3.body.length;
+                    console.log('CONSOLOG: M:loginData & O: this.numberOfMessages : ',  this.numberOfMessages);
+                 },
+                (res3: HttpErrorResponse) => this.onError(res3.message)
             );
         } );
     }
@@ -135,13 +159,40 @@ export class NavbarComponent implements OnInit {
         return this.notificationService.query(query);
     }
 
-    private messages() {
+    private mymessages() {
+        const query = {
+            };
+        if ( this.currentAccount.id  != null) {
+            query['profileId.equals'] = this.currentAccount.id;
+            query['isDeliverd.equals'] = 'false';
+        }
+        return this.messageService.query(query);
+    }
+
+    private myMessagesCommunities() {
+        console.log('CONSOLOG: M:myMessagesCommunities & O: this.currentAccount : ',  this.currentAccount);
         const query = {
             };
         if ( this.currentAccount.id  != null) {
             query['userId.equals'] = this.currentAccount.id;
-            query['isDeliverd.equals'] = 'false';
+        }
+        return this.communityService.query(query);
+    }
+
+    private communitiesMessages() {
+        const query = {
+            };
+        if ( this.communities  != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
         }
         return this.messageService.query(query);
+    }
+
+    private onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 }

@@ -33,7 +33,7 @@ export const ERROR404_ROUTE: Route = {
     component: ErrorComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.error'
+        pageTitle: 'home.title'
     }
 };
 
@@ -42,7 +42,7 @@ export const HELP_ROUTE: Route = {
     component: HelpComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.help'
+        pageTitle: 'home.title'
     }
 };
 
@@ -51,7 +51,7 @@ export const PRIVACY_ROUTE: Route = {
     component: PrivacyComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.privacy'
+        pageTitle: 'home.title'
     }
 };
 
@@ -60,7 +60,7 @@ export const TERMS_ROUTE: Route = {
     component: TermsComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.terms'
+        pageTitle: 'home.title'
     }
 };
 
@@ -69,7 +69,7 @@ export const CLIENTS_ROUTE: Route = {
     component: ClientsComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.clients'
+        pageTitle: 'home.title'
     }
 };
 
@@ -78,7 +78,7 @@ export const COMMINGSOON_ROUTE: Route = {
     component: CommingsoonComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.commingsoon'
+        pageTitle: 'home.title'
     }
 };
 
@@ -87,6 +87,6 @@ export const PRICING_ROUTE: Route = {
     component: PricingComponent,
     data: {
         authorities: [],
-        pageTitle: 'global.menu.pricing'
+        pageTitle: 'home.title'
     }
 };
