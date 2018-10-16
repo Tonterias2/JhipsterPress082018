@@ -65,8 +65,8 @@ INTERMEDIATE:
 * [How to use create new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
 * [How to create the FrontPage:](ReadMe/Solution22.md)
 * [How to combine two entities together: Post and Comments:](ReadMe/Solution24.md)
+* [Cascade deletion:](ReadMe/Solution28.md)* 
 * Different ways to block un-authorized code
-* Cascade deletion
 * And more that will appear.
 
 ADVANCED:

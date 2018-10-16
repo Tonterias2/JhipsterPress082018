@@ -33,7 +33,7 @@
 			                    <a *ngIf="post.image" (click)="openFile(post.imageContentType, post.image)">
 			                        <img [src]="'data:' + post.imageContentType + ';base64,' + post.image" style="max-height: 30px;" alt="post image"/>
 			                    </a>
-			                    <span *ngIf="post.image">{{post.imageContentType}}, {{byteSize(post.image)}}</span>
+			                    <!-- <span *ngIf="post.image">{{post.imageContentType}}, {{byteSize(post.image)}}</span>  -->
 			                </td>
 			            </tr>
 			            </tbody>

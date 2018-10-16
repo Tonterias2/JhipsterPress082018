@@ -57,23 +57,23 @@ public class Community implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blog> blogs = new HashSet<>();
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Message> messages = new HashSet<>();
 
-    @OneToMany(mappedBy = "cfollowed")
+    @OneToMany(mappedBy = "cfollowed", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Follow> cfolloweds = new HashSet<>();
 
-    @OneToMany(mappedBy = "cfollowing")
+    @OneToMany(mappedBy = "cfollowing", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Follow> cfollowings = new HashSet<>();
 
-    @OneToMany(mappedBy = "cblockeduser")
+    @OneToMany(mappedBy = "cblockeduser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blockuser> cblockedusers = new HashSet<>();
 
-    @OneToMany(mappedBy = "cblockinguser")
+    @OneToMany(mappedBy = "cblockinguser", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Blockuser> cblockingusers = new HashSet<>();
 
@@ -82,21 +82,21 @@ public class Community implements Serializable {
     @JsonIgnoreProperties("")
     private User user;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.REMOVE)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Calbum> calbums = new HashSet<>();
 
-    @ManyToMany(mappedBy = "communities")
+    @ManyToMany(mappedBy = "communities", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Interest> interests = new HashSet<>();
 
-    @ManyToMany(mappedBy = "communities")
+    @ManyToMany(mappedBy = "communities", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Activity> activities = new HashSet<>();
 
-    @ManyToMany(mappedBy = "communities")
+    @ManyToMany(mappedBy = "communities", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Celeb> celebs = new HashSet<>();

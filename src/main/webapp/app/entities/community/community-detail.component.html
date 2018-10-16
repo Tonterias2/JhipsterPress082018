@@ -98,10 +98,8 @@
             <br/>
             
             <div>
-	            <a [routerLink]="['/following']" [queryParams]="{ 'cfollowedIdEquals': community.id }" class="list-group-item list-group-item-action justify-content-between">
-	                <h3><span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span></h3>
-	            </a>
 			    <!-- Profile Content -->
+			    <h3><span jhiTranslate="jhipsterPress08App.community.detail.founder">Blog Founder</span></h3>
 				<div class="col-lg-9" *ngIf="follows">
 				  <!-- User Contacts -->
 				  <div class="row g-mb-40">
@@ -111,22 +109,20 @@
 				        <div class="g-py-40 g-px-20">
 				          <!-- Figure Image -->
 				          <a *ngIf="follow.cfollowedImage" [routerLink]="['/community', follow.cfollowedId, 'view' ]">
-			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.cfollowedImageContentType + ';base64,' + follow.cfollowedImage" style="max-height: 30px;" alt="image"/>
+			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.cfollowedImageContentType + ';base64,' + follow.cfollowedImage" alt="image"/>
 			              </a>
 			              <a *ngIf="follow.followedImage" [routerLink]="['/profile', follow.followedId, 'view' ]">
-			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.followedImageContentType + ';base64,' + follow.followedImage" style="max-height: 30px;" alt="image"/>
+			                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.followedImageContentType + ';base64,' + follow.followedImage" alt="image"/>
 			              </a>
 				          <!-- Figure Image -->
 				
 				          <!-- Figure Info -->
-			
 						  <a *ngIf="follow.cfollowedImage" [routerLink]="['/community', follow.cfollowedId, 'view' ]">
 				          	<h4 class="h5 g-mb-5">{{follow.cfollowedCommunityname}}</h4>
 				          </a>
 				          <a *ngIf="follow.followedImage" [routerLink]="['/profile', follow.followedId, 'view' ]">
 				          	<h4 class="h5 g-mb-5">{{follow.followedUserFirstName}} {{follow.followedUserLastName}}</h4>
 				          </a>
-				          
 				          <!--
 				          <div class="d-block">
 				            <span class="g-color-cyan g-font-size-default g-mr-3">
@@ -165,7 +161,11 @@
 				<!-- End Profile Content -->
 				
             <br/>
-            
+
+    	    <a [routerLink]="['/follower']" [queryParams]="{ 'cfollowingIdEquals': community.id }" class="list-group-item list-group-item-action justify-content-between">
+                <h3><span><i class="icon-notebook g-pos-rel g-top-1 g-mr-8"></i> Followers</span></h3>
+            </a>
+	            
             <h3><span jhiTranslate="jhipsterPress08App.community.detail.cblog">Communities' Blogs</span></h3>
             
 			<div class="table-responsive" *ngIf="blogs">
@@ -187,7 +187,7 @@
 		                    <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">
 		                        <img [src]="'data:' + blog.imageContentType + ';base64,' + blog.image" style="max-height: 30px;" alt="blog image"/>
 		                    </a>
-		                    <span *ngIf="blog.image">{{blog.imageContentType}}, {{byteSize(blog.image)}}</span>
+		                    <!-- <span *ngIf="blog.image">{{blog.imageContentType}}, {{byteSize(blog.image)}}</span>  -->
 		                </td>
 		            </tr>
 		            </tbody>

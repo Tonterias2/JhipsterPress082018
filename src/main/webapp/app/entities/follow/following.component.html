@@ -23,10 +23,10 @@
 	        <div class="g-py-40 g-px-20">
 	          <!-- Figure Image -->
 	          <a *ngIf="follow.cfollowingImage" [routerLink]="['/community', follow.cfollowingId, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.cfollowingImageContentType + ';base64,' + follow.cfollowingImage" style="max-height: 30px;" alt="image"/>
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.cfollowingImageContentType + ';base64,' + follow.cfollowingImage" alt="image"/>
               </a>
               <a *ngIf="follow.followingImage" [routerLink]="['/profile', follow.followingId, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.followingImageContentType + ';base64,' + follow.followingImage" style="max-height: 30px;" alt="image"/>
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + follow.followingImageContentType + ';base64,' + follow.followingImage" alt="image"/>
               </a>
 	          <!-- Figure Image -->
 	

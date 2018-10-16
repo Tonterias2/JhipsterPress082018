@@ -23,10 +23,10 @@
 	        <div class="g-py-40 g-px-20">
 	          <!-- Figure Image -->
 	          <a *ngIf="blockuser.cblockeduserImage" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.cblockeduserImageContentType + ';base64,' + blockuser.cblockeduserImage" style="max-height: 30px;" alt="image"/>
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.cblockeduserImageContentType + ';base64,' + blockuser.cblockeduserImage" alt="image"/>
               </a>
               <a *ngIf="blockuser.blockeduserImage" [routerLink]="['/profile', blockuser.blockeduserId, 'view' ]">
-                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.blockeduserImageContentType + ';base64,' + blockuser.blockeduserImage" style="max-height: 30px;" alt="image"/>
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.blockeduserImageContentType + ';base64,' + blockuser.blockeduserImage" alt="image"/>
               </a>
 	          <!-- Figure Image -->
 	
